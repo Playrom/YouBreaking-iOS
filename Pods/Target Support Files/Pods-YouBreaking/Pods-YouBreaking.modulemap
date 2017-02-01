@@ -1,0 +1,6 @@
+framework module Pods_YouBreaking {
+  umbrella header "Pods-YouBreaking-umbrella.h"
+
+  export *
+  module * { export * }
+}

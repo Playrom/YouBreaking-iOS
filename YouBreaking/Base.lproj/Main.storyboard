@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F6K-4K-uzu">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Item 2-->
+        <scene sceneID="7wb-cU-eqZ">
+            <objects>
+                <viewController id="xIZ-gY-qWa" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LmC-vQ-whd"/>
+                        <viewControllerLayoutGuide type="bottom" id="eO9-JP-18d"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QtD-N6-Yar">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="ZCN-Nm-Y6A"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yAg-uc-hbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1871" y="367"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="V8a-hh-hwz">
+            <objects>
+                <viewController id="GRS-DB-3ry" customClass="TestingController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2Ur-FI-p2s"/>
+                        <viewControllerLayoutGuide type="bottom" id="6Ez-pK-OwL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b8b-YT-ifd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jpC-QU-nvh">
+                                <rect key="frame" x="121" y="28" width="132" height="30"/>
+                                <state key="normal" title="Prova Connessione"/>
+                                <connections>
+                                    <action selector="provaConnessione:" destination="GRS-DB-3ry" eventType="touchUpInside" id="X6O-zL-lmO"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Qas-RF-nxN" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="121" y="112" width="132" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Ez-pK-OwL" firstAttribute="top" secondItem="Qas-RF-nxN" secondAttribute="bottom" constant="456" id="2jq-p5-naV"/>
+                            <constraint firstItem="Qas-RF-nxN" firstAttribute="top" secondItem="jpC-QU-nvh" secondAttribute="bottom" constant="54" id="6JS-FD-kVQ"/>
+                            <constraint firstItem="jpC-QU-nvh" firstAttribute="top" secondItem="2Ur-FI-p2s" secondAttribute="bottom" constant="8" symbolic="YES" id="JbM-7v-Bd5"/>
+                            <constraint firstItem="jpC-QU-nvh" firstAttribute="leading" secondItem="Qas-RF-nxN" secondAttribute="leading" id="Oe8-AB-xKB"/>
+                            <constraint firstItem="jpC-QU-nvh" firstAttribute="centerX" secondItem="b8b-YT-ifd" secondAttribute="centerX" id="in7-PC-Ogv"/>
+                            <constraint firstItem="jpC-QU-nvh" firstAttribute="trailing" secondItem="Qas-RF-nxN" secondAttribute="trailing" id="io1-5C-Z4a"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="wh9-eQ-tLj"/>
+                    <connections>
+                        <outlet property="loginButton" destination="Qas-RF-nxN" id="fob-le-dd7"/>
+                        <segue destination="Nsu-sv-8wn" kind="presentation" identifier="Logout Completato" modalTransitionStyle="crossDissolve" id="lRL-DP-Qx9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6lk-Im-LlH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1871" y="-287"/>
+        </scene>
+        <!--Tab Bar-->
+        <scene sceneID="rQq-2f-yne">
+            <objects>
+                <tabBarController storyboardIdentifier="UITabBarController-F6K-4K-uzu" title="Tab Bar" id="F6K-4K-uzu" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="a1B-9y-tmG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="GRS-DB-3ry" kind="relationship" relationship="viewControllers" id="1sV-Bs-8do"/>
+                        <segue destination="xIZ-gY-qWa" kind="relationship" relationship="viewControllers" id="prH-Ty-G17"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HFc-3C-r6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="918" y="40"/>
+        </scene>
+        <!--Login Landing Page-->
+        <scene sceneID="guA-Yc-JQY">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Login Landing Page" storyboardName="Landing" referencedIdentifier="Login Landing Page" id="Nsu-sv-8wn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cNF-ws-Wf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1848" y="-652"/>
+        </scene>
+    </scenes>
+</document>
