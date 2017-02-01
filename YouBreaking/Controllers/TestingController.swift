@@ -11,6 +11,8 @@ import FBSDKLoginKit
 
 class TestingController: UIViewController , FBSDKLoginButtonDelegate {
     @IBOutlet weak var loginButton: FBSDKLoginButton!
+    
+    let login = LoginUtils()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +32,13 @@ class TestingController: UIViewController , FBSDKLoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        LoginUtils().logout()
-        print(LoginUtils().token)
-        self.performSegue(withIdentifier: "Logout Completato", sender: self)
+        login.logout{
+            self.performSegue(withIdentifier: "Logout Completato", sender: self)
+        }
     }
     
     @IBAction func provaConnessione(_ sender: UIButton) {
-        LoginUtils().checkStatus()
+        login.checkStatus()
     }
 
     /*

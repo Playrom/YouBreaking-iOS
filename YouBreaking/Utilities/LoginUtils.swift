@@ -91,14 +91,15 @@ class LoginUtils {
         
     }
     
-    func logout() {
+    func logout(handler : @escaping ( () -> Void )) {
         print("Logged Out")
         if let token = token {
-            session.request("http://192.168.1.11:3000/api/auth/logout", method: .get).response{
-                _ in
+            session.request("http://192.168.1.11:3000/api/auth/logout", method: .post).responseJSON{
+                response in
+                self.token = nil
+                handler()
             }
         }
-        token = nil
         
     }
     
