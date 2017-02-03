@@ -63,7 +63,6 @@ class LoginUtils {
                 print(session)
                 //Richiedo al server un nuovo token dell'applicazione utilizzando il token di facebook
                 session.request("http://192.168.1.11:3000/auth/facebook/token?access_token=" + fbToken, method : .get).responseData { response in
-                    print(response.description)
                     if let data = response.data{
                         
                         let dict = JSON(data: data).dictionaryValue
@@ -93,7 +92,7 @@ class LoginUtils {
     
     func logout(handler : @escaping ( () -> Void )) {
         print("Logged Out")
-        if let token = token {
+        if  token != nil {
             session.request("http://192.168.1.11:3000/api/auth/logout", method: .post).responseJSON{
                 response in
                 self.token = nil

@@ -10,9 +10,10 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKShareKit
 import FBSDKLoginKit
+import GooglePlaces
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
     
@@ -22,11 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
          _ = FBSDKLoginButton()
         
+        self.window?.tintColor = .red
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyCdNUs-6DJkI79h-lMRPtyj7V_h4AMybCU")
+        
         
         LoginUtils().loginWithFacebookToken{
-            
-            print(LoginUtils().token)
-            
+                        
             if let token = LoginUtils().token{
                 self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
             }else{
@@ -44,6 +47,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
         return handled
         
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if (viewController as? UINavigationController)?.viewControllers[0] is ScriviNotiziaController {
+            if let newVC = tabBarController.storyboard?.instantiateViewController(withIdentifier: "Navigation Scrivi Notizia Controller") {
+                tabBarController.present(newVC, animated: true)
+                return false
+            }
+        }
+        
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

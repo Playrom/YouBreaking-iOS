@@ -17,6 +17,10 @@ class ViewController: UIViewController , FBSDKLoginButtonDelegate{
 
     @IBOutlet weak var loginButton: FBSDKLoginButton!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.readPermissions = ["public_profile","email"]
@@ -34,6 +38,10 @@ class ViewController: UIViewController , FBSDKLoginButtonDelegate{
             debugPrint("Image not available")
         }
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .default
     }
 
     override func didReceiveMemoryWarning() {

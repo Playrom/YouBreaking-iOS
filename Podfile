@@ -10,6 +10,11 @@ target 'YouBreaking' do
     pod 'Alamofire', '~> 4.3'
     pod 'SwiftyJSON'
     pod "JWTDecode"
+    pod 'LocationPickerViewController'
+    pod 'GooglePlaces'
+    pod 'GooglePlacePicker'
+    pod 'GoogleMaps'
+    pod 'Koloda', '~> 4.0'
   # Pods for YouBreaking
 
 end
