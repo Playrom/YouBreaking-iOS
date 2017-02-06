@@ -33,22 +33,16 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        coms.getNews{
-            model in
-            self.model = model
-            self.tableView.reloadData()
-        }
+        reload()
+        
+        self.tableView.layoutMargins = .zero
         
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(forName:Notification.Name(rawValue:"Lista Notizie Modificata"),
                        object:nil, queue:nil){
                         _ in
-                        self.coms.getNews{
-                            model in
-                            self.model = model
-                            self.tableView.reloadData()
-                        }
-                        
+                        self.reload()
+            
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -68,6 +62,7 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         coms.getNews{
             model in
             self.model = model
+            
             self.tableView.reloadData()
         }
     }
@@ -97,10 +92,26 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
             cell.model = contenuto
             cell.delegate = self
         }
+        
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        cell.layoutSubviews()
 
         // Configure the cell...
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func performSegueToEvent(eventId: String , sender : NotiziaCell) {
+        performSegue(withIdentifier: "Select Event", sender: sender)
     }
     
 
@@ -139,15 +150,32 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "Select Event":
+                if let dvc = segue.destination as? EventPageController,  let cell = sender as? NotiziaCell{
+                    let index = self.tableView.indexPath(for: cell)
+                    if let row = index?.row , let eventId = self.model.optionalSubscript(safe: row)?["evento"]["id"].string{
+                        dvc.eventId = eventId
+                    }
+                }
+                
+                
+                break
+            default:
+                break
+            }
+        }
     }
-    */
+    
 
 }
 

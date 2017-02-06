@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,20 +18,27 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-G3-147">
                     <rect key="frame" x="16" y="16" width="343" height="343"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6A-Vd-eb3">
-                            <rect key="frame" x="0.0" y="8" width="343" height="21"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="21" id="kIi-ee-LCZ"/>
-                            </constraints>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Evento" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fS-bl-9BZ">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="34"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                            <color key="textColor" red="1" green="0.028078071964938167" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6A-Vd-eb3">
+                            <rect key="frame" x="0.0" y="42" width="343" height="33.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="P6A-Vd-eb3" firstAttribute="leading" secondItem="O2u-G3-147" secondAttribute="leading" id="Nyf-4m-K6G"/>
-                        <constraint firstItem="P6A-Vd-eb3" firstAttribute="top" secondItem="O2u-G3-147" secondAttribute="topMargin" id="QE5-11-NHS"/>
-                        <constraint firstAttribute="trailing" secondItem="P6A-Vd-eb3" secondAttribute="trailing" id="iGA-r6-bcD"/>
+                        <constraint firstItem="7fS-bl-9BZ" firstAttribute="top" secondItem="O2u-G3-147" secondAttribute="top" id="2cf-Gi-Tdv"/>
+                        <constraint firstItem="P6A-Vd-eb3" firstAttribute="leading" secondItem="7fS-bl-9BZ" secondAttribute="leading" id="9gu-bw-y1b"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="P6A-Vd-eb3" secondAttribute="bottom" constant="8" id="amb-vl-xAC"/>
+                        <constraint firstItem="P6A-Vd-eb3" firstAttribute="trailing" secondItem="7fS-bl-9BZ" secondAttribute="trailing" id="bca-we-HG4"/>
+                        <constraint firstItem="P6A-Vd-eb3" firstAttribute="top" secondItem="7fS-bl-9BZ" secondAttribute="bottom" constant="8" id="p25-0H-QQ8"/>
+                        <constraint firstAttribute="trailing" secondItem="7fS-bl-9BZ" secondAttribute="trailing" id="uBD-22-pVa"/>
+                        <constraint firstItem="7fS-bl-9BZ" firstAttribute="leading" secondItem="O2u-G3-147" secondAttribute="leading" id="xh0-Ne-Byk"/>
                     </constraints>
                 </view>
             </subviews>
@@ -46,6 +52,7 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="eventTitle" destination="7fS-bl-9BZ" id="Fyx-2f-tiW"/>
                 <outlet property="title" destination="P6A-Vd-eb3" id="jbL-ba-Cu7"/>
             </connections>
             <point key="canvasLocation" x="42.5" y="-224.5"/>

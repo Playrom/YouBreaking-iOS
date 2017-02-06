@@ -20,6 +20,18 @@ class ModelNotizie {
     
     var login : LoginUtils
     
+    var baseUrl : String{
+        if let mode = Bundle.main.object(forInfoDictionaryKey: "mode") as? String{
+            switch mode {
+            case "development":
+                return Bundle.main.object(forInfoDictionaryKey: "url_development") as! String
+            default:
+                return Bundle.main.object(forInfoDictionaryKey: "url_production") as! String
+            }
+        }
+        return Bundle.main.object(forInfoDictionaryKey: "url_development") as! String
+    }
+    
     init(){
         
         login = LoginUtils()
@@ -28,7 +40,7 @@ class ModelNotizie {
     
     func getNews(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
         
-        session.request("http://192.168.1.11:3000/api/news", method: .get).responseJSON{
+        session.request( baseUrl + "/api/news", method: .get).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -44,7 +56,7 @@ class ModelNotizie {
     
     func postNews(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request("http://192.168.1.11:3000/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -65,7 +77,7 @@ class ModelNotizie {
             "voto" : voto.rawValue
         ]
         
-        session.request("http://192.168.1.11:3000/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -80,7 +92,7 @@ class ModelNotizie {
     
     func getNewsToVote(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
         
-        session.request("http://192.168.1.11:3000/api/vote", method: .get).responseJSON{
+        session.request( baseUrl + "/api/vote", method: .get).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -94,6 +106,70 @@ class ModelNotizie {
         
     }
     
+    func getEvent(eventId : String , additionalQuery : [String : String], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        var url =  baseUrl + "/api/events/" + eventId
+        if ( additionalQuery.count > 0){
+            url = url + "?"
+            for ( key , value ) in additionalQuery{
+                url = url + key + "=" + value + "&"
+            }
+        }
+        
+        session.request(url, method: .get).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    
+    func getEvents( additionalQuery : [String : String], handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
+        
+        var url =  baseUrl + "/api/events/"
+        if ( additionalQuery.count > 0){
+            url = url + "?"
+            for ( key , value ) in additionalQuery{
+                url = url + key + "=" + value + "&"
+            }
+        }
+        
+        session.request(url, method: .get).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"]?.arrayValue {
+                    handler(data)
+                }else{
+                    handler([JSON]())
+                }
+            }
+        }
+        
+    }
+    
+    func postEvent(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/events", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
     
 }
 

@@ -53,8 +53,21 @@ class LoginUtils {
         }
     }
     
+    var baseUrl : String{
+        if let mode = Bundle.main.object(forInfoDictionaryKey: "mode") as? String{
+            switch mode {
+            case "development":
+                return Bundle.main.object(forInfoDictionaryKey: "url_development") as! String
+            default:
+                return Bundle.main.object(forInfoDictionaryKey: "url_production") as! String
+            }
+        }
+        return Bundle.main.object(forInfoDictionaryKey: "url_development") as! String
+    }
+    
     
     func loginWithFacebookToken(handler : @escaping ( () -> Void ) ) {
+        print(baseUrl)
         
         if let fbToken = FBSDKAccessToken.current()?.tokenString {
             
@@ -62,7 +75,7 @@ class LoginUtils {
             if(FBSDKAccessToken.current().expirationDate.compare(Date()) == ComparisonResult.orderedDescending){
                 print(session)
                 //Richiedo al server un nuovo token dell'applicazione utilizzando il token di facebook
-                session.request("http://192.168.1.11:3000/auth/facebook/token?access_token=" + fbToken, method : .get).responseData { response in
+                session.request( baseUrl + "/auth/facebook/token?access_token=" + fbToken, method : .get).responseData { response in
                     if let data = response.data{
                         
                         let dict = JSON(data: data).dictionaryValue
@@ -93,7 +106,7 @@ class LoginUtils {
     func logout(handler : @escaping ( () -> Void )) {
         print("Logged Out")
         if  token != nil {
-            session.request("http://192.168.1.11:3000/api/auth/logout", method: .post).responseJSON{
+            session.request(baseUrl + "/api/auth/logout", method: .post).responseJSON{
                 response in
                 self.token = nil
                 handler()
@@ -107,7 +120,7 @@ class LoginUtils {
             
             print(token)
             
-            session.request("http://192.168.1.11:3000/api/auth/check", method: .get).responseJSON{
+            session.request(baseUrl + "/api/auth/check", method: .get).responseJSON{
                 response in
                 if response.response?.statusCode == 401{
                     print("NON AUTORIZZATO")

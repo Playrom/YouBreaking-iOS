@@ -25,25 +25,25 @@ class NotiziaCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
     
     override func layoutSubviews() {
         if let model = model{
             testo.text = model["title"].string
             
+            topicButton.setTitle(model["evento"]["name"].string, for: .normal)
+            
             var comps = [String : String]()
             
             if let aggiuntivi = model["aggiuntivi"].array{
                 aggiuntivi.map{
-                    print($0)
                     if let temp =  $0.dictionary , let tipo = temp["tipo"]?.string{
                         comps[tipo] = temp["valore"]!.stringValue
-                        print(comps)
                     }
                 }
                 
                 var posto = [comps["LOCATION_LOCALITY"],comps["LOCATION_COUNTRY"]]
-                print(posto)
                 
                 locationButton.setTitle(
                     [
@@ -53,6 +53,12 @@ class NotiziaCell: UITableViewCell {
                     ].flatMap{$0}.joined(separator: " - "),
                     for : UIControlState.normal
                 )
+                
+                if ( locationButton.currentTitle == nil || locationButton.currentTitle == ""){
+                    locationButton.isHidden = true
+                }else{
+                    locationButton.isHidden = false
+                }
                 
             }
             
@@ -135,6 +141,11 @@ class NotiziaCell: UITableViewCell {
     }
     
     
+    @IBAction func pressEvent(_ sender: UIButton) {
+        if let eventId = self.model?["evento"]["id"].string{
+            self.delegate?.performSegueToEvent(eventId: eventId, sender: self)
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -146,4 +157,5 @@ class NotiziaCell: UITableViewCell {
 
 protocol NotiziaCellDelegate{
     func vote(voto : Voto, sender : NotiziaCell)
+    func performSegueToEvent(eventId : String, sender : NotiziaCell)
 }

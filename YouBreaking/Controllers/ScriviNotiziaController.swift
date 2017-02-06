@@ -9,12 +9,14 @@
 import UIKit
 import LocationPickerViewController
 import GooglePlaces
+import SwiftyJSON
 
 class ScriviNotiziaController: UITableViewController {
     
     var coms = ModelNotizie()
     
     var location : GMSPlace?
+    var event : JSON?
     
     @IBOutlet weak var titolo: UITextField!
     @IBOutlet weak var testo: UITextView!
@@ -35,6 +37,10 @@ class ScriviNotiziaController: UITableViewController {
             "title": titolo.text != nil ? titolo.text! : "",
             "text" : testo.text
         ]
+        
+        if let eventId = event?["id"].string{
+            parameters["eventId"] = eventId
+        }
         
         var aggiuntivi = [[String:Any]]()
         
@@ -89,7 +95,7 @@ class ScriviNotiziaController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -99,27 +105,36 @@ class ScriviNotiziaController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        if(indexPath.section != 2){
+        
+        switch indexPath.section {
+        case 2:
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            
+            if let location = location{
+                cell.textLabel?.text = location.name
+                
+                cell.detailTextLabel?.text = [
+                    location.addressComponents?.dictionary["locality"],
+                    location.addressComponents?.dictionary["country"]
+                    ].flatMap{$0}.joined(separator: ", ")
+                
+            }
+            return cell
+        case 3:
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            
+            if let event = event{
+                cell.textLabel?.text = event["name"].string
+            }
+            return cell
+        default:
             return super.tableView(tableView, cellForRowAt: indexPath)
         }
-        
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        
-        if let location = location{
-            cell.textLabel?.text = location.name
-            
-            cell.detailTextLabel?.text = [
-                location.addressComponents?.dictionary["locality"],
-                location.addressComponents?.dictionary["country"]
-            ].flatMap{$0}.joined(separator: ", ")
-
-        }
-
-        // Configure the cell...
-
-        return cell
+    
     }
+    
+
+        // Configure the cell...    }
     
 
     /*
@@ -173,6 +188,10 @@ class ScriviNotiziaController: UITableViewController {
     }
     
     @IBAction func unwindToCreationVc(segue: UIStoryboardSegue) {
+        
+    }
+    
+    @IBAction func unwindToCreationVcSelectedEvent(segue: UIStoryboardSegue) {
         
     }
     

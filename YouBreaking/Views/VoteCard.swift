@@ -13,6 +13,7 @@ class VoteCard: UIView {
     
     var model : JSON?
 
+    @IBOutlet weak var eventTitle: UILabel!
     @IBOutlet weak var title: UILabel!
     /*
     // Only override draw() if you perform custom drawing.
@@ -25,6 +26,7 @@ class VoteCard: UIView {
     override func setNeedsLayout() {
         if let model = model?.dictionary{
             
+            eventTitle.text = model["evento"]?["name"].string
             title.text = (model["title"]?.string) != nil ? model["title"]!.stringValue : ""
             
         }
