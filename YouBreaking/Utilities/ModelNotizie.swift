@@ -9,6 +9,8 @@
 import Foundation
 import FBSDKLoginKit
 import Alamofire
+import AlamofireImage
+
 import SwiftyJSON
 import JWTDecode
 
@@ -35,6 +37,22 @@ class ModelNotizie {
     init(){
         
         login = LoginUtils()
+        
+    }
+    
+    func sendNotificationToken(_ deviceToken : Data, handler :  @escaping ( (_ model : Bool) -> Void )){
+        
+        let token = String(data: deviceToken.base64EncodedData(), encoding: .utf8)?.trimmingCharacters(in: CharacterSet.whitespaces).trimmingCharacters(in: CharacterSet(charactersIn: "<>"))
+        if let token = token{
+            let parameters = [ "devicetoken" : token ]
+            
+            session.request(baseUrl + "/api/register/ios", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+                response in
+                print(response.request)
+                print(response.error)
+                handler(true)
+            }
+        }
         
     }
     
@@ -170,6 +188,98 @@ class ModelNotizie {
         }
         
     }
+    
+    func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile", method: .get).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    func updateProfile(parameters : [String : Any], handler :  @escaping ( (_ : Bool) -> Void ) ) {
+                
+        if let id = login.id{
+        
+            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false  {
+                        handler(true)
+                    }else{
+                        handler(false)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getImage(url : String , handler :  @escaping ( (_ : Data?) -> Void ) ) {
+        
+        session.request( url , method: .get).responseImage{
+            response in
+            handler(response.data)
+        }
+        
+    }
+    
+    func updateUserLocation(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    func updateUserLocationDistance(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    func deleteUserLocation(handler :  @escaping ( (_ model : Bool) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile/location", method: .delete).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false  {
+                    handler(true)
+                }else{
+                    handler(false)
+                }
+            }
+        }
+        
+    }
+
     
 }
 

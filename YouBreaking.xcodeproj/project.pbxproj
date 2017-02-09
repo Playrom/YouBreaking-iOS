@@ -14,12 +14,15 @@
 		6C35FE701E487D0000373DC6 /* EventPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35FE6F1E487D0000373DC6 /* EventPageController.swift */; };
 		6C35FE721E4887DE00373DC6 /* NotiziaEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35FE711E4887DE00373DC6 /* NotiziaEventCell.swift */; };
 		6C35FE741E488EC600373DC6 /* SearchEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35FE731E488EC600373DC6 /* SearchEventController.swift */; };
+		6C5727231E4B84570047B199 /* SelectLocationSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5727221E4B84570047B199 /* SelectLocationSettingsController.swift */; };
 		6C74C5491E4333B500CE8107 /* ListaNotizieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5481E4333B500CE8107 /* ListaNotizieController.swift */; };
 		6C74C54B1E4333D000CE8107 /* NotiziaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C54A1E4333D000CE8107 /* NotiziaCell.swift */; };
 		6C74C54D1E43347100CE8107 /* ModelNotizie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C54C1E43347100CE8107 /* ModelNotizie.swift */; };
 		6C74C54F1E433DE700CE8107 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C54E1E433DE700CE8107 /* Images.swift */; };
 		6C74C5511E433FEC00CE8107 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */; };
 		6C74C5531E43407500CE8107 /* ScriviNotiziaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */; };
+		6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */; };
+		6C8E50AA1E4B13040013B8E8 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E50A91E4B13040013B8E8 /* SettingsController.swift */; };
 		6C91881C1E48C4FB00FA7311 /* Info_Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C91881B1E48C4FB00FA7311 /* Info_Production.plist */; };
 		6C97E7611E3F89B8002E57C6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C97E7601E3F89B8002E57C6 /* FBSDKLoginKit.framework */; };
 		6C97E7641E3F8E6E002E57C6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C97E7621E3F8E6D002E57C6 /* FBSDKCoreKit.framework */; };
@@ -30,9 +33,10 @@
 		6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0E7271E44EFA50086D9BB /* VoteCard.xib */; };
 		6CD1D5721E3F86AF00C3208D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1D5711E3F86AF00C3208D /* AppDelegate.swift */; };
 		6CD1D5741E3F86AF00C3208D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1D5731E3F86AF00C3208D /* ViewController.swift */; };
-		6CD1D5771E3F86AF00C3208D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D5751E3F86AF00C3208D /* Main.storyboard */; };
 		6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D5781E3F86AF00C3208D /* Assets.xcassets */; };
 		6CD1D57C1E3F86AF00C3208D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D57A1E3F86AF00C3208D /* LaunchScreen.storyboard */; };
+		6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */; };
+		6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,12 +48,16 @@
 		6C35FE6F1E487D0000373DC6 /* EventPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventPageController.swift; path = Controllers/EventPageController.swift; sourceTree = "<group>"; };
 		6C35FE711E4887DE00373DC6 /* NotiziaEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotiziaEventCell.swift; path = Views/NotiziaEventCell.swift; sourceTree = "<group>"; };
 		6C35FE731E488EC600373DC6 /* SearchEventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchEventController.swift; path = Controllers/SearchEventController.swift; sourceTree = "<group>"; };
+		6C5727211E4B83A50047B199 /* YouBreaking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YouBreaking.entitlements; sourceTree = "<group>"; };
+		6C5727221E4B84570047B199 /* SelectLocationSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectLocationSettingsController.swift; path = Controllers/SelectLocationSettingsController.swift; sourceTree = "<group>"; };
 		6C74C5481E4333B500CE8107 /* ListaNotizieController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListaNotizieController.swift; path = Controllers/ListaNotizieController.swift; sourceTree = "<group>"; };
 		6C74C54A1E4333D000CE8107 /* NotiziaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotiziaCell.swift; path = Views/NotiziaCell.swift; sourceTree = "<group>"; };
 		6C74C54C1E43347100CE8107 /* ModelNotizie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelNotizie.swift; path = Utilities/ModelNotizie.swift; sourceTree = "<group>"; };
 		6C74C54E1E433DE700CE8107 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/MainTabBarController.swift; sourceTree = "<group>"; };
 		6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScriviNotiziaController.swift; path = Controllers/ScriviNotiziaController.swift; sourceTree = "<group>"; };
+		6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Utilities/Colors.swift; sourceTree = "<group>"; };
+		6C8E50A91E4B13040013B8E8 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsController.swift; path = Controllers/SettingsController.swift; sourceTree = "<group>"; };
 		6C91881B1E48C4FB00FA7311 /* Info_Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Production.plist; sourceTree = "<group>"; };
 		6C97E7601E3F89B8002E57C6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		6C97E7621E3F8E6D002E57C6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -61,10 +69,11 @@
 		6CD1D56E1E3F86AF00C3208D /* YouBreaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouBreaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD1D5711E3F86AF00C3208D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CD1D5731E3F86AF00C3208D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6CD1D5761E3F86AF00C3208D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6CD1D5781E3F86AF00C3208D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CD1D57B1E3F86AF00C3208D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CD1D57D1E3F86AF00C3208D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleNews.swift; path = Controllers/SingleNews.swift; sourceTree = "<group>"; };
+		6CF47D0C1E4CC68600BE5F08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0758A2356D1775863692479 /* Pods-YouBreaking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouBreaking.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouBreaking/Pods-YouBreaking.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +105,45 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6C7C927B1E4CA56D00CA0DA7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */,
+				6CD1D5731E3F86AF00C3208D /* ViewController.swift */,
+				6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */,
+				6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */,
+				6C8E50A91E4B13040013B8E8 /* SettingsController.swift */,
+				6C5727221E4B84570047B199 /* SelectLocationSettingsController.swift */,
+				6C35FE731E488EC600373DC6 /* SearchEventController.swift */,
+				6C35FE6F1E487D0000373DC6 /* EventPageController.swift */,
+				6C74C5481E4333B500CE8107 /* ListaNotizieController.swift */,
+				6CA0E7211E44EC3E0086D9BB /* VotaController.swift */,
+				6C351B401E41011A0057309C /* TestingController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6C7C927C1E4CA57C00CA0DA7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6CA0E7251E44EF930086D9BB /* VoteCard.swift */,
+				6C74C54A1E4333D000CE8107 /* NotiziaCell.swift */,
+				6C35FE711E4887DE00373DC6 /* NotiziaEventCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		6C7C927D1E4CA59C00CA0DA7 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				6CA0E7271E44EFA50086D9BB /* VoteCard.xib */,
+				6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */,
+				6CD1D57A1E3F86AF00C3208D /* LaunchScreen.storyboard */,
+				6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */,
+			);
+			name = Xib;
+			sourceTree = "<group>";
+		};
 		6CD1D5651E3F86AF00C3208D = {
 			isa = PBXGroup;
 			children = (
@@ -117,28 +165,18 @@
 		6CD1D5701E3F86AF00C3208D /* YouBreaking */ = {
 			isa = PBXGroup;
 			children = (
-				6CA0E7251E44EF930086D9BB /* VoteCard.swift */,
-				6CA0E7271E44EFA50086D9BB /* VoteCard.xib */,
+				6C5727211E4B83A50047B199 /* YouBreaking.entitlements */,
 				6CD1D5711E3F86AF00C3208D /* AppDelegate.swift */,
-				6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */,
-				6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */,
-				6CD1D5731E3F86AF00C3208D /* ViewController.swift */,
-				6C351B3E1E40D8D40057309C /* LoginUtils.swift */,
-				6CD1D5751E3F86AF00C3208D /* Main.storyboard */,
-				6C35FE731E488EC600373DC6 /* SearchEventController.swift */,
-				6C74C54A1E4333D000CE8107 /* NotiziaCell.swift */,
-				6C35FE6F1E487D0000373DC6 /* EventPageController.swift */,
-				6C35FE711E4887DE00373DC6 /* NotiziaEventCell.swift */,
-				6C74C5481E4333B500CE8107 /* ListaNotizieController.swift */,
-				6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */,
-				6CA0E7211E44EC3E0086D9BB /* VotaController.swift */,
-				6C351B401E41011A0057309C /* TestingController.swift */,
+				6C7C927C1E4CA57C00CA0DA7 /* Cells */,
+				6C7C927B1E4CA56D00CA0DA7 /* Controllers */,
+				6C7C927D1E4CA59C00CA0DA7 /* Xib */,
 				6C74C54C1E43347100CE8107 /* ModelNotizie.swift */,
+				6C351B3E1E40D8D40057309C /* LoginUtils.swift */,
 				6CD1D5781E3F86AF00C3208D /* Assets.xcassets */,
-				6CD1D57A1E3F86AF00C3208D /* LaunchScreen.storyboard */,
+				6C74C54E1E433DE700CE8107 /* Images.swift */,
+				6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */,
 				6CD1D57D1E3F86AF00C3208D /* Info.plist */,
 				6C91881B1E48C4FB00FA7311 /* Info_Production.plist */,
-				6C74C54E1E433DE700CE8107 /* Images.swift */,
 			);
 			path = YouBreaking;
 			sourceTree = "<group>";
@@ -193,6 +231,9 @@
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -223,7 +264,7 @@
 				6CD1D57C1E3F86AF00C3208D /* LaunchScreen.storyboard in Resources */,
 				6C9F2D3C1E41E89B0002C782 /* Landing.storyboard in Resources */,
 				6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */,
-				6CD1D5771E3F86AF00C3208D /* Main.storyboard in Resources */,
+				6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */,
 				6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */,
 				6C91881C1E48C4FB00FA7311 /* Info_Production.plist in Resources */,
 			);
@@ -285,6 +326,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C74C5531E43407500CE8107 /* ScriviNotiziaController.swift in Sources */,
+				6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */,
+				6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */,
 				6C351B411E41011A0057309C /* TestingController.swift in Sources */,
 				6C35FE741E488EC600373DC6 /* SearchEventController.swift in Sources */,
 				6CD1D5741E3F86AF00C3208D /* ViewController.swift in Sources */,
@@ -292,9 +335,11 @@
 				6C74C5511E433FEC00CE8107 /* MainTabBarController.swift in Sources */,
 				6C35FE701E487D0000373DC6 /* EventPageController.swift in Sources */,
 				6CA0E7261E44EF930086D9BB /* VoteCard.swift in Sources */,
+				6C8E50AA1E4B13040013B8E8 /* SettingsController.swift in Sources */,
 				6C74C54D1E43347100CE8107 /* ModelNotizie.swift in Sources */,
 				6C74C54B1E4333D000CE8107 /* NotiziaCell.swift in Sources */,
 				6CD1D5721E3F86AF00C3208D /* AppDelegate.swift in Sources */,
+				6C5727231E4B84570047B199 /* SelectLocationSettingsController.swift in Sources */,
 				6C74C54F1E433DE700CE8107 /* Images.swift in Sources */,
 				6C35FE721E4887DE00373DC6 /* NotiziaEventCell.swift in Sources */,
 				6C74C5491E4333B500CE8107 /* ListaNotizieController.swift in Sources */,
@@ -313,20 +358,20 @@
 			name = Landing.storyboard;
 			sourceTree = "<group>";
 		};
-		6CD1D5751E3F86AF00C3208D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6CD1D5761E3F86AF00C3208D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6CD1D57A1E3F86AF00C3208D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6CD1D57B1E3F86AF00C3208D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CF47D0C1E4CC68600BE5F08 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -428,6 +473,7 @@
 			baseConfigurationReference = 2D6076F57279064C932A81D1 /* Pods-YouBreaking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = YouBreaking/YouBreaking.entitlements;
 				DEVELOPMENT_TEAM = 33VGWYZGV4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -448,6 +494,7 @@
 			baseConfigurationReference = B0758A2356D1775863692479 /* Pods-YouBreaking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = YouBreaking/YouBreaking.entitlements;
 				DEVELOPMENT_TEAM = 33VGWYZGV4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

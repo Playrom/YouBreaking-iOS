@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.3.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
   - GoogleMaps (2.1.1):
     - GoogleMaps/Maps (= 2.1.1)
   - GoogleMaps/Base (2.1.1)
@@ -15,20 +17,24 @@ PODS:
     - pop (~> 1.0)
   - LocationPickerViewController (3.0.0)
   - pop (1.0.9)
+  - SwifterSwift (1.5)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
+  - AlamofireImage
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
   - JWTDecode
   - Koloda (~> 4.0)
   - LocationPickerViewController
+  - SwifterSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
   GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
   GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
@@ -36,8 +42,9 @@ SPEC CHECKSUMS:
   Koloda: cb171633afc6182a77821b7951e38b2cb272ba7c
   LocationPickerViewController: ee898cc76d9a06083b398c59e67d3c16aa298636
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SwifterSwift: c612befa8e51b4092d3b41e88cd93f52d0624d9f
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: af9bcf2cbe36d3ed52ae7e24a5e9d0b08575a515
+PODFILE CHECKSUM: 08469d80e2bc04288ac30d2d6a67d3710c6276fe
 
 COCOAPODS: 1.2.0

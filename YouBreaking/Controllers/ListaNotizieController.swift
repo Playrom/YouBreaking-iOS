@@ -16,9 +16,7 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
             if let newsId = model[row].dictionaryValue["id"]?.stringValue{
                 coms.vote(voto: voto, notizia: newsId){
                     response in
-                    if let response = response{
-                        self.reload()
-                    }
+                    self.reload()
                 }
             }
             
@@ -27,12 +25,37 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         
     }
 
+    @IBOutlet weak var iconaSettings: UIBarButtonItem!
     
     let coms = ModelNotizie()
     var model = [JSON]()
-
+    
+    var profile : JSON?
+    
+    let tempView = UIView()
+    let loader = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tempView.frame = self.view.bounds
+        tempView.backgroundColor = Colors.lightGray
+        loader.backgroundColor = Colors.red
+        
+        tempView.addSubview(loader)
+        self.view.addSubview(tempView)
+        loader.startAnimating()
+        
+        
+        coms.getProfile{
+            json in
+            self.profile = json
+            self.tempView.removeFromSuperview()
+        }
+        
+        iconaSettings.image = iconaSettings.image!.withRenderingMode(.alwaysTemplate)
+        iconaSettings.tintColor = Colors.white
+        
         reload()
         
         self.tableView.layoutMargins = .zero
@@ -91,6 +114,12 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         if let contenuto = model.optionalSubscript(safe: indexPath.row){
             cell.model = contenuto
             cell.delegate = self
+        }
+        
+        if(indexPath.row % 2 == 0){
+            cell.backgroundColor = Colors.white
+        }else{
+            cell.backgroundColor = Colors.lightGray
         }
         
         cell.setNeedsLayout()
@@ -170,6 +199,17 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
                 
                 
                 break
+            case "Present Settings":
+                if let dvc = segue.destination as? SettingsController{
+                    dvc.data = profile
+                }
+                break
+            case "Select News":
+                if let dvc = segue.destination as? SingleNews, let indexPath = self.tableView.indexPath(for: sender as! UITableViewCell){
+                        dvc.data = self.model.optionalSubscript(safe: indexPath.row)
+                    
+                    
+                }
             default:
                 break
             }
@@ -184,5 +224,19 @@ extension Collection where Indices.Iterator.Element == Index {
     /// Returns the element at the specified index iff it is within bounds, otherwise nil.
     func optionalSubscript (safe index: Index) -> Generator.Element? {
         return indices.contains(index) ? self[index] : nil
+    }
+}
+
+class NavigationRed : UINavigationController{
+    override var preferredStatusBarStyle : UIStatusBarStyle{
+        return UIStatusBarStyle.lightContent
+    }
+    
+    override func viewDidLoad() {
+        self.navigationBar.tintColor = Colors.white
+        self.navigationBar.isTranslucent = false
+        self.navigationBar.barTintColor = Colors.red
+        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Colors.white]
+
     }
 }

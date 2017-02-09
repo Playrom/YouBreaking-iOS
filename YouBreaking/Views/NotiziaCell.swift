@@ -11,9 +11,9 @@ import SwiftyJSON
 
 class NotiziaCell: UITableViewCell {
     
+    @IBOutlet weak var testoTitolo: UILabel!
     @IBOutlet weak var topicButton: UIButton!
     @IBOutlet weak var testo: UILabel!
-    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var imageUp: UIImageView!
     @IBOutlet weak var imageDown: UIImageView!
     
@@ -30,20 +30,27 @@ class NotiziaCell: UITableViewCell {
     
     override func layoutSubviews() {
         if let model = model{
-            testo.text = model["title"].string
+            testo.text = model["text"].string
+            testo.textAlignment = .justified
+            testoTitolo.textColor = Colors.red
+            testoTitolo.text = model["title"].string
             
-            topicButton.setTitle(model["evento"]["name"].string, for: .normal)
+            if let eventName = model["evento"]["name"].string {
+                topicButton.setTitle(eventName, for: .normal)
+            }else{
+                topicButton.isHidden = true
+            }
             
             var comps = [String : String]()
             
             if let aggiuntivi = model["aggiuntivi"].array{
-                aggiuntivi.map{
+                _ = aggiuntivi.map{
                     if let temp =  $0.dictionary , let tipo = temp["tipo"]?.string{
                         comps[tipo] = temp["valore"]!.stringValue
                     }
                 }
                 
-                var posto = [comps["LOCATION_LOCALITY"],comps["LOCATION_COUNTRY"]]
+                /*var posto = [comps["LOCATION_LOCALITY"],comps["LOCATION_COUNTRY"]]
                 
                 locationButton.setTitle(
                     [
@@ -58,7 +65,7 @@ class NotiziaCell: UITableViewCell {
                     locationButton.isHidden = true
                 }else{
                     locationButton.isHidden = false
-                }
+                }*/
                 
             }
             

@@ -96,7 +96,7 @@ class EventPageController: UITableViewController, NotiziaCellDelegate {
             if let newsId = model[row].dictionaryValue["id"]?.stringValue{
                 coms.vote(voto: voto, notizia: newsId){
                     response in
-                    if let response = response{
+                    if response != nil{
                         self.reload()
                     }
                 }

@@ -11,6 +11,7 @@ import FBSDKLoginKit
 import Alamofire
 import SwiftyJSON
 import JWTDecode
+import UserNotifications
 
 class LoginUtils {
     
@@ -26,6 +27,26 @@ class LoginUtils {
         let tk = self.token
         self.token = tk
 
+    }
+    
+    var user : [String : Any]?{
+        if let token = token {
+            do{
+                // Decodifico il token JWT
+                let jwt = try decode(jwt: token)
+                return jwt.body
+            }catch{
+                return nil
+            }
+        }
+        return nil
+    }
+    
+    var id : String?{
+        if let id = user?["id"] as? String{
+            return id
+        }
+        return nil
     }
     
     var token : String? {
@@ -44,7 +65,7 @@ class LoginUtils {
             if let token = newValue {
                 defaultHeaders["Authorization"] = "JWT " + token
             }
-            
+                        
             let configuration = URLSessionConfiguration.default
             configuration.httpAdditionalHeaders = defaultHeaders
             
@@ -85,6 +106,16 @@ class LoginUtils {
                             let jwt = try decode(jwt: tempToken!)
                             self.token = jwt.string
                             print("Logged In")
+                            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
+                                (granted,error) in
+                                if(granted){
+                                    print("GRANTED")
+                                    UIApplication.shared.registerForRemoteNotifications()
+                                }else{
+                                    print("UNAUTHORIZED")
+                                }
+                            }
+                            
                             handler()
                         }catch{
                             print("Error")
@@ -144,6 +175,8 @@ class LoginUtils {
             print("Token Non Presente")
         }
     }
+    
+    
     
     
 }

@@ -15,6 +15,8 @@ target 'YouBreaking' do
     pod 'GooglePlacePicker'
     pod 'GoogleMaps'
     pod 'Koloda', '~> 4.0'
+    pod 'AlamofireImage'
+    pod 'SwifterSwift'
   # Pods for YouBreaking
 
 end

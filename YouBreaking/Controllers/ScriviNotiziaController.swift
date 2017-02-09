@@ -67,7 +67,17 @@ class ScriviNotiziaController: UITableViewController {
             aggiuntivi.append([
                 "tipo" : "LOCATION_NAME",
                 "valore" : location.name
-                ])
+            ])
+            
+            aggiuntivi.append([
+                "tipo" : "LOCATION_LATITUDE",
+                "valore" : location.coordinate.latitude.description
+            ])
+            
+            aggiuntivi.append([
+                "tipo" : "LOCATION_LONGITUDE",
+                "valore" : location.coordinate.longitude.description
+            ])
             
         }
         
