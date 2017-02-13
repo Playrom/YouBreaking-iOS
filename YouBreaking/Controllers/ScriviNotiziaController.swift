@@ -86,7 +86,7 @@ class ScriviNotiziaController: UITableViewController {
         coms.postNews(parameters: parameters){
             json in
             let nc = NotificationCenter.default
-            nc.post(Notification(name: Notification.Name("Lista Notizie Modificata")))
+            nc.post(Notification(name: Notification.Name("reloadNews")))
             self.dismiss(animated: true, completion: nil)
         }
         

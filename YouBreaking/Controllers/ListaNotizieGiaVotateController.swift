@@ -1,83 +1,65 @@
 //
-//  SingleNews.swift
+//  ListaNotizieGiaVotateController.swift
 //  YouBreaking
 //
-//  Created by Giorgio Romano on 09/02/2017.
+//  Created by Giorgio Romano on 13/02/2017.
 //  Copyright © 2017 Giorgio Romano. All rights reserved.
 //
 
 import UIKit
-import SwiftyJSON
 
-class SingleNews: UITableViewController {
+class ListaNotizieGiaVotateController: ListaNotizieController {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var eventLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
-    
-    var data : JSON?
-    
-    func reload() {
-        titleLabel.text = data?["title"].string
-        titleLabel.textColor = Colors.red
-        
-        if let nameEvento = data?["evento"]["nome"].string{
-            eventLabel.text = nameEvento
-        }else{
-            eventLabel.isHidden = true
-        }
-        
-        bodyLabel.text = data?["text"].string
-        bodyLabel.textAlignment = .justified
-        
-        scoreLabel.text = data?["score"].int!.description
-        
-        self.tableView.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.allowsSelection = false;
+        
+        tempView.frame = self.view.bounds
+        tempView.backgroundColor = Colors.lightGray
+        loader.backgroundColor = Colors.red
+//        
+//        tempView.addSubview(loader)
+//        self.view.addSubview(tempView)
+//        loader.startAnimating()
+        
         reload()
+        
+        self.tableView.layoutMargins = .zero
+        
+        let nc = NotificationCenter.default // Note that default is now a property, not a method call
+        nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
+                       object:nil, queue:nil){
+                        _ in
+                        self.reload()
+                        
+        }
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
-    }
-
     
+    override func reload(){
+        coms.getNewsNotLive{
+            model in
+            self.model = model
+            
+            self.tableView.reloadData()
+        }
+    }
+
+
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.separatorInset = .zero
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
         // Configure the cell...
-        
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
-        cell.layoutSubviews()
-        
+
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.

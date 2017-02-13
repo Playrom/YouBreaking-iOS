@@ -35,6 +35,7 @@
 		6CD1D5741E3F86AF00C3208D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1D5731E3F86AF00C3208D /* ViewController.swift */; };
 		6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D5781E3F86AF00C3208D /* Assets.xcassets */; };
 		6CD1D57C1E3F86AF00C3208D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D57A1E3F86AF00C3208D /* LaunchScreen.storyboard */; };
+		6CE147621E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */; };
 		6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */; };
 		6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		6CD1D5781E3F86AF00C3208D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CD1D57B1E3F86AF00C3208D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CD1D57D1E3F86AF00C3208D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListaNotizieGiaVotateController.swift; path = Controllers/ListaNotizieGiaVotateController.swift; sourceTree = "<group>"; };
 		6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleNews.swift; path = Controllers/SingleNews.swift; sourceTree = "<group>"; };
 		6CF47D0C1E4CC68600BE5F08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0758A2356D1775863692479 /* Pods-YouBreaking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouBreaking.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouBreaking/Pods-YouBreaking.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				6C35FE731E488EC600373DC6 /* SearchEventController.swift */,
 				6C35FE6F1E487D0000373DC6 /* EventPageController.swift */,
 				6C74C5481E4333B500CE8107 /* ListaNotizieController.swift */,
+				6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */,
 				6CA0E7211E44EC3E0086D9BB /* VotaController.swift */,
 				6C351B401E41011A0057309C /* TestingController.swift */,
 			);
@@ -340,6 +343,7 @@
 				6C74C54B1E4333D000CE8107 /* NotiziaCell.swift in Sources */,
 				6CD1D5721E3F86AF00C3208D /* AppDelegate.swift in Sources */,
 				6C5727231E4B84570047B199 /* SelectLocationSettingsController.swift in Sources */,
+				6CE147621E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift in Sources */,
 				6C74C54F1E433DE700CE8107 /* Images.swift in Sources */,
 				6C35FE721E4887DE00373DC6 /* NotiziaEventCell.swift in Sources */,
 				6C74C5491E4333B500CE8107 /* ListaNotizieController.swift in Sources */,

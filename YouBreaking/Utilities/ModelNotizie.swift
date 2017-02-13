@@ -72,6 +72,22 @@ class ModelNotizie {
         
     }
     
+    func getNewsNotLive(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/news?live=false", method: .get).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data.arrayValue)
+                }else{
+                    handler([JSON]())
+                }
+            }
+        }
+        
+    }
+    
     func postNews(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
         session.request( baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{

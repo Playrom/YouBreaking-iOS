@@ -28,6 +28,13 @@ class NotiziaCell: UITableViewCell {
         
     }
     
+    var currentVote = Voto.NO
+    
+    override func prepareForReuse() {
+        topicButton.isHidden = false
+        currentVote = Voto.NO
+    }
+    
     override func layoutSubviews() {
         if let model = model{
             testo.text = model["text"].string
@@ -72,10 +79,12 @@ class NotiziaCell: UITableViewCell {
             
             if let vote = model["voto_utente"].dictionary{
                 if let v = vote["voto"]?.stringValue , v.contains("UP"){
+                    self.currentVote = .UP
                     self.setVoteImages(voto: .UP)
                 }
                 
                 if let v = vote["voto"]?.stringValue , v.contains("DOWN"){
+                    self.currentVote = .DOWN
                     self.setVoteImages(voto: .DOWN)
                 }
             }else{
@@ -116,12 +125,14 @@ class NotiziaCell: UITableViewCell {
         imageDown.image = imageDown.image!.withRenderingMode(.alwaysTemplate)
         imageDown.tintColor = self.tintColor
         
+        self.currentVote = voto
+        
     }
     
     func voteUp(){
         if let model = model{
             
-            if let voto = model["voto_utente"].dictionaryValue["voto"]?.stringValue, voto == Voto.UP.rawValue {
+            if (self.currentVote == Voto.UP) {
                 setVoteImages(voto: .NO)
                 self.delegate?.vote(voto: .NO , sender: self)
             }else{
@@ -137,7 +148,7 @@ class NotiziaCell: UITableViewCell {
     func voteDown(){
         if let model = model{
             
-            if let voto = model["voto_utente"].dictionaryValue["voto"]?.stringValue, voto == Voto.DOWN.rawValue {
+            if (self.currentVote == Voto.DOWN) {
                 setVoteImages(voto: .NO)
                 self.delegate?.vote(voto: .NO , sender: self)
             }else{

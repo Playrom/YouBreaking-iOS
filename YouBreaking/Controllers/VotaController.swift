@@ -22,19 +22,39 @@ class VotaController: UIViewController {
         
         koloda.delegate = self
         koloda.dataSource = self
+
         
+        let nc = NotificationCenter.default // Note that default is now a property, not a method call
+        nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
+                       object:nil, queue:nil){
+                        _ in
+                        self.reload()
+                        
+        }
+        
+        self.reload()
+
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let nc = NotificationCenter.default
+        nc.removeObserver(self)
+    }
+    
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func reload(){
         coms.getNewsToVote{
             model in
             self.model = model
             self.koloda.reloadData()
         }
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
@@ -94,7 +114,7 @@ extension VotaController: KolodaViewDataSource {
                 coms.vote(voto: .DOWN, notizia: id){
                     json in
                     let nc = NotificationCenter.default
-                    nc.post(Notification(name: Notification.Name("Lista Notizie Modificata")))
+                    nc.post(Notification(name: Notification.Name("reloadNews")))
                     print("SWIPE LEFT")
                 }
                 break
@@ -102,7 +122,7 @@ extension VotaController: KolodaViewDataSource {
                 coms.vote(voto: .UP, notizia: id){
                     json in
                     let nc = NotificationCenter.default
-                    nc.post(Notification(name: Notification.Name("Lista Notizie Modificata")))
+                    nc.post(Notification(name: Notification.Name("reloadNews")))
                     print("SWIPE RIGHT")
                 }
                 break

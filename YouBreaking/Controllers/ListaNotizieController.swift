@@ -16,7 +16,9 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
             if let newsId = model[row].dictionaryValue["id"]?.stringValue{
                 coms.vote(voto: voto, notizia: newsId){
                     response in
-                    self.reload()
+                    
+                    let nc = NotificationCenter.default
+                    nc.post(Notification(name: Notification.Name("reloadNews")))
                 }
             }
             
@@ -61,11 +63,11 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         self.tableView.layoutMargins = .zero
         
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
-        nc.addObserver(forName:Notification.Name(rawValue:"Lista Notizie Modificata"),
+        nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
                        object:nil, queue:nil){
                         _ in
                         self.reload()
-            
+                        
         }
 
         // Uncomment the following line to preserve selection between presentations
