@@ -31,7 +31,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Qas-RF-nxN" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="121" y="112" width="132" height="50"/>
+                                <rect key="frame" x="121" y="112" width="132" height="99"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -209,14 +209,23 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-1" id="CnK-fT-pPB">
+                            <tableViewSection id="CnK-fT-pPB">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JOQ-Qy-Vxh">
-                                        <rect key="frame" x="0.0" y="458" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="idq-5D-odM" style="IBUITableViewCellStyleDefault" id="JOQ-Qy-Vxh">
+                                        <rect key="frame" x="0.0" y="437" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JOQ-Qy-Vxh" id="01V-co-K6A">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="idq-5D-odM">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -343,7 +352,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-ah-6cU">
                                             <rect key="frame" x="8" y="8" width="291" height="128"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6V-a3-FJG">
+                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w6V-a3-FJG">
                                                     <rect key="frame" x="0.0" y="0.0" width="291" height="40.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <state key="normal" title="Nome Evento"/>
@@ -835,11 +844,11 @@
             </objects>
             <point key="canvasLocation" x="3646" y="1781"/>
         </scene>
-        <!--Item-->
+        <!--Scrivi-->
         <scene sceneID="5VU-hd-GgO">
             <objects>
                 <navigationController storyboardIdentifier="Navigation Scrivi Notizia Controller" id="Tfp-pK-ji8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="3HZ-EV-3kr"/>
+                    <tabBarItem key="tabBarItem" title="Scrivi" image="Add Icon" selectedImage="Add Icon" id="3HZ-EV-3kr"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RC7-X6-RH3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -895,7 +904,7 @@
         <scene sceneID="khk-uN-UnY">
             <objects>
                 <navigationController id="jQY-lu-2kr" customClass="NavigationRed" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" id="k7S-RV-dW8"/>
+                    <tabBarItem key="tabBarItem" title="News" image="News Icon" selectedImage="News Icon" id="k7S-RV-dW8"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YWJ-Gq-o3L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -918,7 +927,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="GRS-DB-3ry" kind="relationship" relationship="viewControllers" id="1sV-Bs-8do"/>
                         <segue destination="jQY-lu-2kr" kind="relationship" relationship="viewControllers" id="Zhz-qZ-pY9"/>
                         <segue destination="Tfp-pK-ji8" kind="relationship" relationship="viewControllers" id="BTJ-qx-UbC"/>
                         <segue destination="L7B-fh-Pwv" kind="relationship" relationship="viewControllers" id="4nG-n5-hHD"/>
@@ -962,7 +970,7 @@
         <scene sceneID="uEc-qP-Qbd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L7B-fh-Pwv" customClass="NavigationRed" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Vota" id="kjR-NI-cbn"/>
+                    <tabBarItem key="tabBarItem" title="Vota" image="Vota Icon" selectedImage="Vota Icon" id="kjR-NI-cbn"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MGj-OA-Nth">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1088,8 +1096,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Add Icon" width="25" height="25"/>
         <image name="Arrow Down" width="240" height="120"/>
         <image name="Arrow Up" width="240" height="120"/>
         <image name="Icona Settings" width="22" height="22"/>
+        <image name="News Icon" width="25" height="25"/>
+        <image name="Vota Icon" width="25" height="25"/>
     </resources>
 </document>

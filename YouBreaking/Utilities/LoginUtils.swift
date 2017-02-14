@@ -140,6 +140,7 @@ class LoginUtils {
             session.request(baseUrl + "/api/auth/logout", method: .post).responseJSON{
                 response in
                 self.token = nil
+                FBSDKLoginManager().logOut()
                 handler()
             }
         }

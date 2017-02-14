@@ -209,6 +209,14 @@ class SettingsController: UITableViewController {
             coms.updateUserLocationDistance(parameters: params){
                 result in
             }
+        }else if(indexPath.section == 2 && indexPath.row == 0){
+            // Logout
+            coms.login.logout {
+                if let window = UIApplication.shared.delegate?.window{
+                    let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
+                    window?.rootViewController = rootController
+                }
+            }
         }
     }
     
