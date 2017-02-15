@@ -20,7 +20,15 @@ class ModelNotizie {
         return login.session
     }
     
-    var login : LoginUtils
+    var login : LoginUtils{
+        return LoginUtils.sharedInstance
+    }
+    
+    var page : Int = 1
+    var nextPage : Int = 2
+    var pageSize : Int = 5
+    var totalItems : Int = 1
+    var totalPages : Int = 1
     
     var baseUrl : String{
         if let mode = Bundle.main.object(forInfoDictionaryKey: "mode") as? String{
@@ -32,12 +40,6 @@ class ModelNotizie {
             }
         }
         return Bundle.main.object(forInfoDictionaryKey: "url_development") as! String
-    }
-    
-    init(){
-        
-        login = LoginUtils()
-        
     }
     
     func sendNotificationToken(_ deviceToken : Data, handler :  @escaping ( (_ model : Bool) -> Void )){
@@ -56,16 +58,27 @@ class ModelNotizie {
         
     }
     
-    func getNews(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
+    func getNews(handler :  @escaping ( ( _ model : [JSON], _ pagination : [String : JSON]?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/news", method: .get).responseJSON{
+        if(self.page > self.totalPages){
+            self.page = self.totalPages
+            return
+        }
+        
+        session.request( baseUrl + "/api/news?live=true&page=\(page)&pageSize=\(pageSize)", method: .get).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data.arrayValue)
+                if json["error"]?.bool == false , let data = json["data"], let pagination = json["pagination"] {
+                    
+                    handler(data.arrayValue,pagination.dictionaryValue)
+
+                    self.page = pagination["page"].int!
+                    self.pageSize = pagination["pageSize"].int!
+                    self.totalPages = pagination["pages"].int!
+                    self.totalItems = pagination["total"].int!
                 }else{
-                    handler([JSON]())
+                    handler([JSON](), nil)
                 }
             }
         }
@@ -74,7 +87,7 @@ class ModelNotizie {
     
     func getNewsNotLive(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
         
-        session.request( baseUrl + "/api/news?live=false", method: .get).responseJSON{
+        session.request( baseUrl + "/api/news?live=false&page=\(page)&pageSize=\(pageSize)", method: .get).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue

@@ -8,39 +8,8 @@
 
 import UIKit
 
-class ListaNotizieGiaVotateController: ListaNotizieController {
+class ListaNotizieGiaVotateController: NotizieController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tempView.frame = self.view.bounds
-        tempView.backgroundColor = Colors.lightGray
-        loader.backgroundColor = Colors.red
-//        
-//        tempView.addSubview(loader)
-//        self.view.addSubview(tempView)
-//        loader.startAnimating()
-        
-        reload()
-        
-        self.tableView.layoutMargins = .zero
-        
-        let nc = NotificationCenter.default // Note that default is now a property, not a method call
-        nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
-                       object:nil, queue:nil){
-                        _ in
-                        self.reload()
-                        
-        }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-
-    }
-    
     override func reload(){
         coms.getNewsNotLive{
             model in

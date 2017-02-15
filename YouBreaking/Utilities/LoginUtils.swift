@@ -15,10 +15,12 @@ import UserNotifications
 
 class LoginUtils {
     
+    static let sharedInstance = LoginUtils()
+    
     var session : Alamofire.SessionManager
     
-    init(){
-        var defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
+    private init() {
+        let defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
         
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = defaultHeaders
@@ -26,8 +28,8 @@ class LoginUtils {
         session = Alamofire.SessionManager(configuration: configuration)
         let tk = self.token
         self.token = tk
-
-    }
+        
+    } //This prevents others from using the default '()' initializer for this class.
     
     var user : [String : Any]?{
         if let token = token {

@@ -16,6 +16,7 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var testo: UILabel!
     @IBOutlet weak var imageUp: UIImageView!
     @IBOutlet weak var imageDown: UIImageView!
+    @IBOutlet weak var scoreLabel: UILabel!
     
     var model : JSON?
     var coms = ModelNotizie()
@@ -41,6 +42,10 @@ class NotiziaCell: UITableViewCell {
             testo.textAlignment = .justified
             testoTitolo.textColor = Colors.red
             testoTitolo.text = model["title"].string
+            
+            scoreLabel.text = model["score"].intValue.description
+            scoreLabel.textColor = Colors.red
+            
             
             if let eventName = model["evento"]["name"].string {
                 topicButton.setTitle(eventName, for: .normal)

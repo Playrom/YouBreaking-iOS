@@ -166,7 +166,7 @@ class SettingsController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -217,6 +217,8 @@ class SettingsController: UITableViewController {
                     window?.rootViewController = rootController
                 }
             }
+        }else if(indexPath.section == 3){
+            LoginUtils.sharedInstance.checkStatus()
         }
     }
     

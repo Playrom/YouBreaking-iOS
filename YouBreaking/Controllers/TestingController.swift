@@ -12,7 +12,7 @@ import FBSDKLoginKit
 class TestingController: UIViewController , FBSDKLoginButtonDelegate {
     @IBOutlet weak var loginButton: FBSDKLoginButton!
     
-    let login = LoginUtils()
+    let login = LoginUtils.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()

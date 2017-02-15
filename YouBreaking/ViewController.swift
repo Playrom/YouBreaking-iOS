@@ -50,19 +50,19 @@ class ViewController: UIViewController , FBSDKLoginButtonDelegate{
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        LoginUtils().loginWithFacebookToken{
+        LoginUtils.sharedInstance.loginWithFacebookToken{
             self.performSegue(withIdentifier: "Login Completato", sender: self)
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        LoginUtils().logout{
+        LoginUtils.sharedInstance.logout{
             
         }
     }
 
     @IBAction func connessione(_ sender: UIButton) {
-        LoginUtils().checkStatus()
+        LoginUtils.sharedInstance.checkStatus()
     }
 }
 

@@ -9,28 +9,10 @@
 import UIKit
 import SwiftyJSON
 
-class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
-    
-    internal func vote(voto: Voto, sender : NotiziaCell) {
-        if let row = self.tableView.indexPath(for: sender)?.row{
-            if let newsId = model[row].dictionaryValue["id"]?.stringValue{
-                coms.vote(voto: voto, notizia: newsId){
-                    response in
-                    
-                    let nc = NotificationCenter.default
-                    nc.post(Notification(name: Notification.Name("reloadNews")))
-                }
-            }
-            
-        }
-        
-        
-    }
+class ListaNotizieController: NotizieController{
+
 
     @IBOutlet weak var iconaSettings: UIBarButtonItem!
-    
-    let coms = ModelNotizie()
-    var model = [JSON]()
     
     var profile : JSON?
     
@@ -40,20 +22,6 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tempView.frame = self.view.bounds
-        tempView.backgroundColor = Colors.lightGray
-        loader.backgroundColor = Colors.red
-        
-        tempView.addSubview(loader)
-        self.view.addSubview(tempView)
-        loader.startAnimating()
-        
-        
-        coms.getProfile{
-            json in
-            self.profile = json
-            self.tempView.removeFromSuperview()
-        }
         
         iconaSettings.image = iconaSettings.image!.withRenderingMode(.alwaysTemplate)
         iconaSettings.tintColor = Colors.white
@@ -83,15 +51,17 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         nc.removeObserver(self)
     }
     
-    func reload(){
-        coms.getNews{
-            model in
-            self.model = model
-            
-            self.tableView.reloadData()
+    override func reload(){
+        
+        super.reload()
+        
+        coms.getProfile{
+            json in
+            self.profile = json
         }
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -133,16 +103,19 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         return cell
     }
     
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView.contentOffset.y > ( scrollView.contentSize.height  - 800 ) && !reloading){
+            self.reloading = true
+            self.advance()
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
-    }
-    
-    func performSegueToEvent(eventId: String , sender : NotiziaCell) {
-        performSegue(withIdentifier: "Select Event", sender: sender)
     }
     
 
@@ -189,29 +162,15 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
+        super.prepare(for: segue, sender: sender)
+        
         if let identifier = segue.identifier {
             switch identifier {
-            case "Select Event":
-                if let dvc = segue.destination as? EventPageController,  let cell = sender as? NotiziaCell{
-                    let index = self.tableView.indexPath(for: cell)
-                    if let row = index?.row , let eventId = self.model.optionalSubscript(safe: row)?["evento"]["id"].string{
-                        dvc.eventId = eventId
-                    }
-                }
-                
-                
-                break
             case "Present Settings":
                 if let dvc = segue.destination as? SettingsController{
                     dvc.data = profile
                 }
                 break
-            case "Select News":
-                if let dvc = segue.destination as? SingleNews, let indexPath = self.tableView.indexPath(for: sender as! UITableViewCell){
-                        dvc.data = self.model.optionalSubscript(safe: indexPath.row)
-                    
-                    
-                }
             default:
                 break
             }
@@ -219,26 +178,4 @@ class ListaNotizieController: UITableViewController , NotiziaCellDelegate{
     }
     
 
-}
-
-extension Collection where Indices.Iterator.Element == Index {
-    
-    /// Returns the element at the specified index iff it is within bounds, otherwise nil.
-    func optionalSubscript (safe index: Index) -> Generator.Element? {
-        return indices.contains(index) ? self[index] : nil
-    }
-}
-
-class NavigationRed : UINavigationController{
-    override var preferredStatusBarStyle : UIStatusBarStyle{
-        return UIStatusBarStyle.lightContent
-    }
-    
-    override func viewDidLoad() {
-        self.navigationBar.tintColor = Colors.white
-        self.navigationBar.isTranslucent = false
-        self.navigationBar.barTintColor = Colors.red
-        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : Colors.white]
-
-    }
 }

@@ -30,8 +30,11 @@ class SingleNews: UITableViewController {
         
         bodyLabel.text = data?["text"].string
         bodyLabel.textAlignment = .justified
-        
-        scoreLabel.text = data?["score"].int!.description
+        bodyLabel.setNeedsLayout()
+        bodyLabel.setNeedsDisplay()
+        bodyLabel.layoutSubviews()
+                
+        scoreLabel.text = data?["score"].intValue.description
         
         self.tableView.reloadData()
     }
@@ -76,6 +79,14 @@ class SingleNews: UITableViewController {
         cell.layoutSubviews()
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
 

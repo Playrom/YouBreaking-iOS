@@ -18,7 +18,7 @@ import SwiftyJSON
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
-    var utils  = LoginUtils()
+    var utils  = LoginUtils.sharedInstance
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -32,13 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         GMSPlacesClient.provideAPIKey("AIzaSyCdNUs-6DJkI79h-lMRPtyj7V_h4AMybCU")
         
         
-        LoginUtils().loginWithFacebookToken{
+        LoginUtils.sharedInstance.loginWithFacebookToken{
                         
-            if let _ = LoginUtils().token{
-                self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
+            if let _ = LoginUtils.sharedInstance.token{
+                //self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
             }else{
                 let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
                 self.window?.rootViewController = rootController
+                let alert = UIAlertController(title: "Il tuo Login non è valido", message: "Autenticati di Nuovo", preferredStyle: UIAlertControllerStyle.alert )
+                rootController.present(alert, animated: true, completion: nil)
             }
         }
         
@@ -49,20 +51,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let data = userInfo.jsonData() {
-            let json = JSON(data: data)
             
-            let root = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as! UITabBarController
-            root.selectedIndex = 1
-            
-            let singleController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! SingleNews
-            singleController.data = json
-            
-            print(root.selectedViewController)
-            let rootNav = root.selectedViewController as! NavigationRed
-            rootNav.pushViewController(viewController: singleController)
-            
-            self.window?.rootViewController = root
-            
+            if(UIApplication.shared.applicationState == .active){
+                
+            }else{
+                
+                let payload = JSON(data: data)
+                
+                if(payload["type"].stringValue == "NEWS_NOTIFICATION" || payload["type"].stringValue == "NEWS_POSTED"){
+                
+                    let root = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as! UITabBarController
+                    root.selectedIndex = 0
+                    
+                    let singleController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! SingleNews
+                    singleController.data = payload["data"]
+                    
+                    print(root.selectedViewController)
+                    let rootNav = root.selectedViewController as! NavigationRed
+                    rootNav.pushViewController(viewController: singleController)
+                    
+                    self.window?.rootViewController = root
+
+                }
+            }
         }
     }
     
@@ -87,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         print("REGISTATION SUCCESS")
         let token = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
 
-        utils = LoginUtils()
+        utils = LoginUtils.sharedInstance
         if let _ = self.utils.token{
             let parameters = [ "devicetoken" : token ]
             self.utils.session.request(self.utils.baseUrl + "/api/register/ios", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{

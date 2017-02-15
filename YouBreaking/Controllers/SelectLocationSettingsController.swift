@@ -33,7 +33,6 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
                 self.tableView(tableView, cellForRowAt: IndexPath(row: 2, section: 0 ) ).accessoryType = .disclosureIndicator
                 coms.deleteUserLocation{
                     response in
-                    print(response)
                     self.delegate?.updateLocation(place: nil)
                     self.delegate?.updateSelectionType(type: .None)
                 }
@@ -216,7 +215,7 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print(status)
+
     }
 
 }
@@ -226,8 +225,6 @@ extension SelectLocationSettingsController: GMSAutocompleteViewControllerDelegat
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
         self.location = place
         self.selectionType = .Place
         

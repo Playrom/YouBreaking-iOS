@@ -213,8 +213,6 @@ extension ScriviNotiziaController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
-        print("Place address: \(place.formattedAddress)")
         self.location = place
         self.tableView.reloadData()
         viewController.performSegue(withIdentifier: "return to creation", sender: viewController)
