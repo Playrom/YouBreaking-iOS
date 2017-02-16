@@ -9,12 +9,49 @@
 import UIKit
 
 class ListaNotizieGiaVotateController: NotizieController {
-
+    
     override func reload(){
-        coms.getNewsNotLive{
-            model in
-            self.model = model
+        
+        super.reload()
+        
+        if(coms.page == 1){
             
+        }else{
+            coms.pageSize = coms.page * coms.pageSize
+            coms.page = 1
+        }
+        
+        var query = ["sort" : self.sortOrder.rawValue, "live" : "false"]
+        
+        if let location = location, self.sortOrder == .Location{
+            query["latitude"] = location.0
+            query["longitude"] = location.1
+        }
+        
+        coms.getNewsWithQuery(query: query ){
+            model,pagination in
+            self.model = model
+            self.reloading = false
+            self.tableView.reloadData()
+        }
+        
+    }
+    
+    override func advance(){
+        
+        coms.page = coms.page + 1
+        
+        var query = ["sort" : self.sortOrder.rawValue, "live" : "false"]
+        
+        if let location = location, self.sortOrder == .Location{
+            query["latitude"] = location.0
+            query["longitude"] = location.1
+        }
+        
+        coms.getNewsWithQuery(query: query ){
+            model,pagination in
+            self.model.append(contentsOf: model)
+            self.reloading = false
             self.tableView.reloadData()
         }
     }

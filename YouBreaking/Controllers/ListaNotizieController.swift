@@ -22,27 +22,16 @@ class ListaNotizieController: NotizieController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         iconaSettings.image = iconaSettings.image!.withRenderingMode(.alwaysTemplate)
         iconaSettings.tintColor = Colors.white
-        
-        reload()
-        
-        self.tableView.layoutMargins = .zero
-        
-        let nc = NotificationCenter.default // Note that default is now a property, not a method call
-        nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
-                       object:nil, queue:nil){
-                        _ in
-                        self.reload()
-                        
-        }
-
+                
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,6 +44,27 @@ class ListaNotizieController: NotizieController{
         
         super.reload()
         
+        if(coms.page == 1){
+            
+        }else{
+            coms.pageSize = coms.page * coms.pageSize
+            coms.page = 1
+        }
+        
+        var query = ["sort" : self.sortOrder.rawValue, "live" : "true"]
+        
+        if let location = location, self.sortOrder == .Location{
+            query["latitude"] = location.0
+            query["longitude"] = location.1
+        }
+        
+        coms.getNewsWithQuery(query: query ){
+            model,pagination in
+            self.model = model
+            self.reloading = false
+            self.tableView.reloadData()
+        }
+        
         coms.getProfile{
             json in
             self.profile = json
@@ -62,61 +72,25 @@ class ListaNotizieController: NotizieController{
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return model.count
-    }
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
+    override func advance(){
         
-        if let contenuto = model.optionalSubscript(safe: indexPath.row){
-            cell.model = contenuto
-            cell.delegate = self
+        coms.page = coms.page + 1
+        
+        var query = ["sort" : self.sortOrder.rawValue, "live" : "true"]
+        
+        if let location = location, self.sortOrder == .Location{
+            query["latitude"] = location.0
+            query["longitude"] = location.1
         }
         
-        if(indexPath.row % 2 == 0){
-            cell.backgroundColor = Colors.white
-        }else{
-            cell.backgroundColor = Colors.lightGray
-        }
-        
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
-        cell.layoutSubviews()
-
-        // Configure the cell...
-
-        return cell
-    }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if(scrollView.contentOffset.y > ( scrollView.contentSize.height  - 800 ) && !reloading){
-            self.reloading = true
-            self.advance()
+        coms.getNewsWithQuery(query: query ){
+            model,pagination in
+            self.model.append(contentsOf: model)
+            self.reloading = false
+            self.tableView.reloadData()
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
     
 
     /*

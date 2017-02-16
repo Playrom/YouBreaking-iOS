@@ -58,7 +58,7 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
                             "longitude" : self.location!.coordinate.longitude,
                             "place_id" : self.location!.placeID,
                             "country" : self.location!.addressComponents!.dictionary["country"] as Any,
-                            "type" : "Place"
+                            "type" : "Gps"
                         ]
                         
                         self.coms.updateUserLocation(parameters: parameters){

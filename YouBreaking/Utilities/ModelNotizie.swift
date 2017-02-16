@@ -85,16 +85,65 @@ class ModelNotizie {
         
     }
     
-    func getNewsNotLive(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
+    func getNewsNotLive(handler :  @escaping ( ( _ model : [JSON], _ pagination : [String : JSON]?) -> Void ) ) {
+        
+        if(self.page > self.totalPages){
+            self.page = self.totalPages
+            return
+        }
         
         session.request( baseUrl + "/api/news?live=false&page=\(page)&pageSize=\(pageSize)", method: .get).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data.arrayValue)
+                if json["error"]?.bool == false , let data = json["data"], let pagination = json["pagination"] {
+                    
+                    handler(data.arrayValue,pagination.dictionaryValue)
+                    
+                    self.page = pagination["page"].int!
+                    self.pageSize = pagination["pageSize"].int!
+                    self.totalPages = pagination["pages"].int!
+                    self.totalItems = pagination["total"].int!
                 }else{
-                    handler([JSON]())
+                    handler([JSON](), nil)
+                }
+            }
+        }
+        
+    }
+    
+    func getNewsWithQuery(query : [String:String], handler :  @escaping ( ( _ model : [JSON], _ pagination : [String : JSON]?) -> Void ) ) {
+        
+        if(self.page > self.totalPages){
+            self.page = self.totalPages
+            return
+        }
+        
+        var url = baseUrl + "/api/news?page=\(page)&pageSize=\(pageSize)"
+        
+        if(query.count > 0){
+            for(key,value) in query{
+                url = url + "&\(key)=\(value)"
+            }
+        }
+        
+        print(url)
+        
+        
+        session.request( url, method: .get).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"], let pagination = json["pagination"] {
+                    
+                    handler(data.arrayValue,pagination.dictionaryValue)
+                    
+                    self.page = pagination["page"].int!
+                    self.pageSize = pagination["pageSize"].int!
+                    self.totalPages = pagination["pages"].int!
+                    self.totalItems = pagination["total"].int!
+                }else{
+                    handler([JSON](), nil)
                 }
             }
         }
@@ -153,15 +202,9 @@ class ModelNotizie {
         
     }
     
-    func getEvent(eventId : String , additionalQuery : [String : String], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+    func getEvent(eventId : String , handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
         var url =  baseUrl + "/api/events/" + eventId
-        if ( additionalQuery.count > 0){
-            url = url + "?"
-            for ( key , value ) in additionalQuery{
-                url = url + key + "=" + value + "&"
-            }
-        }
         
         session.request(url, method: .get).responseJSON{
             response in

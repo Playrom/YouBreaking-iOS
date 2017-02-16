@@ -9,65 +9,73 @@
 import UIKit
 import SwiftyJSON
 
-class EventPageController: UITableViewController, NotiziaCellDelegate {
+class EventPageController: NotizieController {
     
     var eventId : String?
     
-    let coms = ModelNotizie()
-    var model = [JSON]()
     var event : JSON?
     
-    func reload(){
+    override func reload(){
         if let eventId = eventId  {
             
-            coms.getEvent(eventId: eventId , additionalQuery: ["fields" : "notizie"]){
+            super.reload()
+            
+            if(coms.page == 1){
+                
+            }else{
+                coms.pageSize = coms.page * coms.pageSize
+                coms.page = 1
+            }
+            
+            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "false"]
+            
+            if let location = location, self.sortOrder == .Location{
+                query["latitude"] = location.0
+                query["longitude"] = location.1
+            }
+            
+            coms.getNewsWithQuery(query: query ){
+                model,pagination in
+                self.model = model
+                self.reloading = false
+                self.tableView.reloadData()
+            }
+            
+            coms.getEvent(eventId: eventId){
                 model in
                 self.event = model
                 self.title = model?["name"].string
-                if let notizie = model?["notizie"].array{
-                    self.model = notizie
-                }
                 self.tableView.reloadData()
                 
             }
+            
         }
 
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableView.layoutMargins = .zero
-
-        self.reload()
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    override func advance(){
+        if let eventId = eventId  {
+            coms.page = coms.page + 1
+            
+            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "false"]
+            
+            if let location = location, self.sortOrder == .Location{
+                query["latitude"] = location.0
+                query["longitude"] = location.1
+            }
+            
+            coms.getNewsWithQuery(query: query ){
+                model,pagination in
+                self.model.append(contentsOf: model)
+                self.reloading = false
+                self.tableView.reloadData()
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return model.count
-    }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaEventCell
         
         if let contenuto = model.optionalSubscript(safe: indexPath.row){
             cell.model = contenuto
@@ -82,35 +90,6 @@ class EventPageController: UITableViewController, NotiziaCellDelegate {
         
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    internal func vote(voto: Voto, sender : NotiziaCell) {
-        if let row = self.tableView.indexPath(for: sender)?.row{
-            if let newsId = model[row].dictionaryValue["id"]?.stringValue{
-                coms.vote(voto: voto, notizia: newsId){
-                    response in
-                    if response != nil{
-                        self.reload()
-                    }
-                }
-            }
-            
-        }
-        
-        
-    }
-    
-    func performSegueToEvent(eventId: String , sender : NotiziaCell) {
-        performSegue(withIdentifier: "Select Event", sender: sender)
-    }
-
     
 
     /*

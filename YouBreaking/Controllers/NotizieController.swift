@@ -8,6 +8,14 @@
 
 import UIKit
 import SwiftyJSON
+import CoreLocation
+
+enum SortOrder : String{
+    case Score = "score"
+    case Location = "location"
+    case Recent = "recent"
+    case Hot = "hot"
+}
 
 class NotizieController: UITableViewController , NotiziaCellDelegate{
     
@@ -32,6 +40,11 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
     
     var reloading = true
     
+    var sortOrder : SortOrder = SortOrder.Hot
+    
+    var location : ( String, String )?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +60,9 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
                         
         }
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ordina", style: .plain, target: self, action: Selector.init(("filtra")))
+        self.refreshControl?.addTarget(self, action: Selector.init("refresh:"), for: UIControlEvents.valueChanged)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -60,34 +76,63 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         nc.removeObserver(self)
     }
     
+    func refresh(_ refreshControl: UIRefreshControl) {
+        // Do your job, when done:
+        reload()
+        refreshControl.endRefreshing()
+    }
+    
     func reload(){
         
-        
-        if(coms.page == 1){
-            
-        }else{
-            coms.pageSize = coms.page * coms.pageSize
-            coms.page = 1
-        }
-        
-        coms.getNews{
-            model,pagination in
-            self.model = model
-            self.reloading = false
-            self.tableView.reloadData()
-        }
     }
     
     func advance(){
         
-        coms.page = coms.page + 1
+    }
+    
+    func filtra(){
+        let alert = UIAlertController(title: "Ordina le Notizie", message: nil, preferredStyle: .actionSheet)
         
-        coms.getNews{
-            model,pagination in
-            self.model.append(contentsOf: model)
-            self.reloading = false
-            self.tableView.reloadData()
+        alert.addAction(title: "Hot", style: .default, isEnabled: true){
+            action in
+            self.sortOrder = .Hot
+            self.reload()
         }
+        
+        alert.addAction(title: "Recenti", style: .default, isEnabled: true){
+            action in
+            self.sortOrder = .Recent
+            self.reload()
+        }
+        
+        alert.addAction(title: "Punteggio", style: .default, isEnabled: true){
+            action in
+            self.sortOrder = .Score
+            self.reload()
+        }
+        
+        alert.addAction(title: "Eventi Vicini", style: .default, isEnabled: true){
+            action in
+            
+            let locationManager = CLLocationManager()
+            locationManager.requestAlwaysAuthorization()
+            
+            locationManager.distanceFilter = kCLDistanceFilterNone
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+            
+            let latitude = locationManager.location?.coordinate.latitude.description;
+            let longitude = locationManager.location?.coordinate.longitude.description;
+            if let latitude = latitude , let longitude = longitude {
+                self.sortOrder = .Location
+                self.location = (latitude, longitude)
+            }
+            self.reload()
+        }
+        
+        
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -130,6 +175,7 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         
         return cell
     }
+    
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(scrollView.contentOffset.y > ( scrollView.contentSize.height  - 800 ) && !reloading){

@@ -179,6 +179,97 @@ class LoginUtils {
         }
     }
     
+    func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile", method: .get).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    func updateProfile(parameters : [String : Any], handler :  @escaping ( (_ : Bool) -> Void ) ) {
+        
+        if let id = self.id{
+            
+            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false  {
+                        handler(true)
+                    }else{
+                        handler(false)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getImage(url : String , handler :  @escaping ( (_ : Data?) -> Void ) ) {
+        
+        session.request( url , method: .get).responseImage{
+            response in
+            handler(response.data)
+        }
+        
+    }
+    
+    func updateUserLocation(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    func updateUserLocationDistance(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"] {
+                    handler(data)
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
+    func deleteUserLocation(handler :  @escaping ( (_ model : Bool) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/profile/location", method: .delete).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false  {
+                    handler(true)
+                }else{
+                    handler(false)
+                }
+            }
+        }
+        
+    }
+    
     
     
     

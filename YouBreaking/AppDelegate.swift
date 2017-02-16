@@ -15,21 +15,26 @@ import Alamofire
 import SwiftyJSON
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
+    
     var utils  = LoginUtils.sharedInstance
-
-
+    private var googleclient : GMSPlacesClient?
+    private let locationManager = CLLocationManager()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
          _ = FBSDKLoginButton()
         
         self.window?.tintColor = Colors.red
-        
-        
+
         GMSPlacesClient.provideAPIKey("AIzaSyCdNUs-6DJkI79h-lMRPtyj7V_h4AMybCU")
+        googleclient = GMSPlacesClient()
+        
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
         
         
         LoginUtils.sharedInstance.loginWithFacebookToken{
@@ -131,6 +136,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews")))
+        
+        self.utils.getProfile{
+            json in
+
+            if let location = json?["location"], location["type"].stringValue == "Gps"{
+                
+                self.googleclient?.currentPlace{
+                    (placeLikelihoodList, error)  in
+                    if let error = error {
+                        print("Pick Place error: \(error)")
+                        return
+                    }
+                    
+                    if let placeLike = placeLikelihoodList?.likelihoods.optionalSubscript(safe: 0){
+                        var location = placeLike.place
+                        
+                        let parameters : [String : Any] = [
+                            "latitude" : location.coordinate.latitude,
+                            "longitude" : location.coordinate.longitude,
+                            "place_id" : location.placeID,
+                            "country" : location.addressComponents!.dictionary["country"] as Any,
+                            "type" : "Gps"
+                        ]
+                        
+                        self.utils.updateUserLocation(parameters: parameters){
+                            response in
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
