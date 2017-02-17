@@ -202,6 +202,40 @@ class ModelNotizie {
         
     }
     
+    func deleteNews(id : String , handler :  @escaping ( ( _ response : Bool ) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/news/\(id)", method: .delete).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false  {
+                    handler(true)
+                }else{
+                    handler(false)
+                }
+            }
+        }
+        
+    }
+    
+    func promoteNews(id : String , handler :  @escaping ( ( _ response : Bool ) -> Void ) ) {
+        
+        session.request( baseUrl + "/api/news/promote/\(id)", method: .put).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false  {
+                    handler(true)
+                }else{
+                    handler(false)
+                }
+            }
+        }
+        
+    }
+    
+    
+    
     func getEvent(eventId : String , handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
         var url =  baseUrl + "/api/events/" + eventId

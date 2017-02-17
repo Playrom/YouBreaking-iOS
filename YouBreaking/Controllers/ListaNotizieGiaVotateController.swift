@@ -55,6 +55,34 @@ class ListaNotizieGiaVotateController: NotizieController {
             self.tableView.reloadData()
         }
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        var actions = super.tableView(tableView, editActionsForRowAt: indexPath)
+        
+        var level = self.coms.login.user?["level"] as? String
+        
+        if let level = level , level == "MOD" || level == "ADMIN"{
+            actions?.append(UITableViewRowAction(style: .normal, title: "Promuovi" ){
+                action,indexPath in
+                if let id = self.model.optionalSubscript(safe: indexPath.row)?["id"].string{
+                    self.coms.promoteNews(id: id){
+                        ok in
+                        if(ok){
+                            self.model.remove(at: indexPath.row)
+                            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.top )
+                            self.tableView.reloadData()
+                            NotificationCenter.default.post(Notification(name: Notification.Name.init("reloadNews")))
+                        }
+                    }
+                }
+            })
+            return actions
+        }else{
+            return actions
+        }
+    }
+
 
 
     /*

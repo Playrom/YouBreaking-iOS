@@ -152,6 +152,31 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         return model.count
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        var arr : [UITableViewRowAction]? = nil
+        var level = self.coms.login.user?["level"] as? String
+        
+        if let level = level , level == "MOD" || level == "ADMIN"{
+            arr = [UITableViewRowAction]()
+            arr?.append(UITableViewRowAction(style: .destructive, title: "Cancella" ){
+                action,indexPath in
+                if let id = self.model.optionalSubscript(safe: indexPath.row)?["id"].string{
+                    self.coms.deleteNews(id: id){
+                        ok in
+                        if(ok){
+                            self.model.remove(at: indexPath.row)
+                            self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.top )
+                            self.tableView.reloadData()
+                        }
+                    }
+                }
+            })
+            return arr
+        }else{
+            return [UITableViewRowAction]()
+        }
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
