@@ -102,26 +102,32 @@ class LoginUtils {
                     if let data = response.data{
                         
                         let dict = JSON(data: data).dictionaryValue
-                        let tempToken = dict["token"]?.stringValue
-                        do{
-                            // Decodifico il token JWT
-                            let jwt = try decode(jwt: tempToken!)
-                            self.token = jwt.string
-                            print("Logged In")
-                            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
-                                (granted,error) in
-                                if(granted){
-                                    print("GRANTED")
-                                    UIApplication.shared.registerForRemoteNotifications()
-                                }else{
-                                    print("UNAUTHORIZED")
+                        if let tempToken = dict["token"]?.string{
+                            do{
+                                // Decodifico il token JWT
+                                let jwt = try decode(jwt: tempToken)
+                                self.token = jwt.string
+                                print("Logged In")
+                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
+                                    (granted,error) in
+                                    if(granted){
+                                        print("GRANTED")
+                                        UIApplication.shared.registerForRemoteNotifications()
+                                    }else{
+                                        print("UNAUTHORIZED")
+                                    }
                                 }
+                                
+                                handler()
+                            }catch{
+                                let alert = UIAlertController(title: "Server Non Disponibile", message: "Riprova più tardi", preferredStyle: UIAlertControllerStyle.alert )
+                                UIApplication.shared.delegate?.window??.rootViewController?.present(alert, animated: true, completion: nil)
+
+                                handler()
                             }
-                            
-                            handler()
-                        }catch{
-                            print("Error")
-                            handler()
+                        }else{
+                            let alert = UIAlertController(title: "Server Non Disponibile", message: "Riprova più tardi", preferredStyle: UIAlertControllerStyle.alert )
+                            UIApplication.shared.delegate?.window??.rootViewController?.present(alert, animated: true, completion: nil)
                         }
                     }
                     

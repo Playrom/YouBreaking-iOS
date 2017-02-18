@@ -20,6 +20,7 @@ class ScriviNotiziaController: UITableViewController {
     
     @IBOutlet weak var titolo: UITextField!
     @IBOutlet weak var testo: UITextView!
+    @IBOutlet weak var linkField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +82,13 @@ class ScriviNotiziaController: UITableViewController {
             
         }
         
+        if let link = self.linkField.text{
+            aggiuntivi.append([
+                "tipo" : "LINK",
+                "valore" : link
+            ])
+        }
+        
         parameters["aggiuntivi"] = aggiuntivi
                 
         coms.postNews(parameters: parameters){
@@ -105,7 +113,7 @@ class ScriviNotiziaController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
