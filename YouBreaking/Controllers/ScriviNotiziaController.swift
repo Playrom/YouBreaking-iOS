@@ -12,6 +12,7 @@ import GooglePlaces
 import SwiftyJSON
 import Photos
 import MobileCoreServices
+import ImagePicker
 
 class ScriviNotiziaController: UITableViewController {
     
@@ -137,7 +138,7 @@ class ScriviNotiziaController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.section == 3){
-            PHPhotoLibrary.requestAuthorization{
+            /*PHPhotoLibrary.requestAuthorization{
                 status in
                 if(status == PHAuthorizationStatus.authorized){
                     self.images = [[String : Any]]()
@@ -145,10 +146,16 @@ class ScriviNotiziaController: UITableViewController {
                     let imageController = UIImagePickerController()
                     imageController.delegate = self
                     imageController.mediaTypes = [kUTTypeImage as String]
-                    imageController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+                    imageController.sourceType = UIImagePickerControllerSourceType.camera
                     self.present(imageController, animated: true, completion: nil)
                 }
-            }
+            }*/
+            
+            let imagePickerController = ImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.imageLimit = 1
+            present(imagePickerController, animated: true, completion: nil)
+            
         }
     }
 
@@ -339,7 +346,7 @@ extension ScriviNotiziaController : UIImagePickerControllerDelegate , UINavigati
                     
                     var image = UIImage(data : data!)!
                     
-                    let jpegData = UIImageJPEGRepresentation(image, 1.0);
+                    let jpegData = UIImageJPEGRepresentation(image,0.6);
                     
 
                     let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String
@@ -403,5 +410,45 @@ extension UIImage {
     func base64String() -> String?{
         return UIImagePNGRepresentation(self)?.base64EncodedString()
 
+    }
+}
+
+extension ScriviNotiziaController : ImagePickerDelegate{
+    func wrapperDidPress(_ imagePicker: ImagePicker.ImagePickerController, images: [UIImage]){
+        
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePicker.ImagePickerController, images: [UIImage]){
+        
+        let image = images[0]
+        
+        
+        do{
+            
+            
+            let jpegData = UIImageJPEGRepresentation(image,0.6);
+            
+            
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String
+            let localPath = URL(fileURLWithPath: documentDirectory.appendingPathComponent(".jpeg"))
+            try jpegData?.write(to: localPath)
+            
+            let imageData = try Data(contentsOf: localPath )
+            
+            let imageWithData = UIImage(data: imageData)!
+            
+            self.images.append(["URL" : localPath ])
+            
+            self.tableView.reloadData()
+            imagePicker.dismiss(animated: true, completion: nil)
+            
+            
+        }catch{
+            print("ERROR")
+        }
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePicker.ImagePickerController){
+        
     }
 }

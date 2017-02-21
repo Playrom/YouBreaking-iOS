@@ -132,6 +132,10 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
             self.reload()
         }
         
+        alert.addAction(title: "Annulla", style : .cancel , isEnabled : true){
+            action in
+        }
+        
         
         
         self.present(alert, animated: true, completion: nil)
@@ -289,13 +293,8 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
                 
                 break
             case "Select News":
-                print(sender)
-                print(self.tableView.indexPath(for: sender as! NotiziaCell))
                 if let dvc = segue.destination as? SingleNews, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
-                    print(self.model.optionalSubscript(safe: indexPath.row))
-                    dvc.data = self.model.optionalSubscript(safe: indexPath.row)
-                    
-                    
+                    dvc.data = self.model.optionalSubscript(safe: indexPath.row)                    
                 }
             default:
                 break

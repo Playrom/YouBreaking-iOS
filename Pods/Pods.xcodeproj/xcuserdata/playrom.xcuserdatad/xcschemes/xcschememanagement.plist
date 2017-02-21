@@ -24,6 +24,21 @@
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
+		<key>Hue.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>ImagePicker-ImagePicker.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>17</integer>
+		</dict>
+		<key>ImagePicker.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>JSONWebToken.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -38,6 +53,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>9</integer>
+		</dict>
+		<key>Lightbox.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
 		</dict>
 		<key>LocationPickerViewController.xcscheme</key>
 		<dict>
@@ -67,6 +87,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>09A62655F66AE53A474D64E42E6E9DF9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>174603626A37428C91AC20629AD4692F</key>
 		<dict>
 			<key>primary</key>
@@ -78,6 +103,21 @@
 			<true/>
 		</dict>
 		<key>26A30E5FBC4FC2846394DDAA60066B70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37B66AF5870FA3E1022722ECFA09EB7C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37D7BCEEFE99D27296B40857FB63A04C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3BFF9F651824EF6D7159B996DAA71D25</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,6 +192,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9DC2CFF6112B1AE4572C624516CE5B62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9EC6FA87CD6A655F8F1DF8513E824B82</key>
 		<dict>
 			<key>primary</key>
@@ -172,6 +217,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B2542602E50EDF091ADB18B4688DF34F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B2C3BFCE853F6D70BD94AD23B49E7914</key>
 		<dict>
 			<key>primary</key>
@@ -182,12 +232,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BB929D4D3807F6086567AE6516EF9D70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C02B9B175DD8101C5CD7F991A0712B47</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>D4683E1B0396191D5D5AE953550D3D8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D8BD48AF349B008B82EC847B89E992C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -203,6 +263,16 @@
 			<true/>
 		</dict>
 		<key>EEBFD29AC54F98956DB06E64BBDBA38A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4C9E426D1E2F6D57091CF39ECBC1BD3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F7F02C0DE2A977BEF9609D582049EE51</key>
 		<dict>
 			<key>primary</key>
 			<true/>

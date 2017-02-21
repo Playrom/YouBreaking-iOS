@@ -8,19 +8,25 @@
 
 import UIKit
 import SwiftyJSON
+import Lightbox
 
-class SingleNews: UITableViewController {
+class SingleNews: UITableViewController  {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var eventLabel: UILabel!
     @IBOutlet weak var bodyLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     
+    @IBOutlet weak var imageView: UIImageView!
+    
     var data : JSON?
+    var coms = ModelNotizie()
     
     func reload() {
         titleLabel.text = data?["title"].string
         titleLabel.textColor = Colors.red
+        
+        self.title = data?["title"].string
         
         if let nameEvento = data?["evento"]["nome"].string{
             eventLabel.text = nameEvento
@@ -36,6 +42,53 @@ class SingleNews: UITableViewController {
                 
         scoreLabel.text = data?["score"].intValue.description
         
+        var comps = [String : String]()
+        
+        if let aggiuntivi = data?["aggiuntivi"].array{
+            _ = aggiuntivi.map{
+                if let temp =  $0.dictionary , let tipo = temp["tipo"]?.string{
+                    comps[tipo] = temp["valore"]!.stringValue
+                }
+            }
+            print(aggiuntivi)
+            print(comps)
+            
+            if comps["PHOTO"] != nil{
+                
+                coms.getPhoto(photo: comps["PHOTO"]!){
+                    image in
+                    self.imageView.image = image
+                    self.imageView.setNeedsLayout()
+                    self.imageView.layoutSubviews()
+                    //self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)] , with: .none )
+                    self.tableView.reloadSections(IndexSet.init(integer: 0) , with: .none)
+                    self.imageView.setNeedsLayout()
+                    self.imageView.layoutSubviews()
+                    self.tableView.reloadData()
+                    
+                }
+            }
+            
+            /*var posto = [comps["LOCATION_LOCALITY"],comps["LOCATION_COUNTRY"]]
+             
+             locationButton.setTitle(
+             [
+             comps["LOCATION_NAME"],
+             posto.flatMap{$0}.joined(separator: ", ")
+             
+             ].flatMap{$0}.joined(separator: " - "),
+             for : UIControlState.normal
+             )
+             
+             if ( locationButton.currentTitle == nil || locationButton.currentTitle == ""){
+             locationButton.isHidden = true
+             }else{
+             locationButton.isHidden = false
+             }*/
+            
+        }
+
+        
         self.tableView.reloadData()
     }
     
@@ -44,11 +97,40 @@ class SingleNews: UITableViewController {
         self.tableView.allowsSelection = false;
         reload()
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SingleNews.displayImage))
+        tapGesture.numberOfTapsRequired = 1
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func displayImage(){
+        // Create an array of images.
+        if let image = self.imageView.image{
+            let testo = data?["title"].string != nil ? data!["title"].string! : ""
+            
+            let images = [
+                LightboxImage(
+                    image: image,
+                    text: testo
+                )
+            ]
+            
+            // Create an instance of LightboxController.
+            let controller = LightboxController(images: images)
+            
+            
+            // Use dynamic background.
+            controller.dynamicBackground = true
+            
+            // Present your controller.
+            present(controller, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,7 +147,7 @@ class SingleNews: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
 
     
@@ -82,6 +164,12 @@ class SingleNews: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let image = self.imageView.image , indexPath.row == 0{
+            let aspect = (image.size.width / image.size.height)
+            return  ( self.view.size.width / aspect )
+        }else if ( indexPath.row == 0 ){
+            return 0
+        }
         return UITableViewAutomaticDimension
     }
     
@@ -135,4 +223,10 @@ class SingleNews: UITableViewController {
     }
     */
 
+}
+
+extension LightboxController{
+    open override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
 }

@@ -44,6 +44,7 @@ class NotiziaCell: UITableViewCell {
         currentVote = Voto.NO
         mainImageView.isHidden = true
         distanceView.isHidden = false
+        mainImage.image = nil
     }
     
     override func layoutSubviews() {

@@ -13,9 +13,13 @@ PODS:
   - GooglePlaces (2.1.1):
     - GoogleMaps/Base (= 2.1.1)
   - HanekeSwift (0.10.1)
+  - Hue (2.0.1)
+  - ImagePicker (2.0.0)
   - JWTDecode (2.0.0)
   - Koloda (4.0):
     - pop (~> 1.0)
+  - Lightbox (1.0.0):
+    - Hue
   - LocationPickerViewController (3.0.0)
   - pop (1.0.9)
   - SwifterSwift (1.5)
@@ -28,8 +32,10 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-3`)
+  - ImagePicker
   - JWTDecode
   - Koloda (~> 4.0)
+  - Lightbox
   - LocationPickerViewController
   - SwifterSwift
   - SwiftyJSON
@@ -51,13 +57,16 @@ SPEC CHECKSUMS:
   GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
   GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
+  Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
+  ImagePicker: 81175d36c2852cb543cb4f5d6c19e28f3e8d90eb
   JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
   Koloda: cb171633afc6182a77821b7951e38b2cb272ba7c
+  Lightbox: 13f55a0a840f7945dc5ac87931564e7fe569fca9
   LocationPickerViewController: ee898cc76d9a06083b398c59e67d3c16aa298636
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SwifterSwift: c612befa8e51b4092d3b41e88cd93f52d0624d9f
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: b1ea499b922d5e56d55b3f844290eb8f839e22f9
+PODFILE CHECKSUM: 5fd02e508700a1d7994d68b4cfab5c3e72fa4467
 
 COCOAPODS: 1.2.0

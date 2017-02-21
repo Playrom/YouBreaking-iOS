@@ -18,6 +18,8 @@ target 'YouBreaking' do
     pod 'AlamofireImage'
     pod 'SwifterSwift'
     pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-3'
+    pod 'Lightbox'
+    pod 'ImagePicker'
   # Pods for YouBreaking
 
 end

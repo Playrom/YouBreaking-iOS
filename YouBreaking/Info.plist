@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>243</string>
+	<string>300</string>
 	<key>FacebookAppID</key>
 	<string>1837423216500436</string>
 	<key>FacebookDisplayName</key>
@@ -40,6 +40,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Vuoi autorizzare You Breaking ad accedere alla tua camera?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Vuoi autorizzarci?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
