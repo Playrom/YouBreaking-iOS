@@ -44,6 +44,18 @@ class LoginUtils {
         return nil
     }
     
+    var headers : [String : String]{
+        if let token = token{
+            
+            return [
+                "Authorization": "JWT " + token ,
+                "Accept": "application/json"
+            ]
+        }
+        
+        return [String:String]()
+    }
+    
     var id : String?{
         if let id = user?["id"] as? String{
             return id
@@ -61,17 +73,6 @@ class LoginUtils {
             }else{
                 UserDefaults.standard.removeObject(forKey: "token")
             }
-            
-            var defaultHeaders = Alamofire.SessionManager.defaultHTTPHeaders
-            
-            if let token = newValue {
-                defaultHeaders["Authorization"] = "JWT " + token
-            }
-                        
-            let configuration = URLSessionConfiguration.default
-            configuration.httpAdditionalHeaders = defaultHeaders
-            
-            session = Alamofire.SessionManager(configuration: configuration)
             
         }
     }

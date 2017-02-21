@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B2C3BFCE853F6D70BD94AD23B49E7914'
-               BlueprintName = 'SwiftyJSON'
+               BlueprintIdentifier = 'AE4759774042D8E013517E82C6F7A058'
+               BlueprintName = 'HanekeSwift'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SwiftyJSON.framework'>
+               BuildableName = 'HanekeSwift.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

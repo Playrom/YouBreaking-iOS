@@ -27,7 +27,7 @@ class EventPageController: NotizieController {
                 coms.page = 1
             }
             
-            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "false"]
+            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "true"]
             
             if let location = location, self.sortOrder == .Location{
                 query["latitude"] = location.0
@@ -57,7 +57,7 @@ class EventPageController: NotizieController {
         if let eventId = eventId  {
             coms.page = coms.page + 1
             
-            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "false"]
+            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "true"]
             
             if let location = location, self.sortOrder == .Location{
                 query["latitude"] = location.0
@@ -75,11 +75,12 @@ class EventPageController: NotizieController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaEventCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
         
         if let contenuto = model.optionalSubscript(safe: indexPath.row){
             cell.model = contenuto
             cell.delegate = self
+            cell.topicButton.isHidden = true
         }
         
         cell.setNeedsLayout()

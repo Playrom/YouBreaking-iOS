@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>HanekeSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>JSONWebToken.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -73,6 +78,11 @@
 			<true/>
 		</dict>
 		<key>26A30E5FBC4FC2846394DDAA60066B70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>44B338B50325E4312FA59467DEBB25D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -153,6 +163,21 @@
 			<true/>
 		</dict>
 		<key>A3ECC6FDD6CFE11A4DAEEF00CC929A01</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE4759774042D8E013517E82C6F7A058</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B2C3BFCE853F6D70BD94AD23B49E7914</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA0F93116009F2409913A8CCADD9FF09</key>
 		<dict>
 			<key>primary</key>
 			<true/>

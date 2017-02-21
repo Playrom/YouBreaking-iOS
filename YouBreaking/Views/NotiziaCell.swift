@@ -18,6 +18,12 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var imageDown: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
     
+    @IBOutlet weak var mainImageView: UIView!
+    @IBOutlet weak var mainImage: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var distanceView: UIView!
+    
     var model : JSON?
     var coms = ModelNotizie()
     
@@ -25,6 +31,8 @@ class NotiziaCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        mainImageView.isHidden = true
+        distanceView.isHidden = false
         // Initialization code
         
     }
@@ -34,9 +42,14 @@ class NotiziaCell: UITableViewCell {
     override func prepareForReuse() {
         topicButton.isHidden = false
         currentVote = Voto.NO
+        mainImageView.isHidden = true
+        distanceView.isHidden = false
     }
     
     override func layoutSubviews() {
+        
+        mainImageView.backgroundColor = Colors.lightGray
+        
         if let model = model{
             testo.text = model["text"].string
             testo.textAlignment = .justified
@@ -59,6 +72,18 @@ class NotiziaCell: UITableViewCell {
                 _ = aggiuntivi.map{
                     if let temp =  $0.dictionary , let tipo = temp["tipo"]?.string{
                         comps[tipo] = temp["valore"]!.stringValue
+                    }
+                }
+                
+                if comps["PHOTO"] != nil{
+                    self.mainImageView.isHidden = false
+                    self.distanceView.isHidden = true
+                    self.activityIndicator.startAnimating()
+                                        
+                    coms.getPhoto(photo: comps["PHOTO"]!){
+                        image in
+                        self.mainImage.image = image
+                        self.activityIndicator.stopAnimating()
                     }
                 }
                 
@@ -172,13 +197,17 @@ class NotiziaCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        if let id = self.model?["id"].string , selected == true{
+            self.delegate?.performSegueToSingle(id: id, sender: self)
+        }
     }
-
+    
+    
 }
 
 protocol NotiziaCellDelegate{
     func vote(voto : Voto, sender : NotiziaCell)
     func performSegueToEvent(eventId : String, sender : NotiziaCell)
+    func performSegueToSingle(id : String, sender : NotiziaCell)
 }

@@ -17,6 +17,7 @@ target 'YouBreaking' do
     pod 'Koloda', '~> 4.0'
     pod 'AlamofireImage'
     pod 'SwifterSwift'
+    pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-3'
   # Pods for YouBreaking
 
 end

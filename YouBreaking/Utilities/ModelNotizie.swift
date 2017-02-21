@@ -13,6 +13,7 @@ import AlamofireImage
 
 import SwiftyJSON
 import JWTDecode
+import Haneke
 
 class ModelNotizie {
     
@@ -23,6 +24,12 @@ class ModelNotizie {
     var login : LoginUtils{
         return LoginUtils.sharedInstance
     }
+    
+    var headers: HTTPHeaders {
+        return login.headers
+    }
+    
+    let cache = Shared.dataCache
     
     var page : Int = 1
     var nextPage : Int = 2
@@ -91,8 +98,7 @@ class ModelNotizie {
             self.page = self.totalPages
             return
         }
-        
-        session.request( baseUrl + "/api/news?live=false&page=\(page)&pageSize=\(pageSize)", method: .get).responseJSON{
+        session.request( baseUrl + "/api/news?live=false&page=\(page)&pageSize=\(pageSize)", method: .get,  headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -130,7 +136,7 @@ class ModelNotizie {
         print(url)
         
         
-        session.request( url, method: .get).responseJSON{
+        session.request( url, method: .get,  headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -152,7 +158,7 @@ class ModelNotizie {
     
     func postNews(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
                         
             if let data = response.data {
@@ -174,7 +180,7 @@ class ModelNotizie {
             "voto" : voto.rawValue
         ]
         
-        session.request( baseUrl + "/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -189,7 +195,7 @@ class ModelNotizie {
     
     func getNewsToVote(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
         
-        session.request( baseUrl + "/api/vote", method: .get).responseJSON{
+        session.request( baseUrl + "/api/vote", method: .get, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -205,7 +211,7 @@ class ModelNotizie {
     
     func deleteNews(id : String , handler :  @escaping ( ( _ response : Bool ) -> Void ) ) {
         
-        session.request( baseUrl + "/api/news/\(id)", method: .delete).responseJSON{
+        session.request( baseUrl + "/api/news/\(id)", method: .delete, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -221,7 +227,7 @@ class ModelNotizie {
     
     func promoteNews(id : String , handler :  @escaping ( ( _ response : Bool ) -> Void ) ) {
         
-        session.request( baseUrl + "/api/news/promote/\(id)", method: .put).responseJSON{
+        session.request( baseUrl + "/api/news/promote/\(id)", method: .put, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -241,7 +247,7 @@ class ModelNotizie {
         
         var url =  baseUrl + "/api/events/" + eventId
         
-        session.request(url, method: .get).responseJSON{
+        session.request(url, method: .get, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -266,7 +272,7 @@ class ModelNotizie {
             }
         }
         
-        session.request(url, method: .get).responseJSON{
+        session.request(url, method: .get, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -282,7 +288,7 @@ class ModelNotizie {
     
     func postEvent(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/events", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/events", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -298,7 +304,7 @@ class ModelNotizie {
     
     func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile", method: .get).responseJSON{
+        session.request( baseUrl + "/api/profile", method: .get, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -316,7 +322,7 @@ class ModelNotizie {
                 
         if let id = login.id{
         
-            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
                 response in
                 if let data = response.data {
                     let json = JSON(data).dictionaryValue
@@ -332,7 +338,7 @@ class ModelNotizie {
     
     func getImage(url : String , handler :  @escaping ( (_ : Data?) -> Void ) ) {
         
-        session.request( url , method: .get).responseImage{
+        session.request( url , method: .get, headers: self.headers).responseImage{
             response in
             handler(response.data)
         }
@@ -341,7 +347,7 @@ class ModelNotizie {
     
     func updateUserLocation(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -357,7 +363,7 @@ class ModelNotizie {
     
     func updateUserLocationDistance(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -373,7 +379,7 @@ class ModelNotizie {
     
     func deleteUserLocation(handler :  @escaping ( (_ model : Bool) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile/location", method: .delete).responseJSON{
+        session.request( baseUrl + "/api/profile/location", method: .delete, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -386,6 +392,40 @@ class ModelNotizie {
         }
         
     }
+    
+    
+    func getPhoto(photo : String, handler :  @escaping ( (_ image : UIImage?) -> Void ) ) {
+        
+        DispatchQueue.global(qos: .background).async {
+            
+            // Eventually...
+            
+            self.cache.fetch(key: photo).onSuccess { data in
+                DispatchQueue.main.async {
+                    handler(UIImage(data: data))
+                }
+            }.onFailure{
+                fail in
+                self.session.request(self.baseUrl + "/photos/\(photo)").responseImage{
+                    response in
+                    if let data = response.data{
+                        self.cache.set(value: data, key: photo)
+                        
+                        DispatchQueue.main.async {
+                            
+                            let image = UIImage(data: data)
+                            handler(image)
+                            
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        
+    }
+
 
     
 }

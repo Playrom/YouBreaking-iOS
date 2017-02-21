@@ -203,6 +203,11 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         return cell
     }
     
+    /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = self.tableView(tableView, cellForRowAt: indexPath) as! NotiziaCell
+        performSegue(withIdentifier: "Select News", sender: cell)
+    }*/
+    
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(scrollView.contentOffset.y > ( scrollView.contentSize.height  - 800 ) && !reloading){
@@ -221,6 +226,10 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
     
     func performSegueToEvent(eventId: String , sender : NotiziaCell) {
         performSegue(withIdentifier: "Select Event", sender: sender)
+    }
+    
+    func performSegueToSingle(id: String, sender: NotiziaCell) {
+        performSegue(withIdentifier: "Select News", sender: sender)
     }
     
     
@@ -280,7 +289,10 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
                 
                 break
             case "Select News":
-                if let dvc = segue.destination as? SingleNews, let indexPath = self.tableView.indexPath(for: sender as! UITableViewCell){
+                print(sender)
+                print(self.tableView.indexPath(for: sender as! NotiziaCell))
+                if let dvc = segue.destination as? SingleNews, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
+                    print(self.model.optionalSubscript(safe: indexPath.row))
                     dvc.data = self.model.optionalSubscript(safe: indexPath.row)
                     
                     
