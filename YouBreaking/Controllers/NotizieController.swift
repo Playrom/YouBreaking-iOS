@@ -60,6 +60,8 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
                         
         }
         
+        self.tableView.register(UINib.init(nibName: "NotiziaCell", bundle: Bundle.main), forCellReuseIdentifier: "notizia")
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Ordina", style: .plain, target: self, action: Selector.init(("filtra")))
         self.refreshControl?.addTarget(self, action: Selector.init("refresh:"), for: UIControlEvents.valueChanged)
         

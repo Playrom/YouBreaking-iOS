@@ -10,6 +10,8 @@ import UIKit
 import LocationPickerViewController
 import GooglePlaces
 import SwiftyJSON
+import Photos
+import MobileCoreServices
 
 class ScriviNotiziaController: UITableViewController {
     
@@ -18,12 +20,17 @@ class ScriviNotiziaController: UITableViewController {
     var location : GMSPlace?
     var event : JSON?
     
+    var images = [[String : Any]]()
+    var data = Data()
+    
     @IBOutlet weak var titolo: UITextField!
     @IBOutlet weak var testo: UITextView!
     @IBOutlet weak var linkField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.register(UINib.init(nibName: "SelectPhotoCell", bundle: Bundle.main), forCellReuseIdentifier: "Photo Cell")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -82,15 +89,34 @@ class ScriviNotiziaController: UITableViewController {
             
         }
         
-        if let link = self.linkField.text{
+        if let link = self.linkField.text, link != ""{
             aggiuntivi.append([
                 "tipo" : "LINK",
                 "valore" : link
             ])
         }
         
+        if (self.images.count > 0){
+            
+            let imageManager = PHImageManager.default()
+
+            
+            
+            do{
+                let base64 = try Data(contentsOf: images[0]["URL"] as! URL).base64EncodedString()
+                aggiuntivi.append([
+                "tipo" : "PHOTO",
+                "valore" : base64
+                ])
+            }catch{
+                print("Data Base64 Non Corretta")
+            }
+            
+            
+        }
+        
         parameters["aggiuntivi"] = aggiuntivi
-                
+                        
         coms.postNews(parameters: parameters){
             json in
             let nc = NotificationCenter.default
@@ -108,12 +134,29 @@ class ScriviNotiziaController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.section == 3){
+            PHPhotoLibrary.requestAuthorization{
+                status in
+                if(status == PHAuthorizationStatus.authorized){
+                    self.images = [[String : Any]]()
+                    
+                    let imageController = UIImagePickerController()
+                    imageController.delegate = self
+                    imageController.mediaTypes = [kUTTypeImage as String]
+                    imageController.sourceType = UIImagePickerControllerSourceType.photoLibrary
+                    self.present(imageController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 5
+        return 6
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -125,7 +168,21 @@ class ScriviNotiziaController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-        case 2:
+        case 3:
+            if(self.images.count > 0) , let cell = self.tableView.dequeueReusableCell(withIdentifier: "Photo Cell") as? SelectPhotoCell{
+                
+                cell.fullImageView?.imageFromURL(url: self.images[0]["URL"] as! URL)
+                
+                cell.setNeedsLayout()
+                cell.layoutIfNeeded()
+                cell.layoutSubviews()
+
+                return cell
+            }else{
+                let cell = super.tableView(tableView, cellForRowAt: indexPath)
+                return cell
+            }
+        case 4:
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             
             if let location = location{
@@ -138,7 +195,7 @@ class ScriviNotiziaController: UITableViewController {
                 
             }
             return cell
-        case 3:
+        case 5:
             let cell = super.tableView(tableView, cellForRowAt: indexPath)
             
             if let event = event{
@@ -149,6 +206,22 @@ class ScriviNotiziaController: UITableViewController {
             return super.tableView(tableView, cellForRowAt: indexPath)
         }
     
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 3 && self.images.count > 0){
+            return 180.0
+        }else{
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 3 && self.images.count > 0){
+            return 180.0
+        }else{
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
     
 
@@ -247,6 +320,53 @@ extension ScriviNotiziaController: GMSAutocompleteViewControllerDelegate {
     
 }
 
+extension ScriviNotiziaController : UIImagePickerControllerDelegate , UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let url = info[UIImagePickerControllerReferenceURL] as? URL
+        let im = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        
+        if let url = url, let im = im {
+            
+            var imageAsset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil ).firstObject!
+            
+            var imageManager = PHImageManager.default()
+            imageManager.requestImageData(for: imageAsset, options: nil){
+                data,dataUTI,orientation,dict in
+                
+                do{
+                    
+                    var image = UIImage(data : data!)!
+                    
+                    let jpegData = UIImageJPEGRepresentation(image, 1.0);
+                    
+
+                    let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String
+                    let localPath = URL(fileURLWithPath: documentDirectory.appendingPathComponent(".jpeg"))
+                    try jpegData?.write(to: localPath)
+                    
+                    let imageData = try Data(contentsOf: localPath )
+
+                    let imageWithData = UIImage(data: imageData)!
+                    
+                    self.images.append(["URL" : localPath ])
+                    
+                    self.tableView.reloadData()
+                    picker.dismiss(animated: true, completion: nil)
+            
+
+                }catch{
+                    print("ERROR")
+                }
+            }
+        
+        }
+
+    }
+    
+}
+
 extension Collection where Iterator.Element == GMSAddressComponent {
     var dictionary : [String:String] {
         let elements = self.map{
@@ -261,5 +381,27 @@ extension Collection where Iterator.Element == GMSAddressComponent {
         }
         
         return dict
+    }
+}
+
+extension UIImageView {
+    
+    func imageFromURL(url : URL) {
+        
+        do{
+            let data = try Data.init(contentsOf: url)
+            self.image = UIImage(data: data)
+        }catch{
+            print("URL VUOTO")
+            self.image = nil
+        }
+        
+    }
+}
+
+extension UIImage {
+    func base64String() -> String?{
+        return UIImagePNGRepresentation(self)?.base64EncodedString()
+
     }
 }

@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>140</string>
+	<string>202</string>
 	<key>FacebookAppID</key>
 	<string>1837423216500436</string>
 	<key>FacebookDisplayName</key>
@@ -42,6 +42,8 @@
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Vuoi autorizzarci?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Vuoi autorizzare You Breaking ad accedere alle foto?</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -61,7 +63,7 @@
 	<key>mode</key>
 	<string>development</string>
 	<key>url_development</key>
-	<string>http://192.168.1.8</string>
+	<string>http://192.168.1.3</string>
 	<key>url_production</key>
 	<string>https://youbreaking.giorgioromano.it</string>
 </dict>

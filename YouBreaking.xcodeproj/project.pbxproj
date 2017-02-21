@@ -12,6 +12,7 @@
 		6C14446A1E54CDBE00E1AC5E /* NavigationRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1444691E54CDBE00E1AC5E /* NavigationRed.swift */; };
 		6C14446C1E54CF1100E1AC5E /* NotizieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14446B1E54CF1100E1AC5E /* NotizieController.swift */; };
 		6C14446E1E54DCFD00E1AC5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C14446D1E54DCFD00E1AC5E /* LaunchScreen.storyboard */; };
+		6C2D39171E5C479900097881 /* NotiziaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C2D39151E5C479900097881 /* NotiziaCell.xib */; };
 		6C351B3F1E40D8D40057309C /* LoginUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C351B3E1E40D8D40057309C /* LoginUtils.swift */; };
 		6C351B411E41011A0057309C /* TestingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C351B401E41011A0057309C /* TestingController.swift */; };
 		6C35FE701E487D0000373DC6 /* EventPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C35FE6F1E487D0000373DC6 /* EventPageController.swift */; };
@@ -38,6 +39,8 @@
 		6CD1D5741E3F86AF00C3208D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1D5731E3F86AF00C3208D /* ViewController.swift */; };
 		6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D5781E3F86AF00C3208D /* Assets.xcassets */; };
 		6CE147621E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */; };
+		6CE57A3D1E5B0075003F3EB1 /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE57A3B1E5B0075003F3EB1 /* SelectPhotoCell.swift */; };
+		6CE57A3E1E5B0075003F3EB1 /* SelectPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CE57A3C1E5B0075003F3EB1 /* SelectPhotoCell.xib */; };
 		6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */; };
 		6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -49,6 +52,7 @@
 		6C1444691E54CDBE00E1AC5E /* NavigationRed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationRed.swift; path = Controllers/NavigationRed.swift; sourceTree = "<group>"; };
 		6C14446B1E54CF1100E1AC5E /* NotizieController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotizieController.swift; path = Controllers/NotizieController.swift; sourceTree = "<group>"; };
 		6C14446D1E54DCFD00E1AC5E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Views/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6C2D39151E5C479900097881 /* NotiziaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NotiziaCell.xib; path = Views/NotiziaCell.xib; sourceTree = "<group>"; };
 		6C351B3E1E40D8D40057309C /* LoginUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginUtils.swift; path = Utilities/LoginUtils.swift; sourceTree = "<group>"; };
 		6C351B401E41011A0057309C /* TestingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestingController.swift; path = Controllers/TestingController.swift; sourceTree = "<group>"; };
 		6C35FE6F1E487D0000373DC6 /* EventPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventPageController.swift; path = Controllers/EventPageController.swift; sourceTree = "<group>"; };
@@ -78,6 +82,8 @@
 		6CD1D5781E3F86AF00C3208D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CD1D57D1E3F86AF00C3208D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListaNotizieGiaVotateController.swift; path = Controllers/ListaNotizieGiaVotateController.swift; sourceTree = "<group>"; };
+		6CE57A3B1E5B0075003F3EB1 /* SelectPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectPhotoCell.swift; path = Views/SelectPhotoCell.swift; sourceTree = "<group>"; };
+		6CE57A3C1E5B0075003F3EB1 /* SelectPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectPhotoCell.xib; path = Views/SelectPhotoCell.xib; sourceTree = "<group>"; };
 		6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleNews.swift; path = Controllers/SingleNews.swift; sourceTree = "<group>"; };
 		6CF47D0C1E4CC68600BE5F08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0758A2356D1775863692479 /* Pods-YouBreaking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouBreaking.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouBreaking/Pods-YouBreaking.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 		6C7C927C1E4CA57C00CA0DA7 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				6CE57A3B1E5B0075003F3EB1 /* SelectPhotoCell.swift */,
 				6CA0E7251E44EF930086D9BB /* VoteCard.swift */,
 				6C74C54A1E4333D000CE8107 /* NotiziaCell.swift */,
 				6C35FE711E4887DE00373DC6 /* NotiziaEventCell.swift */,
@@ -145,7 +152,9 @@
 		6C7C927D1E4CA59C00CA0DA7 /* Xib */ = {
 			isa = PBXGroup;
 			children = (
+				6C2D39151E5C479900097881 /* NotiziaCell.xib */,
 				6C14446D1E54DCFD00E1AC5E /* LaunchScreen.storyboard */,
+				6CE57A3C1E5B0075003F3EB1 /* SelectPhotoCell.xib */,
 				6CA0E7271E44EFA50086D9BB /* VoteCard.xib */,
 				6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */,
 				6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */,
@@ -273,8 +282,10 @@
 			files = (
 				6C9F2D3C1E41E89B0002C782 /* Landing.storyboard in Resources */,
 				6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */,
+				6CE57A3E1E5B0075003F3EB1 /* SelectPhotoCell.xib in Resources */,
 				6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */,
 				6C14446E1E54DCFD00E1AC5E /* LaunchScreen.storyboard in Resources */,
+				6C2D39171E5C479900097881 /* NotiziaCell.xib in Resources */,
 				6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */,
 				6C91881C1E48C4FB00FA7311 /* Info_Production.plist in Resources */,
 			);
@@ -353,6 +364,7 @@
 				6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */,
 				6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */,
 				6C351B411E41011A0057309C /* TestingController.swift in Sources */,
+				6CE57A3D1E5B0075003F3EB1 /* SelectPhotoCell.swift in Sources */,
 				6C35FE741E488EC600373DC6 /* SearchEventController.swift in Sources */,
 				6CD1D5741E3F86AF00C3208D /* ViewController.swift in Sources */,
 				6CA0E7221E44EC3E0086D9BB /* VotaController.swift in Sources */,

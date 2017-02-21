@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="SelectPhotoCell" customModule="YouBreaking" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="iZT-AX-5qe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4a-YY-m2t">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="a4a-YY-m2t" firstAttribute="width" secondItem="iZT-AX-5qe" secondAttribute="width" id="0d3-DS-B7q"/>
+                    <constraint firstItem="iZT-AX-5qe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="2HI-SI-3BO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="iZT-AX-5qe" secondAttribute="trailing" constant="-8" id="2no-qV-kfD"/>
+                    <constraint firstItem="a4a-YY-m2t" firstAttribute="centerX" secondItem="iZT-AX-5qe" secondAttribute="centerX" id="3a9-Ww-LRA"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="iZT-AX-5qe" secondAttribute="bottom" constant="-8.5" id="YLZ-b0-DhK"/>
+                    <constraint firstItem="a4a-YY-m2t" firstAttribute="centerY" secondItem="iZT-AX-5qe" secondAttribute="centerY" id="Ycb-uc-8DT"/>
+                    <constraint firstItem="a4a-YY-m2t" firstAttribute="height" secondItem="iZT-AX-5qe" secondAttribute="height" id="oy0-fd-Tb6"/>
+                    <constraint firstItem="iZT-AX-5qe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="yv6-EL-MGX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="fullImageView" destination="iZT-AX-5qe" id="ltC-lT-cL4"/>
+                <outlet property="overlay" destination="a4a-YY-m2t" id="ewc-w3-8si"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="80"/>
+        </tableViewCell>
+    </objects>
+</document>

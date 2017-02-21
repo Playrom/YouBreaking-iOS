@@ -154,6 +154,7 @@ class ModelNotizie {
         
         session.request( baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
             response in
+                        
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
                 if json["error"]?.bool == false , let data = json["data"] {

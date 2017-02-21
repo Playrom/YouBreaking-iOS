@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouBreaking/Utilities/ModelNotizie.swift"
-            timestampString = "509044401.611479"
+            timestampString = "509300264.928497"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "getProfile(handler:)"
             landmarkType = "7">
             <Locations>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouBreaking/Utilities/ModelNotizie.swift"
-            timestampString = "509044401.611479"
+            timestampString = "509300264.928497"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "getProfile(handler:)"
             landmarkType = "7">
             <Locations>
@@ -577,6 +577,86 @@
             endingLineNumber = "160"
             landmarkName = "tableView(_:editActionsForRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouBreaking/Controllers/ScriviNotiziaController.swift"
+            timestampString = "509306444.409952"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouBreaking/Controllers/ScriviNotiziaController.swift"
+            timestampString = "509306444.409952"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YouBreaking/Utilities/ModelNotizie.swift"
+            timestampString = "509300264.928497"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "postNews(parameters:handler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YouBreaking.ModelNotizie.(postNews (parameters : Swift.Dictionary&lt;Swift.String, Any&gt;, handler : (Swift.Optional&lt;SwiftyJSON.JSON&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "YouBreaking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/playrom/Projects/Tesi/YouBreaking/YouBreaking/Utilities/ModelNotizie.swift"
+                  timestampString = "509297600.483862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "876">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YouBreaking.ModelNotizie.(postNews (parameters : Swift.Dictionary&lt;Swift.String, Any&gt;, handler : (Swift.Optional&lt;SwiftyJSON.JSON&gt;) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "YouBreaking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/playrom/Projects/Tesi/YouBreaking/YouBreaking/Utilities/ModelNotizie.swift"
+                  timestampString = "509297600.487174"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "924">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
