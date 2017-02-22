@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
         if let data = userInfo.jsonData() {
             
             if(UIApplication.shared.applicationState == .active){
@@ -68,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     let root = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as! UITabBarController
                     root.selectedIndex = 0
                     
-                    let singleController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! SingleNews
+                    let singleController = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! SingleNews
                     singleController.data = payload["data"]
                     
                     print(root.selectedViewController)
@@ -106,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         utils = LoginUtils.sharedInstance
         if let _ = self.utils.token{
             let parameters = [ "devicetoken" : token ]
-            self.utils.session.request(self.utils.baseUrl + "/api/register/ios", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            self.utils.session.request(self.utils.baseUrl + "/api/register/ios", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers : utils.headers).responseJSON{
                 response in
             }
         }

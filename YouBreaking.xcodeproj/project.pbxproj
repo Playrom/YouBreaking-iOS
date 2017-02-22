@@ -25,6 +25,8 @@
 		6C74C5511E433FEC00CE8107 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */; };
 		6C74C5531E43407500CE8107 /* ScriviNotiziaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */; };
 		6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */; };
+		6C8D99741E5D949700D1C60C /* Single.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C8D99721E5D949700D1C60C /* Single.storyboard */; };
+		6C8D99761E5D950900D1C60C /* Vota.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C8D99751E5D950900D1C60C /* Vota.storyboard */; };
 		6C8E50AA1E4B13040013B8E8 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E50A91E4B13040013B8E8 /* SettingsController.swift */; };
 		6C91881C1E48C4FB00FA7311 /* Info_Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C91881B1E48C4FB00FA7311 /* Info_Production.plist */; };
 		6C97E7611E3F89B8002E57C6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C97E7601E3F89B8002E57C6 /* FBSDKLoginKit.framework */; };
@@ -65,6 +67,8 @@
 		6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/MainTabBarController.swift; sourceTree = "<group>"; };
 		6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScriviNotiziaController.swift; path = Controllers/ScriviNotiziaController.swift; sourceTree = "<group>"; };
 		6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Utilities/Colors.swift; sourceTree = "<group>"; };
+		6C8D99731E5D949700D1C60C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Single.storyboard; sourceTree = "<group>"; };
+		6C8D99751E5D950900D1C60C /* Vota.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Vota.storyboard; sourceTree = "<group>"; };
 		6C8E50A91E4B13040013B8E8 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsController.swift; path = Controllers/SettingsController.swift; sourceTree = "<group>"; };
 		6C91881B1E48C4FB00FA7311 /* Info_Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Production.plist; sourceTree = "<group>"; };
 		6C97E7601E3F89B8002E57C6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				6CA0E7271E44EFA50086D9BB /* VoteCard.xib */,
 				6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */,
 				6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */,
+				6C8D99751E5D950900D1C60C /* Vota.storyboard */,
+				6C8D99721E5D949700D1C60C /* Single.storyboard */,
 			);
 			name = Xib;
 			sourceTree = "<group>";
@@ -278,12 +284,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C9F2D3C1E41E89B0002C782 /* Landing.storyboard in Resources */,
+				6C8D99741E5D949700D1C60C /* Single.storyboard in Resources */,
 				6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */,
 				6CE57A3E1E5B0075003F3EB1 /* SelectPhotoCell.xib in Resources */,
 				6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */,
 				6C14446E1E54DCFD00E1AC5E /* LaunchScreen.storyboard in Resources */,
 				6C2D39171E5C479900097881 /* NotiziaCell.xib in Resources */,
 				6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */,
+				6C8D99761E5D950900D1C60C /* Vota.storyboard in Resources */,
 				6C91881C1E48C4FB00FA7311 /* Info_Production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +393,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		6C8D99721E5D949700D1C60C /* Single.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C8D99731E5D949700D1C60C /* Base */,
+			);
+			name = Single.storyboard;
+			sourceTree = "<group>";
+		};
 		6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
