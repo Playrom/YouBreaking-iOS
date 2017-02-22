@@ -8,17 +8,20 @@
 
 import UIKit
 import SwiftyJSON
-import GooglePlaces
+import MapKit
+import CoreLocation
 
 class SettingsController: UITableViewController {
     
-    var place : GMSPlace?
+    var place : MKPlacemark?
     
     var editingData : Bool = false
         
     var data : JSON?
     
     var coms = ModelNotizie()
+    let locationManager = CLLocationManager()
+    let geocoder = CLGeocoder()
     
     var selectedRow : Int?
     var locationType = NotificationLocation.None
@@ -81,7 +84,7 @@ class SettingsController: UITableViewController {
         activityIndicator.startAnimating()
         
         if let imageUrl = data?["picture"].string{
-            print(imageUrl)
+
             coms.getImage(url: imageUrl){
                 responseData in
                 if let responseData = responseData{
@@ -101,14 +104,31 @@ class SettingsController: UITableViewController {
                 let temp = NotificationLocation(rawValue: type)
                 
                 self.locationType = temp != nil ? temp! : .None
+                                
+                if(self.locationType == .Gps){
+                    self.locationManager.startUpdatingLocation()
+                }
                 
-                if let placeId = location["place_id"].string{
-                    GMSPlacesClient().lookUpPlaceID(placeId){
-                        (place,err) in
-                        self.place = place
-                        self.tableView.reloadData()
+                if(self.locationType == .Place){
+                    let latitude = Double(location["latitude"].stringValue)
+                    let longitude = Double(location["longitude"].stringValue)
+                    
+                    
+                    if let latitude = latitude , let longitude = longitude{
+                        let location = CLLocation(latitude: latitude, longitude: longitude)
+                        geocoder.reverseGeocodeLocation(location){
+                            place, error in
+
+                            if let place = place?.first{
+                                self.place = MKPlacemark(placemark: place)
+                                self.tableView.reloadData()
+                            }
+                            
+                        }
                     }
                 }
+                
+                // OTTENERE VALORI
                 
                 selectedRow = 1
                 
@@ -147,6 +167,10 @@ class SettingsController: UITableViewController {
         
         self.image.contentMode   = .scaleAspectFill
         self.image.clipsToBounds = true
+        
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         reload()
         
@@ -232,7 +256,7 @@ class SettingsController: UITableViewController {
         
         if(indexPath.section == 1 && indexPath.row == 0){
             if let location = self.place{
-                cell.textLabel?.text = "Localizzazione : " + location.addressComponents!.dictionary["locality"]!
+                cell.textLabel?.text = "Localizzazione : " + location.name! + " , " + location.contextString!
             }else{
                 cell.textLabel?.text = "Localizzazione : Non Attivata"
             }
@@ -311,9 +335,40 @@ extension SettingsController : SelectLocationSettingsControllerDelegate{
         self.tableView.reloadData()
     }
     
-    internal func updateLocation(place: GMSPlace?) {
+    internal func updateLocation(place: MKPlacemark?) {
         self.place = place
         self.tableView.reloadData()
     }
 
+}
+
+extension SettingsController : CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        
+        if let location = locations.first {
+
+            geocoder.reverseGeocodeLocation(location){
+                place, error in
+                if let place = place?.first{
+                    self.place = MKPlacemark(placemark: place)
+                    
+                    let parameters : [String : Any] = [
+                        "latitude" : self.place!.coordinate.latitude,
+                        "longitude" : self.place!.coordinate.longitude,
+                        "name" : self.place!.name!,
+                        "country" : self.place!.country!,
+                        "type" : "Gps"
+                    ]
+                    
+                    self.coms.updateUserLocation(parameters: parameters){
+                        response in
+                        self.reload()
+                    }
+                    
+                }
+                
+            }
+        }
+    }
 }

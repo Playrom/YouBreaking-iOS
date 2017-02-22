@@ -10,9 +10,10 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKShareKit
 import FBSDKLoginKit
-import GooglePlaces
 import Alamofire
 import SwiftyJSON
+import CoreLocation
+import MapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate {
@@ -20,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var window: UIWindow?
     
     var utils  = LoginUtils.sharedInstance
-    private var googleclient : GMSPlacesClient?
     private let locationManager = CLLocationManager()
+    private let geocoder = CLGeocoder()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -29,13 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
          _ = FBSDKLoginButton()
         
         self.window?.tintColor = Colors.red
-
-        GMSPlacesClient.provideAPIKey("AIzaSyCdNUs-6DJkI79h-lMRPtyj7V_h4AMybCU")
-        googleclient = GMSPlacesClient()
         
-        self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
-        
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         LoginUtils.sharedInstance.loginWithFacebookToken{
                         
@@ -143,31 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             json in
 
             if let location = json?["location"], location["type"].stringValue == "Gps"{
-                
-                self.googleclient?.currentPlace{
-                    (placeLikelihoodList, error)  in
-                    if let error = error {
-                        print("Pick Place error: \(error)")
-                        return
-                    }
-                    
-                    if let placeLike = placeLikelihoodList?.likelihoods.optionalSubscript(safe: 0){
-                        var location = placeLike.place
-                        
-                        let parameters : [String : Any] = [
-                            "latitude" : location.coordinate.latitude,
-                            "longitude" : location.coordinate.longitude,
-                            "place_id" : location.placeID,
-                            "country" : location.addressComponents!.dictionary["country"] as Any,
-                            "type" : "Gps"
-                        ]
-                        
-                        self.utils.updateUserLocation(parameters: parameters){
-                            response in
-                        }
-                        
-                    }
-                }
+                self.locationManager.startUpdatingLocation()
             }
         }
         
@@ -175,6 +149,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        if let location = locations.first{
+            
+            geocoder.reverseGeocodeLocation(location){
+                place, error in
+                if let place = place?.first{
+                    let mk = MKPlacemark(placemark: place)
+                    
+                    let parameters : [String : Any] = [
+                        "latitude" : mk.coordinate.latitude,
+                        "longitude" : mk.coordinate.longitude,
+                        "name" : mk.name!,
+                        "country" : mk.country!,
+                        "type" : "Gps"
+                    ]
+
+                    self.utils.updateUserLocation(parameters: parameters){
+                        response in
+                    }
+                    
+                }
+                
+            }
+            
+        }
     }
 
 

@@ -76,8 +76,8 @@ extension Data : DataConvertible, DataRepresentable {
     
 }
 
-public enum JSONHaneke : DataConvertible, DataRepresentable {
-    public typealias Result = JSONHaneke
+public enum HanekeJSON : DataConvertible, DataRepresentable {
+    public typealias Result = HanekeJSON
     
     case Dictionary([String:AnyObject])
     case Array([AnyObject])
@@ -87,14 +87,14 @@ public enum JSONHaneke : DataConvertible, DataRepresentable {
             let object : Any = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions())
             switch (object) {
             case let dictionary as [String:AnyObject]:
-                return JSONHaneke.Dictionary(dictionary)
+                return HanekeJSON.Dictionary(dictionary)
             case let array as [AnyObject]:
-                return JSONHaneke.Array(array)
+                return HanekeJSON.Array(array)
             default:
                 return nil
             }
         } catch {
-            Log.error(message: "Invalid JSON data", error: error)
+            Log.error(message: "Invalid HanekeJSON data", error: error)
             return nil
         }
     }

@@ -42,13 +42,13 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="235" height="56"/>
                                                             <subviews>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Nome Cognome" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G7G-V3-BZu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="55"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="56"/>
                                                                     <nil key="textColor"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nrA-7h-rzp">
-                                                                    <rect key="frame" x="0.0" y="55" width="235" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="56" width="235" height="0.0"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="Emn-lw-6KQ"/>
@@ -60,13 +60,13 @@
                                                             <rect key="frame" x="0.0" y="60" width="235" height="56"/>
                                                             <subviews>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="email@email.it" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FXW-KT-5rI">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="55"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="235" height="56"/>
                                                                     <nil key="textColor"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xg0-Wc-vNm">
-                                                                    <rect key="frame" x="0.0" y="55" width="235" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="56" width="235" height="0.0"/>
                                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="zx6-1N-wMw"/>
@@ -294,7 +294,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="v2f-6y-TUh" kind="showDetail" identifier="Pick Location" id="QSi-lC-H1J"/>
+                                            <segue destination="iWl-KK-ztN" kind="show" identifier="Pick Location" id="q5k-KO-WCu"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -504,7 +504,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="9qZ-ep-Lb9" kind="show" identifier="Pick Location" id="ciD-TA-Ug2"/>
+                                            <segue destination="VsL-8w-sVq" kind="show" identifier="Pick Location" id="ciD-TA-Ug2"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -560,28 +560,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNJ-qa-auP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2895" y="805"/>
-        </scene>
-        <!--Autocomplete View Controller-->
-        <scene sceneID="Br9-vH-J9y">
-            <objects>
-                <viewController id="9qZ-ep-Lb9" customClass="GMSAutocompleteViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9Bv-BT-ocq"/>
-                        <viewControllerLayoutGuide type="bottom" id="BYy-Ul-8xN"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Efq-7u-Bbn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="QHV-u3-veX" kind="unwind" identifier="return to creation" unwindAction="unwindToCreationVcWithSegue:" id="CsO-in-MKl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l90-6O-4iP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="QHV-u3-veX" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="3354" y="1567"/>
         </scene>
         <!--Search Event Controller-->
         <scene sceneID="47T-7e-Ewg">
@@ -640,7 +618,7 @@
             <objects>
                 <navigationController storyboardIdentifier="Navigation Scrivi Notizia Controller" id="Tfp-pK-ji8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Scrivi" image="Add Icon" selectedImage="Add Icon" id="3HZ-EV-3kr"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RC7-X6-RH3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RC7-X6-RH3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -657,7 +635,7 @@
             <objects>
                 <navigationController id="jQY-lu-2kr" customClass="NavigationRed" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="News" image="News Icon" selectedImage="News Icon" id="k7S-RV-dW8"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YWJ-Gq-o3L">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YWJ-Gq-o3L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -688,28 +666,6 @@
             </objects>
             <point key="canvasLocation" x="918" y="40"/>
         </scene>
-        <!--Autocomplete View Controller-->
-        <scene sceneID="vuX-se-dbe">
-            <objects>
-                <viewController id="v2f-6y-TUh" customClass="GMSAutocompleteViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Lno-58-OG7"/>
-                        <viewControllerLayoutGuide type="bottom" id="uTf-EG-ywl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="HNU-If-cqH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="xhC-dV-DV3" kind="unwind" identifier="return to creation" unwindAction="unwindToCreationVcWithSegue:" id="Q79-KZ-wr8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NCL-1b-ukU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="xhC-dV-DV3" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="5300" y="-300"/>
-        </scene>
         <!--Single News Controller-->
         <scene sceneID="HMT-sa-obA">
             <objects>
@@ -735,6 +691,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AS3-0T-2qQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="917" y="583"/>
+        </scene>
+        <!--Map Location Picker-->
+        <scene sceneID="BA1-yx-Am8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="LocationPicker" referencedIdentifier="Map Location Picker" id="VsL-8w-sVq" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6BE-6T-3G3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3177" y="1279"/>
+        </scene>
+        <!--Map Location Picker-->
+        <scene sceneID="9gQ-ci-OdG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="LocationPicker" referencedIdentifier="Map Location Picker" id="iWl-KK-ztN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tNj-LX-IVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5264" y="-300"/>
         </scene>
     </scenes>
     <resources>

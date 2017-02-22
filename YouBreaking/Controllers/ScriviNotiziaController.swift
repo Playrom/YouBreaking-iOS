@@ -7,18 +7,17 @@
 //
 
 import UIKit
-import LocationPickerViewController
-import GooglePlaces
 import SwiftyJSON
 import Photos
 import MobileCoreServices
 import ImagePicker
+import MapKit
 
 class ScriviNotiziaController: UITableViewController {
     
     var coms = ModelNotizie()
     
-    var location : GMSPlace?
+    var location : MKPlacemark?
     var event : JSON?
     
     var images = [[String : Any]]()
@@ -54,29 +53,33 @@ class ScriviNotiziaController: UITableViewController {
         var aggiuntivi = [[String:Any]]()
         
         if let location = location {
-            if let locality = location.addressComponents?.dictionary["locality"]{
+            if let locality = location.locality{
                 aggiuntivi.append([
                     "tipo" : "LOCATION_LOCALITY",
                     "valore" : locality
                 ])
             }
             
-            if let locality = location.addressComponents?.dictionary["country"]{
+            if let locality = location.country{
                 aggiuntivi.append([
                     "tipo" : "LOCATION_COUNTRY",
                     "valore" : locality
                 ])
             }
             
-            aggiuntivi.append([
+            /*aggiuntivi.append([
                 "tipo" : "LOCATION_ID",
                 "valore" : location.placeID
-            ])
+            ])*/
             
-            aggiuntivi.append([
-                "tipo" : "LOCATION_NAME",
-                "valore" : location.name
-            ])
+            if let name = location.name{
+            
+                aggiuntivi.append([
+                    "tipo" : "LOCATION_NAME",
+                    "valore" : location.name
+                ])
+            
+            }
             
             aggiuntivi.append([
                 "tipo" : "LOCATION_LATITUDE",
@@ -194,11 +197,7 @@ class ScriviNotiziaController: UITableViewController {
             
             if let location = location{
                 cell.textLabel?.text = location.name
-                
-                cell.detailTextLabel?.text = [
-                    location.addressComponents?.dictionary["locality"],
-                    location.addressComponents?.dictionary["country"]
-                    ].flatMap{$0}.joined(separator: ", ")
+                cell.detailTextLabel?.text = location.contextString
                 
             }
             return cell
@@ -279,7 +278,7 @@ class ScriviNotiziaController: UITableViewController {
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "Pick Location" {
-            if let locationPicker = segue.destination as? GMSAutocompleteViewController{
+            if let locationPicker = segue.destination as? MapSearchLocationController{
                 locationPicker.delegate = self
             }
         }
@@ -296,36 +295,6 @@ class ScriviNotiziaController: UITableViewController {
 
 }
 
-
-extension ScriviNotiziaController: GMSAutocompleteViewControllerDelegate {
-    
-    // Handle the user's selection.
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        self.location = place
-        self.tableView.reloadData()
-        viewController.performSegue(withIdentifier: "return to creation", sender: viewController)
-    }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
-    }
-    
-    // User canceled the operation.
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
-    
-}
 
 extension ScriviNotiziaController : UIImagePickerControllerDelegate , UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -372,23 +341,6 @@ extension ScriviNotiziaController : UIImagePickerControllerDelegate , UINavigati
 
     }
     
-}
-
-extension Collection where Iterator.Element == GMSAddressComponent {
-    var dictionary : [String:String] {
-        let elements = self.map{
-            val in
-            return (val.type , val.name)
-        }
-        
-        var dict = [String:String]()
-        
-        for (key, value) in elements {
-            dict[key] = value
-        }
-        
-        return dict
-    }
 }
 
 extension UIImageView {
@@ -450,5 +402,12 @@ extension ScriviNotiziaController : ImagePickerDelegate{
     
     func cancelButtonDidPress(_ imagePicker: ImagePicker.ImagePickerController){
         
+    }
+}
+
+extension ScriviNotiziaController : SelectLocation{
+    func selectLocation(location: MKPlacemark) {
+        self.location = location
+        self.tableView.reloadData()
     }
 }

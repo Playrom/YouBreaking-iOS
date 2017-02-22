@@ -40,10 +40,10 @@ public struct Shared {
         return Static.cache
     }
     
-    public static var JSONCache : Cache<JSONHaneke> {
+    public static var JSONCache : Cache<HanekeJSON> {
         struct Static {
             static let name = "shared-json"
-            static let cache = Cache<JSONHaneke>(name: name)
+            static let cache = Cache<HanekeJSON>(name: name)
         }
         return Static.cache
     }

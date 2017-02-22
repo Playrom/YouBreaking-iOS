@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import GooglePlaces
 import CoreLocation
+import MapKit
 
 enum NotificationLocation : String{
-    case Gps = "GPS"
+    case Gps = "Gps"
     case Place = "Place"
     case None = "None"
 }
@@ -19,10 +19,10 @@ enum NotificationLocation : String{
 class SelectLocationSettingsController: UITableViewController, CLLocationManagerDelegate {
     
     var coms = ModelNotizie()
-    var location : GMSPlace?
+    var location : MKPlacemark?
     private let locationManager = CLLocationManager()
+    private let geocoder = CLGeocoder()
     var delegate : SelectLocationSettingsControllerDelegate?
-    private let googleclient = GMSPlacesClient()
     
     var selectionType = NotificationLocation.None{
         didSet{
@@ -42,33 +42,7 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
                 self.tableView(tableView, cellForRowAt: IndexPath(row: 1, section: 0 ) ).accessoryType = .checkmark
                 self.tableView(tableView, cellForRowAt: IndexPath(row: 2, section: 0 ) ).accessoryType = .disclosureIndicator
                 
-                
-                self.googleclient.currentPlace{
-                    (placeLikelihoodList, error)  in
-                    if let error = error {
-                        print("Pick Place error: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    if let placeLike = placeLikelihoodList?.likelihoods.optionalSubscript(safe: 0){
-                        self.location = placeLike.place
-
-                        let parameters : [String : Any] = [
-                            "latitude" : self.location!.coordinate.latitude,
-                            "longitude" : self.location!.coordinate.longitude,
-                            "place_id" : self.location!.placeID,
-                            "country" : self.location!.addressComponents!.dictionary["country"] as Any,
-                            "type" : "Gps"
-                        ]
-                        
-                        self.coms.updateUserLocation(parameters: parameters){
-                            response in
-                            self.delegate?.updateLocation(place: self.location!)
-                            self.delegate?.updateSelectionType(type: .Gps)
-                        }
-                        
-                    }
-                }
+                self.locationManager.startUpdatingLocation()
                 
                 break
                 
@@ -80,8 +54,8 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
                 let parameters : [String : Any] = [
                     "latitude" : location!.coordinate.latitude,
                     "longitude" : location!.coordinate.longitude,
-                    "place_id" : location!.placeID,
-                    "country" : location!.addressComponents!.dictionary["country"] as Any,
+                    "name" : location!.name!,
+                    "country" : location!.country!,
                     "type" : "Place"
                 ]
                 
@@ -99,6 +73,8 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -129,18 +105,10 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if(indexPath.row == 2){
-            
             if let location = location{
                 cell.textLabel?.text = location.name
-                
-                cell.detailTextLabel?.text = [
-                    location.addressComponents?.dictionary["locality"],
-                    location.addressComponents?.dictionary["country"]
-                    ].flatMap{$0}.joined(separator: ", ")
-                
+                cell.detailTextLabel?.text = location.contextString
             }
-            return cell
-
         }
 
         // Configure the cell...
@@ -148,49 +116,13 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "Pick Location" {
-            if let locationPicker = segue.destination as? GMSAutocompleteViewController{
+            if let locationPicker = segue.destination as? MapSearchLocationController{
                 locationPicker.delegate = self
             }
         }
@@ -217,46 +149,46 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        if let location = locations.first {
+            geocoder.reverseGeocodeLocation(location){
+                place, error in
+                if let place = place?.first{
+                    self.location = MKPlacemark(placemark: place)
+                    
+                    let parameters : [String : Any] = [
+                        "latitude" : self.location!.coordinate.latitude,
+                        "longitude" : self.location!.coordinate.longitude,
+                        "name" : self.location!.name!,
+                        "country" : self.location!.country!,
+                        "type" : "Gps"
+                    ]
+                    
+                    self.coms.updateUserLocation(parameters: parameters){
+                        response in
+                        self.delegate?.updateLocation(place: self.location)
+                        self.delegate?.updateSelectionType(type: .Gps)
+                    }
+                    
+                }
+                
+            }
+        }
+    }
 
 }
 
-
-extension SelectLocationSettingsController: GMSAutocompleteViewControllerDelegate {
-    
-    // Handle the user's selection.
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        self.location = place
+extension SelectLocationSettingsController : SelectLocation{
+    func selectLocation(location: MKPlacemark) {
+        self.location = location
         self.selectionType = .Place
-        
-        
-        
-        
         self.tableView.reloadData()
-        viewController.dismiss(animated: true, completion: nil)
     }
-    
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
-    }
-    
-    // User canceled the operation.
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
-    
 }
 
 protocol SelectLocationSettingsControllerDelegate {
-    func updateLocation(place : GMSPlace?)
+    func updateLocation(place : MKPlacemark?)
     func updateSelectionType( type : NotificationLocation)
 }

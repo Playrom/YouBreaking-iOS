@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map Search Location Controller-->
+        <scene sceneID="Br9-vH-J9y">
+            <objects>
+                <viewController storyboardIdentifier="Map Location Picker" id="9qZ-ep-Lb9" customClass="MapSearchLocationController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Bv-BT-ocq"/>
+                        <viewControllerLayoutGuide type="bottom" id="BYy-Ul-8xN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Efq-7u-Bbn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t76-iP-WWr">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="t76-iP-WWr" firstAttribute="leading" secondItem="Efq-7u-Bbn" secondAttribute="leadingMargin" constant="-16" id="Fw5-cL-T0N"/>
+                            <constraint firstItem="t76-iP-WWr" firstAttribute="top" secondItem="9Bv-BT-ocq" secondAttribute="bottom" id="JIW-SC-zBT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="t76-iP-WWr" secondAttribute="trailing" constant="-16" id="cfi-U0-ZMc"/>
+                            <constraint firstItem="BYy-Ul-8xN" firstAttribute="top" secondItem="t76-iP-WWr" secondAttribute="bottom" id="p33-OD-PTg"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="t76-iP-WWr" id="Ae6-2e-1fi"/>
+                        <segue destination="QHV-u3-veX" kind="unwind" identifier="return to creation" unwindAction="unwindToCreationVcWithSegue:" id="CsO-in-MKl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l90-6O-4iP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QHV-u3-veX" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3352.8000000000002" y="1566.5667166416792"/>
+        </scene>
+        <!--Location Search Table-->
+        <scene sceneID="RWm-89-26I">
+            <objects>
+                <tableViewController storyboardIdentifier="Location Search Table" id="Y1k-h4-JXV" customClass="LocationSearchTable" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qnf-Do-OlV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="location" textLabel="MAp-vK-R0c" detailTextLabel="MPd-jD-IP4" style="IBUITableViewCellStyleSubtitle" id="VN0-sz-Ybn">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VN0-sz-Ybn" id="Jjj-By-cOA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MAp-vK-R0c">
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MPd-jD-IP4">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Y1k-h4-JXV" id="YAB-35-Zdg"/>
+                            <outlet property="delegate" destination="Y1k-h4-JXV" id="Pg1-tI-BOu"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="cIe-wO-pzS" kind="unwind" identifier="Select Location" unwindAction="unwindToMapViewWithSegue:" id="atD-HS-w7k"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kqE-7N-Nvy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cIe-wO-pzS" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4244" y="1567"/>
+        </scene>
+    </scenes>
+</document>
