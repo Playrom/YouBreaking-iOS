@@ -23,13 +23,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sgb-fp-G9F" customClass="KolodaView" customModule="Koloda">
-                                <rect key="frame" x="37" y="133" width="300" height="400"/>
+                                <rect key="frame" x="21" y="88" width="332" height="490"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6go-JD-Vs9" firstAttribute="top" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="85" id="I5E-IW-Q0R"/>
-                            <constraint firstItem="Sgb-fp-G9F" firstAttribute="leading" secondItem="dGP-8N-ihz" secondAttribute="leadingMargin" constant="21" id="hQ9-M7-bvP"/>
+                            <constraint firstItem="6go-JD-Vs9" firstAttribute="top" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="40" id="I5E-IW-Q0R"/>
+                            <constraint firstItem="Sgb-fp-G9F" firstAttribute="leading" secondItem="dGP-8N-ihz" secondAttribute="leadingMargin" constant="5" id="hQ9-M7-bvP"/>
                             <constraint firstItem="Sgb-fp-G9F" firstAttribute="centerX" secondItem="dGP-8N-ihz" secondAttribute="centerX" id="wZF-wX-r8N"/>
                             <constraint firstItem="Sgb-fp-G9F" firstAttribute="centerY" secondItem="dGP-8N-ihz" secondAttribute="centerY" id="xo8-WC-rPy"/>
                         </constraints>
