@@ -43,9 +43,10 @@ class MapSearchLocationController: UIViewController {
         let searchBar = searchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
+        
         mapView.addSubview(searchBar)
         
-        searchController?.hidesNavigationBarDuringPresentation = false
+        searchController?.hidesNavigationBarDuringPresentation = true
         searchController?.dimsBackgroundDuringPresentation = true
         definesPresentationContext = true
         

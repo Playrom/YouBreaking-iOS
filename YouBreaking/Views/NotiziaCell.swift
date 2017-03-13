@@ -42,9 +42,14 @@ class NotiziaCell: UITableViewCell {
     override func prepareForReuse() {
         topicButton.isHidden = false
         currentVote = Voto.NO
+        
         mainImageView.isHidden = true
         distanceView.isHidden = false
         mainImage.image = nil
+        
+        testoTitolo.text = ""
+        testo.text = ""
+        scoreLabel.text = "0"
     }
     
     override func layoutSubviews() {
@@ -52,8 +57,10 @@ class NotiziaCell: UITableViewCell {
         mainImageView.backgroundColor = Colors.lightGray
         
         if let model = model{
+            
             testo.text = model["text"].string
             testo.textAlignment = .justified
+            
             testoTitolo.textColor = Colors.red
             testoTitolo.text = model["title"].string
             
@@ -87,24 +94,7 @@ class NotiziaCell: UITableViewCell {
                         self.activityIndicator.stopAnimating()
                     }
                 }
-                
-                /*var posto = [comps["LOCATION_LOCALITY"],comps["LOCATION_COUNTRY"]]
-                
-                locationButton.setTitle(
-                    [
-                        comps["LOCATION_NAME"],
-                        posto.flatMap{$0}.joined(separator: ", ")
-                        
-                    ].flatMap{$0}.joined(separator: " - "),
-                    for : UIControlState.normal
-                )
-                
-                if ( locationButton.currentTitle == nil || locationButton.currentTitle == ""){
-                    locationButton.isHidden = true
-                }else{
-                    locationButton.isHidden = false
-                }*/
-                
+                                
             }
             
             

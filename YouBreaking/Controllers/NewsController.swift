@@ -14,13 +14,18 @@ class NewsController: UIViewController {
 
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var menu: UISegmentedControl!
+    @IBOutlet weak var crossView: UIImageView!
     
     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
     let blurEffectView = UIVisualEffectView()
+    
+    var finalHeight : CGFloat = 130
+    var initialHeight : CGFloat = 250
 
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -31,6 +36,8 @@ class NewsController: UIViewController {
     
     var data : JSON?
     var coms = ModelNotizie()
+    
+    var delegate : NewsControllerDelegate?
     
     func reload() {
         
@@ -56,6 +63,11 @@ class NewsController: UIViewController {
                     self.imageView.layoutSubviews()
                     
                 }
+            }else{
+                self.initialHeight = finalHeight
+                self.imageViewHeightConstraint.constant = finalHeight
+                self.maskView.backgroundColor = UIColor.clear
+                self.headerView.backgroundColor = Colors.red
             }
         }
         
@@ -75,16 +87,26 @@ class NewsController: UIViewController {
         headerView.isUserInteractionEnabled = true
         headerView.addGestureRecognizer(tapGesture)
         
-        print(self.transitioningDelegate)
-
         blurEffectView.frame = self.imageView.bounds
         self.imageView.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
+        
+        crossView.image = crossView.image!.withRenderingMode(.alwaysTemplate)
+        crossView.tintColor = Colors.white
+        let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+        tapDismiss.numberOfTapsRequired = 1
+        crossView.addGestureRecognizer(tapDismiss)
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func dismissTap(){
+        self.delegate?.removeMask()
+        self.dismiss(animated: true, completion: nil)
     }
     
     func displayImage(){
@@ -128,11 +150,8 @@ class NewsController: UIViewController {
         
     }
     
-    @IBAction func dismiss(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     var originalPosition: CGPoint?
+    var originalSize : CGSize?
     var currentPositionTouched: CGPoint?
 
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
@@ -141,16 +160,28 @@ class NewsController: UIViewController {
         let translation = panGesture.translation(in: view)
         
         if panGesture.state == .began {
-            originalPosition = view.center
+            originalPosition = view.frame.origin
+            originalSize = view.size
+            
             currentPositionTouched = panGesture.location(in: view)
         } else if panGesture.state == .changed {
-            let point = CGPoint(
-                x: view.frame.origin.x ,
-                y: translation.y
-            )
+            let padding = translation.y / 10
+            
+            var point = CGPoint()
+            
+            if(translation.y > 0){
+                point = CGPoint(
+                    x: padding ,
+                    y: translation.y
+                )
+            }
             
             if(point.y > 0){
                 view.frame.origin = point
+                view.frame.size.width =  originalSize!.width - ( 2 * padding)
+                
+                view.alpha = ( originalSize!.height - ( translation.y / 2 ) ) / originalSize!.height
+                
             }
         } else if panGesture.state == .ended {
             let velocity = panGesture.velocity(in: view)
@@ -164,12 +195,15 @@ class NewsController: UIViewController {
                         )
                 }, completion: { (isCompleted) in
                     if isCompleted {
+                        self.delegate?.removeMask()
                         self.dismiss(animated: false, completion: nil)
                     }
                 })
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
-                    self.view.center = self.originalPosition!
+                    self.view.frame.origin = self.originalPosition!
+                    self.view.size = self.originalSize!
+                    self.view.alpha = 1
                 })
             }
         }
@@ -188,66 +222,70 @@ extension NewsController : HeightDelegate{
         
         var newConstant : CGFloat? = nil
         
-        if let forced = baseImageHeight, let height = height{
-            //print("Forced: \(forced)")
-            let reduced = height 
-            //print("Reduced: \(reduced)")
-            let final = forced - reduced/3
-            //print("Final: \(final)")
-            
-            if(final > 100){
-                newConstant = final
-            }else{
-                newConstant = 100
-            }
-        }else{
-            newConstant = 100
-        }
+        if(self.imageView.image != nil){
         
-        if let ct = newConstant{
-            
-            let originalHeight = self.imageViewHeightConstraint.constant
-
-            self.imageViewHeightConstraint.constant = ct
-            
-            if !UIAccessibilityIsReduceTransparencyEnabled(), let height = height, height > 0 {
+            if let forced = baseImageHeight, let height = height{
+                let reduced = height
+                let final = forced - reduced/3
                 
-                if(ct > 230){
-                    UIView.animate(withDuration: 0.3 , animations: {
-                        self.blurEffectView.effect = nil
-                        self.blurEffectView.cornerRadius = 2
-                    })
-                }else if(ct>150){
-                    UIView.animate(withDuration: 0.3 , animations: {
-                        self.blurEffectView.effect = self.blurEffect
-                        self.blurEffectView.cornerRadius = 5
-                    })
-                }else if(ct>99){
-                    UIView.animate(withDuration: 0.3 , animations: {
-                        self.blurEffectView.effect = self.blurEffect
-                        self.blurEffectView.cornerRadius = 10
-                    })
+                if(final > finalHeight){
+                    newConstant = final
+                }else{
+                    newConstant = finalHeight
+                }
+            }else{
+                newConstant = finalHeight
+            }
+            
+            if let ct = newConstant{
+                
+                let originalHeight = self.imageViewHeightConstraint.constant
+
+                self.imageViewHeightConstraint.constant = ct
+                
+                if !UIAccessibilityIsReduceTransparencyEnabled(), let height = height, height > 0 {
+                    
+                    if(ct > initialHeight - 20){
+                        UIView.animate(withDuration: 0.3 , animations: {
+                            self.blurEffectView.effect = nil
+                            self.blurEffectView.cornerRadius = 2
+                        })
+                    }else if(ct > finalHeight + 50){
+                        UIView.animate(withDuration: 0.3 , animations: {
+                            self.blurEffectView.effect = self.blurEffect
+                            self.blurEffectView.cornerRadius = 5
+                        })
+                    }else if(ct > finalHeight - 1){
+                        UIView.animate(withDuration: 0.3 , animations: {
+                            self.blurEffectView.effect = self.blurEffect
+                            self.blurEffectView.cornerRadius = 10
+                        })
+                    }
+                    
+
+                    
                 }
                 
-
                 
+                
+                
+                if(animated){
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.view.layoutIfNeeded()
+                    }, completion: {
+                        _ in
+                        if let handler = handler {
+                            handler()
+                        }
+                    })
+                }
             }
-            
-            
-            
-            
-            if(animated){
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.view.layoutIfNeeded()
-                }, completion: {
-                    _ in
-                    if let handler = handler {
-                        handler()
-                    }
-                })
-            }
-            
+                
         }
     }
     
+}
+
+protocol NewsControllerDelegate{
+    func removeMask()
 }

@@ -49,7 +49,6 @@
 		6CE26B931E5DE9D6005F73D8 /* LocationPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CE26B911E5DE9D6005F73D8 /* LocationPicker.storyboard */; };
 		6CE57A3D1E5B0075003F3EB1 /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE57A3B1E5B0075003F3EB1 /* SelectPhotoCell.swift */; };
 		6CE57A3E1E5B0075003F3EB1 /* SelectPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CE57A3C1E5B0075003F3EB1 /* SelectPhotoCell.xib */; };
-		6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */; };
 		6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +99,6 @@
 		6CE26B921E5DE9D6005F73D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LocationPicker.storyboard; sourceTree = "<group>"; };
 		6CE57A3B1E5B0075003F3EB1 /* SelectPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectPhotoCell.swift; path = Views/SelectPhotoCell.swift; sourceTree = "<group>"; };
 		6CE57A3C1E5B0075003F3EB1 /* SelectPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectPhotoCell.xib; path = Views/SelectPhotoCell.xib; sourceTree = "<group>"; };
-		6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SingleNews.swift; path = Controllers/SingleNews.swift; sourceTree = "<group>"; };
 		6CF47D0C1E4CC68600BE5F08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0758A2356D1775863692479 /* Pods-YouBreaking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouBreaking.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouBreaking/Pods-YouBreaking.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,7 +138,6 @@
 				6C8D99791E5DAF2B00D1C60C /* LocationSearchTable.swift */,
 				6C8E50A91E4B13040013B8E8 /* SettingsController.swift */,
 				6C5727221E4B84570047B199 /* SelectLocationSettingsController.swift */,
-				6CF47D091E4CC5A700BE5F08 /* SingleNews.swift */,
 				6CCF4F241E65CF5900842585 /* NewsController.swift */,
 				6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */,
 				6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */,
@@ -389,7 +386,6 @@
 			files = (
 				6C74C5531E43407500CE8107 /* ScriviNotiziaController.swift in Sources */,
 				6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */,
-				6CF47D0A1E4CC5A700BE5F08 /* SingleNews.swift in Sources */,
 				6CCF4F251E65CF5900842585 /* NewsController.swift in Sources */,
 				6C8D997A1E5DAF2B00D1C60C /* LocationSearchTable.swift in Sources */,
 				6C351B411E41011A0057309C /* TestingController.swift in Sources */,

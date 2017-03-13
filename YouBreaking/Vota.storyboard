@@ -22,34 +22,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nessuna News da Votare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzL-YA-Urg">
+                                <rect key="frame" x="91" y="291" width="191.5" height="20.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sgb-fp-G9F" customClass="KolodaView" customModule="Koloda">
                                 <rect key="frame" x="21" y="84" width="332" height="434"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auC-6h-PmE" customClass="YesCircleView" customModule="YouBreaking" customModuleProvider="target">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="No" translatesAutoresizingMaskIntoConstraints="NO" id="AYO-iH-c1D">
+                                <rect key="frame" x="21" y="550" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Agx-pg-ntY"/>
+                                    <constraint firstAttribute="width" constant="60" id="UPT-ru-8Xf"/>
+                                </constraints>
+                            </imageView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Yes" translatesAutoresizingMaskIntoConstraints="NO" id="fNW-t6-wyX">
                                 <rect key="frame" x="293" y="550" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="HHS-yk-4Ti"/>
-                                    <constraint firstAttribute="width" constant="60" id="LmM-4j-bzh"/>
+                                    <constraint firstAttribute="width" constant="60" id="fcY-FE-uM3"/>
+                                    <constraint firstAttribute="height" constant="60" id="uEi-9e-mcW"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tx5-Ft-RqG">
-                                <rect key="frame" x="21" y="550" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.028078071959999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="2eZ-iJ-7D6"/>
-                                    <constraint firstAttribute="height" constant="60" id="bZd-DN-MZ7"/>
-                                </constraints>
-                            </view>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="tx5-Ft-RqG" firstAttribute="top" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="32" id="Bw4-qx-4dS"/>
-                            <constraint firstItem="tx5-Ft-RqG" firstAttribute="leading" secondItem="Sgb-fp-G9F" secondAttribute="leading" id="EJ8-Ws-gFy"/>
+                            <constraint firstItem="AYO-iH-c1D" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="30" id="2sS-Oo-c2k"/>
+                            <constraint firstItem="OzL-YA-Urg" firstAttribute="centerX" secondItem="Sgb-fp-G9F" secondAttribute="centerX" id="3ZG-5D-c13"/>
+                            <constraint firstItem="6go-JD-Vs9" firstAttribute="top" secondItem="AYO-iH-c1D" secondAttribute="bottom" constant="8" id="6XH-za-7Sx"/>
+                            <constraint firstItem="fNW-t6-wyX" firstAttribute="trailing" secondItem="Sgb-fp-G9F" secondAttribute="trailing" id="F0E-mO-DOG"/>
                             <constraint firstItem="6go-JD-Vs9" firstAttribute="top" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="100" id="I5E-IW-Q0R"/>
-                            <constraint firstItem="auC-6h-PmE" firstAttribute="top" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="32" id="MY5-dG-Vjj"/>
-                            <constraint firstItem="auC-6h-PmE" firstAttribute="trailing" secondItem="Sgb-fp-G9F" secondAttribute="trailing" id="QHZ-mJ-Jh7"/>
+                            <constraint firstItem="6go-JD-Vs9" firstAttribute="top" secondItem="fNW-t6-wyX" secondAttribute="bottom" constant="8" id="Net-9k-xe8"/>
+                            <constraint firstItem="OzL-YA-Urg" firstAttribute="centerY" secondItem="Sgb-fp-G9F" secondAttribute="centerY" id="RqV-U1-40P"/>
+                            <constraint firstItem="AYO-iH-c1D" firstAttribute="leading" secondItem="Sgb-fp-G9F" secondAttribute="leading" id="SN7-Kb-XwP"/>
                             <constraint firstItem="Sgb-fp-G9F" firstAttribute="leading" secondItem="dGP-8N-ihz" secondAttribute="leadingMargin" constant="5" id="hQ9-M7-bvP"/>
                             <constraint firstItem="Sgb-fp-G9F" firstAttribute="top" secondItem="gcQ-O8-NL9" secondAttribute="bottom" constant="20" id="hkD-Nf-cAc"/>
+                            <constraint firstItem="fNW-t6-wyX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Sgb-fp-G9F" secondAttribute="bottom" constant="30" id="kgX-Zh-ZUv"/>
                             <constraint firstItem="Sgb-fp-G9F" firstAttribute="centerX" secondItem="dGP-8N-ihz" secondAttribute="centerX" id="wZF-wX-r8N"/>
                         </constraints>
                     </view>
@@ -62,8 +71,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="koloda" destination="Sgb-fp-G9F" id="QcV-kz-cNM"/>
-                        <outlet property="no" destination="tx5-Ft-RqG" id="JIM-wq-fU2"/>
-                        <outlet property="yes" destination="auC-6h-PmE" id="MiV-gs-Wsp"/>
+                        <outlet property="no" destination="AYO-iH-c1D" id="j1T-MU-10B"/>
+                        <outlet property="yes" destination="fNW-t6-wyX" id="4J9-g7-zYK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f2N-SK-gRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -127,6 +136,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="No" width="150" height="150"/>
         <image name="Vota Icon" width="25" height="25"/>
+        <image name="Yes" width="150" height="150"/>
     </resources>
 </document>

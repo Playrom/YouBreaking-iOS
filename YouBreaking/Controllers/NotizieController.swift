@@ -43,10 +43,14 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
     var sortOrder : SortOrder = SortOrder.Hot
     
     var location : ( String, String )?
+    var mask : UIView?
 
+    var loadingView : UIView?
+    var loadingSpin = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingView = UIView(frame : self.view.frame)
         reload()
         
         self.tableView.layoutMargins = .zero
@@ -54,8 +58,10 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
                        object:nil, queue:nil){
-                        _ in
-                        self.reload()
+                        notification in
+                        if self.description != notification.userInfo?["sender"] as? String{
+                            self.reload()
+                        }
                         
         }
         
@@ -83,8 +89,22 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         refreshControl.endRefreshing()
     }
     
+    func endReload(){
+        self.loadingSpin.startAnimating()
+        self.loadingView?.removeFromSuperview()
+    }
+    
     func reload(){
-        
+        if let vi = loadingView{
+            print(vi.frame)
+            vi.backgroundColor = Colors.lightGray
+            loadingSpin = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            loadingSpin.center = vi.center
+            vi.addSubview(loadingSpin)
+            loadingSpin.stopAnimating()
+            self.loadingView = vi
+            self.view.addSubview(self.loadingView!)
+        }
     }
     
     func advance(){
@@ -170,8 +190,10 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
                         ok in
                         if(ok){
                             self.model.remove(at: indexPath.row)
+                            self.tableView.beginUpdates()
                             self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.top )
-                            self.tableView.reloadData()
+                            self.tableView.endUpdates()
+                            NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
                         }
                     }
                 }
@@ -196,26 +218,22 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
         }else{
             cell.backgroundColor = Colors.lightGray
         }
-        
+                
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         cell.layoutSubviews()
         
-        // Configure the cell...
-        
         return cell
     }
     
-    /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.tableView(tableView, cellForRowAt: indexPath) as! NotiziaCell
-        performSegue(withIdentifier: "Select News", sender: cell)
-    }*/
     
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if(scrollView.contentOffset.y > ( scrollView.contentSize.height  - 800 ) && !reloading){
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        if(indexPath.row == ( self.model.count - 10) ){
             self.reloading = true
-            self.advance()
+            DispatchQueue.global(qos: .background).async {
+                self.advance()
+            }
         }
     }
     
@@ -294,6 +312,15 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
             case "Select News":
                 if let dvc = segue.destination as? NewsController, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
                     dvc.data = self.model.optionalSubscript(safe: indexPath.row)
+                    dvc.delegate = self
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                }
+                if let nvc = self.navigationController{
+                    mask = UIView(frame : nvc.view.frame)
+                    mask!.backgroundColor = Colors.darkGray
+                    mask!.alpha = 0.3
+                    mask!.tag = 999
+                    nvc.view.addSubview(mask!)
                 }
             default:
                 break
@@ -302,6 +329,16 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
     }
     
     
+}
+
+extension NotizieController : NewsControllerDelegate{
+    func removeMask() {
+        if let nvc = self.navigationController, let modalMask = nvc.view.viewWithTag(999){
+            UIView.animate(withDuration: 0.3){
+                modalMask.removeFromSuperview()
+            }
+        }
+    }
 }
 
 extension Collection where Indices.Iterator.Element == Index {

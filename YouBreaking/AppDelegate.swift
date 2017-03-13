@@ -122,14 +122,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     let root = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as! UITabBarController
                     root.selectedIndex = 0
                     
-                    let singleController = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! SingleNews
+                    let singleController = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! NewsController
                     singleController.data = payload["data"]
                     
-                    print(root.selectedViewController)
-                    let rootNav = root.selectedViewController as! NavigationRed
-                    rootNav.pushViewController(viewController: singleController)
-                    
                     self.window?.rootViewController = root
+                    root.present(singleController, animated: true, completion: nil)
 
                 }
             }

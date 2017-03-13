@@ -33,7 +33,7 @@ class ModelNotizie {
     
     var page : Int = 1
     var nextPage : Int = 2
-    var pageSize : Int = 5
+    var pageSize : Int = 15
     var totalItems : Int = 1
     var totalPages : Int = 1
     

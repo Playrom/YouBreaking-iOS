@@ -36,12 +36,23 @@ class ScriviNotiziaController: UITableViewController {
         super.viewDidLoad()
         
         self.tableView.register(UINib.init(nibName: "SelectPhotoCell", bundle: Bundle.main), forCellReuseIdentifier: "Photo Cell")
-
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ScriviNotiziaController.dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        self.tableView.addGestureRecognizer(tapGesture)
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func dismissKeyboard(){
+        titolo.resignFirstResponder()
+        testo.resignFirstResponder()
+        linkField.resignFirstResponder()
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
@@ -135,7 +146,7 @@ class ScriviNotiziaController: UITableViewController {
         coms.postNews(parameters: parameters){
             json in
             let nc = NotificationCenter.default
-            nc.post(Notification(name: Notification.Name("reloadNews")))
+            NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
             
             if(json == nil){
                 let alert = UIAlertController(title: "Salvataggio non riuscito", message: "La tua notizia non è stata salvata", defaultActionButtonTitle: "Ok", tintColor: nil)
@@ -161,19 +172,16 @@ class ScriviNotiziaController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+            case 3,4,5,6,7:
+                self.dismissKeyboard()
+                break
+            default:
+                break
+        }
+        
         if(indexPath.section == 3){
-            /*PHPhotoLibrary.requestAuthorization{
-                status in
-                if(status == PHAuthorizationStatus.authorized){
-                    self.images = [[String : Any]]()
-                    
-                    let imageController = UIImagePickerController()
-                    imageController.delegate = self
-                    imageController.mediaTypes = [kUTTypeImage as String]
-                    imageController.sourceType = UIImagePickerControllerSourceType.camera
-                    self.present(imageController, animated: true, completion: nil)
-                }
-            }*/
+            self.dismissKeyboard()
             
             let imagePickerController = ImagePickerController()
             imagePickerController.delegate = self
@@ -303,45 +311,6 @@ class ScriviNotiziaController: UITableViewController {
         }
     }
     
-
-        // Configure the cell...    }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -366,54 +335,6 @@ class ScriviNotiziaController: UITableViewController {
     }
     
 
-}
-
-
-extension ScriviNotiziaController : UIImagePickerControllerDelegate , UINavigationControllerDelegate{
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let url = info[UIImagePickerControllerReferenceURL] as? URL
-        let im = info[UIImagePickerControllerOriginalImage] as? UIImage
-        
-        
-        if let url = url, let im = im {
-            
-            var imageAsset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil ).firstObject!
-            
-            var imageManager = PHImageManager.default()
-            imageManager.requestImageData(for: imageAsset, options: nil){
-                data,dataUTI,orientation,dict in
-                
-                do{
-                    
-                    var image = UIImage(data : data!)!
-                    
-                    let jpegData = UIImageJPEGRepresentation(image,0.6);
-                    
-
-                    let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! as String
-                    let localPath = URL(fileURLWithPath: documentDirectory.appendingPathComponent(".jpeg"))
-                    try jpegData?.write(to: localPath)
-                    
-                    let imageData = try Data(contentsOf: localPath )
-
-                    let imageWithData = UIImage(data: imageData)!
-                    
-                    self.images.append(["URL" : localPath ])
-                    
-                    self.tableView.reloadData()
-                    picker.dismiss(animated: true, completion: nil)
-            
-
-                }catch{
-                    print("ERROR")
-                }
-            }
-        
-        }
-
-    }
-    
 }
 
 extension UIImageView {

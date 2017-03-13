@@ -13,8 +13,8 @@ import SwiftyJSON
 class VotaController: UIViewController {
     
     @IBOutlet weak var koloda: KolodaView!
-    @IBOutlet weak var yes: UIView!
-    @IBOutlet weak var no: UIView!
+    @IBOutlet weak var no: UIImageView!
+    @IBOutlet weak var yes: UIImageView!
     
     var coms = ModelNotizie()
     var model = [JSON]()
@@ -25,12 +25,18 @@ class VotaController: UIViewController {
         koloda.delegate = self
         koloda.dataSource = self
 
+        yes.image = Images.imageOfYes.withRenderingMode(.alwaysTemplate)
+        yes.tintColor = UIColor.green
+        
+        no.image = Images.imageOfNo.withRenderingMode(.alwaysTemplate)
+        no.tintColor = Colors.red
+
         
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
                        object:nil, queue:nil){
                         noti in
-                        if noti.userInfo?["sender"] as? String  == "votecontroller"{
+                        if noti.userInfo?["sender"] as? String  == self.description{
                             self.update()
                         }else{
                             self.reload()
@@ -146,7 +152,7 @@ extension VotaController: KolodaViewDataSource {
                 coms.vote(voto: .DOWN, notizia: id){
                     json in
                     let nc = NotificationCenter.default
-                    nc.post(Notification(name:  Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : "votecontroller"] ))
+                    NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
                     print("SWIPE LEFT")
                 }
                 break
@@ -154,7 +160,7 @@ extension VotaController: KolodaViewDataSource {
                 coms.vote(voto: .UP, notizia: id){
                     json in
                     let nc = NotificationCenter.default
-                    nc.post(Notification(name:  Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : "votecontroller"] ))
+                    NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
                     print("SWIPE RIGHT")
                 }
                 break
