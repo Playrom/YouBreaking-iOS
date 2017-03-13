@@ -12,6 +12,7 @@ import Photos
 import MobileCoreServices
 import ImagePicker
 import MapKit
+import Whisper
 
 class ScriviNotiziaController: UITableViewController {
     
@@ -22,6 +23,10 @@ class ScriviNotiziaController: UITableViewController {
     
     var images = [[String : Any]]()
     var data = Data()
+    
+    var notificationSelect = "NONE"
+    
+    var navigationDelegate : UINavigationController?
     
     @IBOutlet weak var titolo: UITextField!
     @IBOutlet weak var testo: UITextView!
@@ -120,12 +125,28 @@ class ScriviNotiziaController: UITableViewController {
         }
         
         parameters["aggiuntivi"] = aggiuntivi
-                        
+        parameters["notification"] = self.notificationSelect
+//        
+        if let nav = self.navigationDelegate{
+            Whisper.show(whistle: Murmur(title: "Salvataggio in corso", backgroundColor: Colors.darkGray, titleColor: Colors.white, font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), action: nil ) )
+        }
+        self.dismiss(animated: true, completion: nil)
+        
         coms.postNews(parameters: parameters){
             json in
             let nc = NotificationCenter.default
             nc.post(Notification(name: Notification.Name("reloadNews")))
-            self.dismiss(animated: true, completion: nil)
+            
+            if(json == nil){
+                let alert = UIAlertController(title: "Salvataggio non riuscito", message: "La tua notizia non è stata salvata", defaultActionButtonTitle: "Ok", tintColor: nil)
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            if let nav = self.navigationDelegate{
+                Whisper.hide()
+                Whisper.show(whistle: Murmur(title: "Notizia Salvata", backgroundColor: UIColor.green, titleColor: Colors.white, font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), action: nil ) )
+                Whisper.hide(whistleAfter: 3)
+            }
         }
         
     }
@@ -160,17 +181,53 @@ class ScriviNotiziaController: UITableViewController {
             present(imagePickerController, animated: true, completion: nil)
             
         }
+        
+        if(indexPath.section == 6){
+            if let level = coms.login.user?["level"] as? String{
+                switch level {
+                    case "ADMIN","MOD","EDITOR":
+                        for i in 0...2{
+                            if let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 6 ) ){
+                                if(indexPath.row == i){
+                                    cell.accessoryType = .checkmark
+                                }else{
+                                    cell.accessoryType = .none
+                                }
+                            }
+                        }
+            
+                        switch indexPath.row {
+                            case 0:
+                                self.notificationSelect = "NONE"
+                                break
+                            case 1:
+                                self.notificationSelect = "GLOBAL"
+                                break
+                            case 2:
+                                self.notificationSelect = "LOCAL"
+                                break
+                            default:
+                                break
+                        }
+                    default:
+                        let alert = UIAlertController(title: "Non sei autorizzato ad inviare notifiche")
+                        self.present(alert, animated : true , completion : nil)
+                        break
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 6
+        return 7
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if(section == 6){ return 3 }
         return 1
     }
 
@@ -208,6 +265,22 @@ class ScriviNotiziaController: UITableViewController {
                 cell.textLabel?.text = event["name"].string
             }
             return cell
+        case 6:
+            let cell = super.tableView(tableView, cellForRowAt: indexPath)
+            
+            if let level = coms.login.user?["level"] as? String{
+                switch level {
+                case "ADMIN","MOD","EDITOR":
+                    cell.textLabel?.textColor = Colors.black
+                    break
+                default:
+                    cell.textLabel?.textColor = Colors.darkGray
+                    break
+                }
+            }
+            
+            return cell
+            
         default:
             return super.tableView(tableView, cellForRowAt: indexPath)
         }

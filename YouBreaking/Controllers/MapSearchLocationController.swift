@@ -21,6 +21,8 @@ class MapSearchLocationController: UIViewController {
     var placemark : MKPlacemark?
     
     var delegate : SelectLocation?
+    fileprivate var updatedLocation : CLLocation?
+    fileprivate var geocoder = CLGeocoder()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +67,19 @@ class MapSearchLocationController: UIViewController {
         if let placemark = placemark{
             self.delegate?.selectLocation(location: placemark)
             self.navigationController?.popViewController(animated: true)
+        }else{
+            // SELEZIONA POSIZIONE ATTUALE
+            if let location = updatedLocation{
+                geocoder.reverseGeocodeLocation(location){
+                    place, error in
+                    if let place = place?.first{
+                        self.placemark = MKPlacemark(placemark: place)
+                        
+                        self.delegate?.selectLocation(location: self.placemark!)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            }
         }
     }
     
@@ -92,6 +107,7 @@ extension MapSearchLocationController : CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
         if let location = locations.first {
+            self.updatedLocation = location
             let span = MKCoordinateSpanMake(0.05, 0.05)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)

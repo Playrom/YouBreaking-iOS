@@ -13,6 +13,8 @@ import SwiftyJSON
 class VotaController: UIViewController {
     
     @IBOutlet weak var koloda: KolodaView!
+    @IBOutlet weak var yes: UIView!
+    @IBOutlet weak var no: UIView!
     
     var coms = ModelNotizie()
     var model = [JSON]()
@@ -27,14 +29,36 @@ class VotaController: UIViewController {
         let nc = NotificationCenter.default // Note that default is now a property, not a method call
         nc.addObserver(forName:Notification.Name(rawValue:"reloadNews"),
                        object:nil, queue:nil){
-                        _ in
-                        self.reload()
+                        noti in
+                        if noti.userInfo?["sender"] as? String  == "votecontroller"{
+                            self.update()
+                        }else{
+                            self.reload()
+                        }
                         
         }
+        
+        let tapyes = UITapGestureRecognizer()
+        tapyes.numberOfTapsRequired = 1
+        tapyes.addTarget(self, action: Selector.init("tapYes"))
+        yes.addGestureRecognizer(tapyes)
+        
+        let tapno = UITapGestureRecognizer()
+        tapno.numberOfTapsRequired = 1
+        tapno.addTarget(self, action: Selector.init("tapNo"))
+        no.addGestureRecognizer(tapno)
         
         self.reload()
 
         // Do any additional setup after loading the view.
+    }
+    
+    func tapYes(){
+        self.koloda.swipe(.right)
+    }
+    
+    func tapNo(){
+        self.koloda.swipe(.left)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -53,8 +77,16 @@ class VotaController: UIViewController {
         coms.getNewsToVote{
             model in
             self.model = model
-            self.koloda.reloadData()
+            self.koloda.resetCurrentCardIndex()
         }
+    }
+    
+    func update(){
+//        coms.getNewsToVote{
+//            model in
+//            self.model = model
+//            self.koloda.reloadData()
+//        }
     }
     
 
@@ -114,7 +146,7 @@ extension VotaController: KolodaViewDataSource {
                 coms.vote(voto: .DOWN, notizia: id){
                     json in
                     let nc = NotificationCenter.default
-                    nc.post(Notification(name: Notification.Name("reloadNews")))
+                    nc.post(Notification(name:  Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : "votecontroller"] ))
                     print("SWIPE LEFT")
                 }
                 break
@@ -122,7 +154,7 @@ extension VotaController: KolodaViewDataSource {
                 coms.vote(voto: .UP, notizia: id){
                     json in
                     let nc = NotificationCenter.default
-                    nc.post(Notification(name: Notification.Name("reloadNews")))
+                    nc.post(Notification(name:  Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : "votecontroller"] ))
                     print("SWIPE RIGHT")
                 }
                 break
@@ -132,4 +164,28 @@ extension VotaController: KolodaViewDataSource {
         }
     }
     
+}
+
+class YesCircleView : UIView{
+    
+    override init(frame:CGRect){
+        super.init(frame:frame)
+        self.isOpaque = false
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func draw(_ rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else {return}
+        
+        context.setFillColor(UIColor.clear.cgColor)
+        context.addEllipse(in: rect)
+        context.setStrokeColor(UIColor.green.cgColor)
+        context.strokePath()
+        context.fillPath()
+        
+        
+    }
 }

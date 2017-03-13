@@ -47,7 +47,6 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         reload()
         
         self.tableView.layoutMargins = .zero
@@ -293,8 +292,8 @@ class NotizieController: UITableViewController , NotiziaCellDelegate{
                 
                 break
             case "Select News":
-                if let dvc = segue.destination as? SingleNews, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
-                    dvc.data = self.model.optionalSubscript(safe: indexPath.row)                    
+                if let dvc = segue.destination as? NewsController, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
+                    dvc.data = self.model.optionalSubscript(safe: indexPath.row)
                 }
             default:
                 break

@@ -16,6 +16,8 @@ target 'YouBreaking' do
     pod 'HanekeSwift', :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-3'
     pod 'Lightbox'
     pod 'ImagePicker'
+    pod 'Whisper'
+    pod 'Onboard'
   # Pods for YouBreaking
 
 end

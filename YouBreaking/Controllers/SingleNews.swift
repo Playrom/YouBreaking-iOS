@@ -224,9 +224,3 @@ class SingleNews: UITableViewController  {
     */
 
 }
-
-extension LightboxController{
-    open override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-}

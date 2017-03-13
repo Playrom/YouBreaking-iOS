@@ -26,17 +26,17 @@ class ViewController: UIViewController , FBSDKLoginButtonDelegate{
         loginButton.readPermissions = ["public_profile","email"]
         loginButton.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
-        
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        UIImage(named: "red-background")?.draw(in: self.view.bounds)
-        
-        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
-            UIGraphicsEndImageContext()
-            self.view.backgroundColor = UIColor(patternImage: image)
-        }else{
-            UIGraphicsEndImageContext()
-            debugPrint("Image not available")
-        }
+//        
+//        UIGraphicsBeginImageContext(self.view.frame.size)
+//        UIImage(named: "red-background")?.draw(in: self.view.bounds)
+//        
+//        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
+//            UIGraphicsEndImageContext()
+//            self.view.backgroundColor = UIColor(patternImage: image)
+//        }else{
+//            UIGraphicsEndImageContext()
+//            debugPrint("Image not available")
+//        }
         
     }
     

@@ -10,9 +10,11 @@ PODS:
     - pop (~> 1.0)
   - Lightbox (1.0.0):
     - Hue
+  - Onboard (2.3.1)
   - pop (1.0.9)
   - SwifterSwift (1.5)
   - SwiftyJSON (3.1.4)
+  - Whisper (4.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
@@ -22,8 +24,10 @@ DEPENDENCIES:
   - JWTDecode
   - Koloda (~> 4.0)
   - Lightbox
+  - Onboard
   - SwifterSwift
   - SwiftyJSON
+  - Whisper
 
 EXTERNAL SOURCES:
   HanekeSwift:
@@ -44,10 +48,12 @@ SPEC CHECKSUMS:
   JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
   Koloda: cb171633afc6182a77821b7951e38b2cb272ba7c
   Lightbox: 13f55a0a840f7945dc5ac87931564e7fe569fca9
+  Onboard: b6871f25ac753175b2ab9a362fb2feb26a81a311
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SwifterSwift: c612befa8e51b4092d3b41e88cd93f52d0624d9f
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Whisper: 08be92623311f8e53201e62e17f6d7b9599a4714
 
-PODFILE CHECKSUM: c46e190b8f85a489432226be43e5c240fb6d66ac
+PODFILE CHECKSUM: ea9a1511dada1618b4c207f1c2b3680f1fd69e98
 
 COCOAPODS: 1.2.0

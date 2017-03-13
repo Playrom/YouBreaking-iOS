@@ -109,15 +109,6 @@ class LoginUtils {
                                 let jwt = try decode(jwt: tempToken)
                                 self.token = jwt.string
                                 print("Logged In")
-                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
-                                    (granted,error) in
-                                    if(granted){
-                                        print("GRANTED")
-                                        UIApplication.shared.registerForRemoteNotifications()
-                                    }else{
-                                        print("UNAUTHORIZED")
-                                    }
-                                }
                                 
                                 handler()
                             }catch{
