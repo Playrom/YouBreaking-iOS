@@ -106,7 +106,7 @@ class SettingsController: UITableViewController {
                 self.locationType = temp != nil ? temp! : .None
                                 
                 if(self.locationType == .Gps){
-                    self.locationManager.startUpdatingLocation()
+                    self.locationManager.requestAlwaysAuthorization()
                 }
                 
                 if(self.locationType == .Place){
@@ -169,8 +169,7 @@ class SettingsController: UITableViewController {
         self.image.clipsToBounds = true
         
         locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
         reload()
         
@@ -190,13 +189,13 @@ class SettingsController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section {
-        case 1:
+        case 2:
             if(locationType == .None){
                 return 1
             }
@@ -207,7 +206,7 @@ class SettingsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.section == 1 && indexPath.row > 0){
+        if(indexPath.section == 2 && indexPath.row > 0){
             let cell = self.tableView(tableView, cellForRowAt: indexPath)
             
             if let row = selectedRow{
@@ -233,7 +232,7 @@ class SettingsController: UITableViewController {
             coms.updateUserLocationDistance(parameters: params){
                 result in
             }
-        }else if(indexPath.section == 2 && indexPath.row == 0){
+        }else if(indexPath.section == 3 && indexPath.row == 0){
             // Logout
             coms.login.logout {
                 if let window = UIApplication.shared.delegate?.window{
@@ -241,8 +240,6 @@ class SettingsController: UITableViewController {
                     window?.rootViewController = rootController
                 }
             }
-        }else if(indexPath.section == 3){
-            LoginUtils.sharedInstance.checkStatus()
         }
     }
     
@@ -254,7 +251,7 @@ class SettingsController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
-        if(indexPath.section == 1 && indexPath.row == 0){
+        if(indexPath.section == 2 && indexPath.row == 0){
             if let location = self.place{
                 cell.textLabel?.text = "Localizzazione : " + location.name! + " , " + location.contextString!
             }else{
@@ -262,7 +259,7 @@ class SettingsController: UITableViewController {
             }
         }
         
-        if(indexPath.section == 1 && indexPath.row > 0){
+        if(indexPath.section == 2 && indexPath.row > 0){
             if let row = selectedRow, row == indexPath.row{
                 cell.accessoryType = .checkmark
             }
@@ -369,6 +366,15 @@ extension SettingsController : CLLocationManagerDelegate{
                 }
                 
             }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case CLAuthorizationStatus.authorizedAlways:
+            self.locationManager.startUpdatingLocation()
+        default:
+            return
         }
     }
 }

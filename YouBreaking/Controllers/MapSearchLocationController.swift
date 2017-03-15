@@ -27,8 +27,8 @@ class MapSearchLocationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         
         mapView.delegate = self
@@ -100,8 +100,11 @@ class MapSearchLocationController: UIViewController {
 extension MapSearchLocationController : CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedAlways {
-            locationManager.requestLocation()
+        switch status {
+        case CLAuthorizationStatus.authorizedAlways,CLAuthorizationStatus.authorizedWhenInUse:
+            self.locationManager.startUpdatingLocation()
+        default:
+            return
         }
     }
     

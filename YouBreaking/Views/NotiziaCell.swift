@@ -21,8 +21,8 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var mainImageView: UIView!
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    @IBOutlet weak var distanceView: UIView!
+        
+    @IBOutlet weak var divider: UIView!
     
     var model : JSON?
     var coms = ModelNotizie()
@@ -32,7 +32,7 @@ class NotiziaCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         mainImageView.isHidden = true
-        distanceView.isHidden = false
+        divider.isHidden = false
         // Initialization code
         
     }
@@ -44,7 +44,7 @@ class NotiziaCell: UITableViewCell {
         currentVote = Voto.NO
         
         mainImageView.isHidden = true
-        distanceView.isHidden = false
+        divider.isHidden = false
         mainImage.image = nil
         
         testoTitolo.text = ""
@@ -60,9 +60,11 @@ class NotiziaCell: UITableViewCell {
             
             testo.text = model["text"].string
             testo.textAlignment = .justified
+            testo.sizeToFit()
             
             testoTitolo.textColor = Colors.red
             testoTitolo.text = model["title"].string
+            testoTitolo.sizeToFit()
             
             scoreLabel.text = model["score"].intValue.description
             scoreLabel.textColor = Colors.red
@@ -85,7 +87,7 @@ class NotiziaCell: UITableViewCell {
                 
                 if comps["PHOTO"] != nil{
                     self.mainImageView.isHidden = false
-                    self.distanceView.isHidden = true
+                    self.divider.isHidden = true
                     self.activityIndicator.startAnimating()
                                         
                     coms.getPhoto(photo: comps["PHOTO"]!){

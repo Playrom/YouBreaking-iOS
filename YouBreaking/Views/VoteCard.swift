@@ -12,9 +12,13 @@ import SwiftyJSON
 class VoteCard: UIView {
     
     var model : JSON?
+    var coms = ModelNotizie()
 
-    @IBOutlet weak var eventTitle: UILabel!
-    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var mainImageView: UIView!
+    @IBOutlet weak var testoTitolo: UILabel!
+    @IBOutlet weak var topicButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var mainImage: UIImageView!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -23,12 +27,47 @@ class VoteCard: UIView {
     }
     */
     
-    override func setNeedsLayout() {
-        if let model = model?.dictionary{
+    override func layoutSubviews() {
+        
+        mainImageView.backgroundColor = Colors.lightGray
+        mainImageView.isHidden = true
+        
+        if let model = model{
             
-            eventTitle.text = model["evento"]?["name"].string
-            title.text = (model["title"]?.string) != nil ? model["title"]!.stringValue : ""
+            testoTitolo.textColor = Colors.red
+            testoTitolo.text = model["title"].string
+            testoTitolo.sizeToFit()
             
+            
+            if let eventName = model["evento"]["name"].string {
+                topicButton.setTitle(eventName, for: .normal)
+            }else{
+                topicButton.isHidden = true
+            }
+            
+            var comps = [String : String]()
+            
+            if let aggiuntivi = model["aggiuntivi"].array{
+                _ = aggiuntivi.map{
+                    if let temp =  $0.dictionary , let tipo = temp["tipo"]?.string{
+                        comps[tipo] = temp["valore"]!.stringValue
+                    }
+                }
+                
+                if comps["PHOTO"] != nil{
+                    self.mainImageView.isHidden = false
+                    //self.divider.isHidden = true
+                    self.activityIndicator.startAnimating()
+                    
+                    coms.getPhoto(photo: comps["PHOTO"]!){
+                        image in
+                        self.mainImage.image = image
+                        self.activityIndicator.stopAnimating()
+                    }
+                }
+                
+            }
+
         }
     }
 }

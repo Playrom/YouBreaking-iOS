@@ -155,7 +155,7 @@ class ScriviNotiziaController: UITableViewController {
             
             if let nav = self.navigationDelegate{
                 Whisper.hide()
-                Whisper.show(whistle: Murmur(title: "Notizia Salvata", backgroundColor: UIColor.green, titleColor: Colors.white, font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), action: nil ) )
+                Whisper.show(whistle: Murmur(title: "Notizia Salvata", backgroundColor: Colors.green, titleColor: Colors.white, font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), action: nil ) )
                 Whisper.hide(whistleAfter: 3)
             }
         }

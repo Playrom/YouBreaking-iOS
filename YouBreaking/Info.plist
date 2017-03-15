@@ -26,11 +26,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>8</string>
 	<key>FacebookAppID</key>
 	<string>1837423216500436</string>
 	<key>FacebookDisplayName</key>
 	<string>You Breaking</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -43,7 +45,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Vuoi autorizzare You Breaking ad accedere alla tua camera?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Vuoi autorizzarci?</string>
+	<string>Vuoi autorizzare You Breaking ad usare la tua posizione?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Vuoi autorizzare You Breaking ad usare la tua posizione quando l&apos;applicazione è in uso?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Vuoi autorizzare You Breaking ad accedere alle foto?</string>
 	<key>UIBackgroundModes</key>

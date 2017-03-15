@@ -11,26 +11,21 @@ import SwiftyJSON
 
 class ListaNotizieController: NotizieController{
 
-
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var iconaSettings: UIBarButtonItem!
+    
+    // MARK: - Class Attributes
     
     var profile : JSON?
     
-    let tempView = UIView()
-    let loader = UIActivityIndicatorView()
+    // MARK: - UIKit Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         iconaSettings.image = iconaSettings.image!.withRenderingMode(.alwaysTemplate)
         iconaSettings.tintColor = Colors.white
-                
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         
     }
     
@@ -40,11 +35,10 @@ class ListaNotizieController: NotizieController{
         nc.removeObserver(self)
     }
     
+    // MARK: - Protocol Methods
+    
     override func reload(){
-        
         super.reload()
-        
-        print("RELOADED")
         
         if(coms.page == 1){
             
@@ -55,7 +49,7 @@ class ListaNotizieController: NotizieController{
         
         var query = ["sort" : self.sortOrder.rawValue, "live" : "true"]
         
-        if let location = location, self.sortOrder == .Location{
+        if let location = location{
             query["latitude"] = location.0
             query["longitude"] = location.1
         }
@@ -99,12 +93,9 @@ class ListaNotizieController: NotizieController{
     }
 
     
-    // MARK: - Navigation
+    // MARK: - Segues
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         
         super.prepare(for: segue, sender: sender)
         

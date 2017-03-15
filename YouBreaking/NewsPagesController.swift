@@ -35,8 +35,6 @@ class NewsPagesController: UIPageViewController {
         titles.append("Notizia")
         
         
-        self.setViewControllers([first], direction: .forward, animated: false, completion: nil)
-        
         var comps = [String : String]()
         
         if let aggiuntivi = data?["aggiuntivi"].array{
@@ -84,6 +82,15 @@ class NewsPagesController: UIPageViewController {
                 titles.append("Mappa")
             }
         }
+        
+        if(controllers.count < 2){
+            self.menu?.isHidden = true
+        }
+        
+        
+        self.setViewControllers([first], direction: .forward, animated: false, completion: nil)
+        
+        
         
         menu?.segmentTitles = titles
         menu?.selectedSegmentIndex = 0

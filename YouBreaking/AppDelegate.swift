@@ -35,17 +35,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.window?.tintColor = Colors.red
         
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
         LoginUtils.sharedInstance.loginWithFacebookToken{
                         
             if let _ = LoginUtils.sharedInstance.token{
-                self.locationManager.requestAlwaysAuthorization()
+                //self.locationManager.requestAlwaysAuthorization()
                 //self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
+                
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
+                    (granted,error) in
+                    if(granted){
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }else{
+
+                    }
+                }
+                
             }else{
                 
                 if UserDefaults.standard.bool(forKey: "Already Launched"){
-                    self.locationManager.requestAlwaysAuthorization()
                     let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
                     self.window?.rootViewController = rootController
                 }else{
@@ -58,10 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
                             (granted,error) in
                             if(granted){
-                                print("GRANTED")
                                 UIApplication.shared.registerForRemoteNotifications()
                             }else{
-                                print("UNAUTHORIZED")
+
                             }
                         }
                     
@@ -71,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     first.movesToNextViewController = true
                     
                     let second = OnboardingContentViewController(title: "Fornisci la tua posizione", body: "Per poter ricevere notifiche geolocalizzate ti chiediamo di fornirci la tua posizione.", image:  nil , buttonText: "Autorizza") { () -> Void in
-                        self.locationManager.requestAlwaysAuthorization()
+                        self.locationManager.requestWhenInUseAuthorization()
                     }
                     
                     second.movesToNextViewController = true
@@ -106,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func handleOnboardDismiss(){
         self.onboard?.dismiss(animated: true, completion: nil)
     }
-    
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         if let data = userInfo.jsonData() {
@@ -236,6 +244,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             
         }
     }
+    
+    
 
 
 }

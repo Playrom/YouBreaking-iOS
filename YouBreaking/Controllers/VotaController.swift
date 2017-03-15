@@ -18,6 +18,8 @@ class VotaController: UIViewController {
     
     var coms = ModelNotizie()
     var model = [JSON]()
+    
+    var mask : UIView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,7 @@ class VotaController: UIViewController {
         koloda.dataSource = self
 
         yes.image = Images.imageOfYes.withRenderingMode(.alwaysTemplate)
-        yes.tintColor = UIColor.green
+        yes.tintColor = Colors.green
         
         no.image = Images.imageOfNo.withRenderingMode(.alwaysTemplate)
         no.tintColor = Colors.red
@@ -105,17 +107,46 @@ class VotaController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func tapCard(_ gesture : UITapGestureRecognizer){
+
+        if let tapModel = (gesture.view as? VoteCard)?.model{
+            let vc = UIStoryboard.init(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! NewsController
+            vc.delegate = self
+            vc.data = tapModel
+
+            if let nvc = self.tabBarController{
+                mask = UIView(frame : nvc.view.frame)
+                mask!.backgroundColor = Colors.darkGray
+                mask!.alpha = 0.3
+                mask!.tag = 999
+                nvc.view.addSubview(mask!)
+            }
+            
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
 
 }
 
+extension VotaController : NewsControllerDelegate{
+    func removeMask() {
+        if let nvc = self.tabBarController, let modalMask = nvc.view.viewWithTag(999){
+            UIView.animate(withDuration: 0.3){
+                modalMask.removeFromSuperview()
+            }
+        }
+    }
+}
 
 extension VotaController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(koloda: KolodaView) {
-        print("SENZA CARTE")
+
     }
     
     func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
-        print("CARTA SELEZIONATA")
+
     }
     
     
@@ -129,6 +160,10 @@ extension VotaController: KolodaViewDataSource {
     
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         let view =  Bundle.main.loadNibNamed("VoteCard", owner: self, options: nil)?[0] as! VoteCard
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(VotaController.tapCard(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapGesture)
         
         if let model = model.optionalSubscript(safe: index){
             view.model = model
@@ -153,7 +188,6 @@ extension VotaController: KolodaViewDataSource {
                     json in
                     let nc = NotificationCenter.default
                     NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
-                    print("SWIPE LEFT")
                 }
                 break
             case .right , .bottomRight, .topRight:
@@ -161,37 +195,12 @@ extension VotaController: KolodaViewDataSource {
                     json in
                     let nc = NotificationCenter.default
                     NotificationCenter.default.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
-                    print("SWIPE RIGHT")
                 }
                 break
             default:
-                print("Non Incluso")
+                break
             }
         }
     }
     
-}
-
-class YesCircleView : UIView{
-    
-    override init(frame:CGRect){
-        super.init(frame:frame)
-        self.isOpaque = false
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func draw(_ rect: CGRect) {
-        guard let context = UIGraphicsGetCurrentContext() else {return}
-        
-        context.setFillColor(UIColor.clear.cgColor)
-        context.addEllipse(in: rect)
-        context.setStrokeColor(UIColor.green.cgColor)
-        context.strokePath()
-        context.fillPath()
-        
-        
-    }
 }

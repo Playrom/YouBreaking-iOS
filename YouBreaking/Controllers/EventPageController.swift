@@ -11,9 +11,11 @@ import SwiftyJSON
 
 class EventPageController: NotizieController {
     
+    // MARK: - Class Attributes
     var eventId : String?
-    
     var event : JSON?
+    
+    // MARK: - Protocol Methods
     
     override func reload(){
         if let eventId = eventId  {
@@ -78,6 +80,7 @@ class EventPageController: NotizieController {
         }
     }
     
+    // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell

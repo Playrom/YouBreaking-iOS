@@ -86,7 +86,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "YouBreaking-1.0-4"
+      customArchiveName = "YouBreaking-1.0-8"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

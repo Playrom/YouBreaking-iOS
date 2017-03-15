@@ -119,7 +119,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <segue destination="Wig-Oi-NCi" kind="show" identifier="Select News" id="FlD-nq-nFe"/>
+                        <segue destination="Wig-Oi-NCi" kind="presentation" identifier="Select News" modalPresentationStyle="overFullScreen" id="FlD-nq-nFe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nUU-KO-mgy" userLabel="First Responder" sceneMemberID="firstResponder"/>

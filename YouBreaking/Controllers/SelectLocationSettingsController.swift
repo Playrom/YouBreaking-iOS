@@ -41,8 +41,7 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
                 self.tableView(tableView, cellForRowAt: IndexPath(row: 0, section: 0 ) ).accessoryType = .none
                 self.tableView(tableView, cellForRowAt: IndexPath(row: 1, section: 0 ) ).accessoryType = .checkmark
                 self.tableView(tableView, cellForRowAt: IndexPath(row: 2, section: 0 ) ).accessoryType = .disclosureIndicator
-                
-                self.locationManager.startUpdatingLocation()
+                self.locationManager.requestAlwaysAuthorization()
                 
                 break
                 
@@ -72,8 +71,7 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -147,7 +145,12 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-
+        switch status {
+            case CLAuthorizationStatus.authorizedAlways,CLAuthorizationStatus.authorizedWhenInUse:
+                self.locationManager.startUpdatingLocation()
+            default:
+                return
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -156,15 +159,17 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
             geocoder.reverseGeocodeLocation(location){
                 place, error in
                 if let place = place?.first{
-                    self.location = MKPlacemark(placemark: place)
+                    var pla = MKPlacemark(placemark: place)
                     
                     let parameters : [String : Any] = [
-                        "latitude" : self.location!.coordinate.latitude,
-                        "longitude" : self.location!.coordinate.longitude,
-                        "name" : self.location!.name!,
-                        "country" : self.location!.country!,
+                        "latitude" : pla.coordinate.latitude,
+                        "longitude" : pla.coordinate.longitude,
+                        "name" : pla.name!,
+                        "country" : pla.country!,
                         "type" : "Gps"
                     ]
+                    
+                    self.location = pla
                     
                     self.coms.updateUserLocation(parameters: parameters){
                         response in

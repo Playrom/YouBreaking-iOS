@@ -10,6 +10,8 @@ import UIKit
 
 class ListaNotizieGiaVotateController: NotizieController {
     
+    // MARK: - Protocol Methods
+    
     override func reload(){
         
         super.reload()
@@ -61,6 +63,8 @@ class ListaNotizieGiaVotateController: NotizieController {
         }
     }
     
+    // MARK: - Table view data source
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         var actions = super.tableView(tableView, editActionsForRowAt: indexPath)
@@ -88,7 +92,5 @@ class ListaNotizieGiaVotateController: NotizieController {
             return actions
         }
     }
-
-
 
 }
