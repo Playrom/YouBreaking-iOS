@@ -21,6 +21,12 @@ class NewsController: UIViewController {
     @IBOutlet weak var menu: UISegmentedControl!
     @IBOutlet weak var crossView: UIImageView!
     
+    @IBOutlet weak var arrowUp: UIImageView!
+    @IBOutlet weak var arrowDown: UIImageView!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    var currentVote : Voto = Voto.NO
+    
     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
     let blurEffectView = UIVisualEffectView()
     
@@ -37,7 +43,37 @@ class NewsController: UIViewController {
     var data : JSON?
     var coms = ModelNotizie()
     
-    var delegate : NewsControllerDelegate?
+    var delegate : ( NewsControllerDelegate & SingleNewsModalDelegate )?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.baseImageHeight = imageViewHeightConstraint.constant
+        reload()
+        
+        self.containerView.backgroundColor = Colors.darkGray
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NewsController.displayImage))
+        tapGesture.numberOfTapsRequired = 1
+        headerView.isUserInteractionEnabled = true
+        headerView.addGestureRecognizer(tapGesture)
+        
+        blurEffectView.frame = self.imageView.bounds
+        self.imageView.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
+        
+        crossView.image = crossView.image!.withRenderingMode(.alwaysTemplate)
+        crossView.tintColor = Colors.white
+        let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+        tapDismiss.numberOfTapsRequired = 1
+        crossView.addGestureRecognizer(tapDismiss)
+        
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
     
     func reload() {
         
@@ -71,37 +107,92 @@ class NewsController: UIViewController {
             }
         }
         
+        self.scoreLabel.text = data?["score"].int?.description
+        
+        if let vote = data?["voto_utente"].dictionary{
+            if let v = vote["voto"]?.stringValue , v.contains("UP"){
+                self.setVoteImages(voto: .UP)
+            }
+            
+            if let v = vote["voto"]?.stringValue , v.contains("DOWN"){
+                self.setVoteImages(voto: .DOWN)
+            }
+        }else{
+            self.setVoteImages(voto: .NO)
+        }
+        
+        let tapUp = UITapGestureRecognizer(target: self, action: #selector(NewsController.voteUp))
+        tapUp.numberOfTapsRequired = 1
+        arrowUp.isUserInteractionEnabled = true
+        arrowUp.addGestureRecognizer(tapUp)
+        
+        let tapDown = UITapGestureRecognizer(target: self, action: #selector(NewsController.voteDown))
+        tapDown.numberOfTapsRequired = 1
+        arrowDown.isUserInteractionEnabled = true
+        arrowDown.addGestureRecognizer(tapDown)
+        
+        
+    }
+    
+    func setVoteImages(voto : Voto){
+        switch voto {
+        case .UP:
+            arrowUp.image = Images.imageOfArrowUpFill
+            arrowDown.image = Images.imageOfArrowDown
+            break
+        case .DOWN:
+            arrowUp.image = Images.imageOfArrowUp
+            arrowDown.image = Images.imageOfArrowDownFill
+            break
+        case .NO:
+            arrowUp.image = Images.imageOfArrowUp
+            arrowDown.image = Images.imageOfArrowDown
+            break
+        }
+        
+        arrowUp.image = arrowUp.image!.withRenderingMode(.alwaysTemplate)
+        arrowUp.tintColor = UIApplication.shared.delegate?.window??.tintColor
+        
+        arrowDown.image = arrowDown.image!.withRenderingMode(.alwaysTemplate)
+        arrowDown.tintColor = UIApplication.shared.delegate?.window??.tintColor
+        
+        self.currentVote = voto
         
     }
 
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.baseImageHeight = imageViewHeightConstraint.constant
-        reload()
+    func voteUp(){
+        if let data = data{
+            
+            if (self.currentVote == Voto.UP) {
+                setVoteImages(voto: .NO)
+                self.vote(voto: .NO )
+            }else{
+                setVoteImages(voto: .UP)
+                self.vote(voto: .UP )
+            }
+            
+            
+            
+        }
+    }
+    
+    func voteDown(){
+        if let data = data{
+            
+            if (self.currentVote == Voto.DOWN) {
+                setVoteImages(voto: .NO)
+                self.vote(voto: .NO )
+            }else{
+                setVoteImages(voto: .DOWN)
+                self.vote(voto: .DOWN )
+            }
+        }
         
-        self.containerView.backgroundColor = Colors.darkGray
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NewsController.displayImage))
-        tapGesture.numberOfTapsRequired = 1
-        headerView.isUserInteractionEnabled = true
-        headerView.addGestureRecognizer(tapGesture)
-        
-        blurEffectView.frame = self.imageView.bounds
-        self.imageView.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
-        
-        crossView.image = crossView.image!.withRenderingMode(.alwaysTemplate)
-        crossView.tintColor = Colors.white
-        let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
-        tapDismiss.numberOfTapsRequired = 1
-        crossView.addGestureRecognizer(tapDismiss)
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    internal func vote(voto: Voto) {
+        self.delegate?.vote(voto: voto, sender: self)
     }
     
     func dismissTap(){

@@ -71,6 +71,7 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
             object:nil,
             queue:nil){
                 notification in
+
                 if self.description != notification.userInfo?["sender"] as? String{
                     self.heights.removeAll()
                     self.reload()
@@ -98,6 +99,7 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
     
     
     func reload(){
+        self.tableView.contentOffset = CGPoint(x: 0, y: 0)
         if let vi = loadingView{
             
             vi.backgroundColor = Colors.lightGray
@@ -111,7 +113,6 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
     }
     
     func endReload(){
-        self.tableView.setContentOffset(CGPoint.zero, animated: true)
         self.loadingSpin.stopAnimating()
         self.loadingView?.removeFromSuperview()
     }

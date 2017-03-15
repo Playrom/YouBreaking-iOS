@@ -130,7 +130,7 @@ class VotaController: UIViewController {
 
 }
 
-extension VotaController : NewsControllerDelegate{
+extension VotaController : NewsControllerDelegate, SingleNewsModalDelegate{
     func removeMask() {
         if let nvc = self.tabBarController, let modalMask = nvc.view.viewWithTag(999){
             UIView.animate(withDuration: 0.3){
@@ -138,6 +138,11 @@ extension VotaController : NewsControllerDelegate{
             }
         }
     }
+    
+    func vote(voto: Voto, sender: NewsController) {
+        
+    }
+    
 }
 
 extension VotaController: KolodaViewDelegate {

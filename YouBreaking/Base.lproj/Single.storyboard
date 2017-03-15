@@ -68,23 +68,66 @@
                                 </segments>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bO-Yd-gTV">
-                                <rect key="frame" x="0.0" y="294" width="375" height="373"/>
+                                <rect key="frame" x="0.0" y="294" width="375" height="328"/>
                                 <connections>
                                     <segue destination="ize-nG-8UK" kind="embed" identifier="Embed Page Controller" id="J94-8P-QpV"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lta-5N-299">
+                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zpp-hg-Zax">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="2"/>
+                                        <color key="backgroundColor" red="0.83921568629999999" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="Nzt-sP-1kH"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gY0-ee-ebB">
+                                        <rect key="frame" x="0.0" y="10" width="375" height="27"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Down" translatesAutoresizingMaskIntoConstraints="NO" id="ziV-qn-C6I">
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="27"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="val-b6-mNV">
+                                                <rect key="frame" x="125" y="0.0" width="125" height="27"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="N6w-Ag-4lS">
+                                                <rect key="frame" x="250" y="0.0" width="125" height="27"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="2H4-vX-uUR"/>
+                                    <constraint firstItem="zpp-hg-Zax" firstAttribute="top" secondItem="lta-5N-299" secondAttribute="top" id="7X6-HF-fla"/>
+                                    <constraint firstAttribute="trailing" secondItem="gY0-ee-ebB" secondAttribute="trailing" id="LIm-IU-VR3"/>
+                                    <constraint firstItem="gY0-ee-ebB" firstAttribute="leading" secondItem="lta-5N-299" secondAttribute="leading" id="Otz-V4-4k8"/>
+                                    <constraint firstItem="gY0-ee-ebB" firstAttribute="top" secondItem="zpp-hg-Zax" secondAttribute="bottom" constant="8" id="dNe-YY-JKV"/>
+                                    <constraint firstAttribute="trailing" secondItem="zpp-hg-Zax" secondAttribute="trailing" id="eg8-wu-7rB"/>
+                                    <constraint firstAttribute="bottom" secondItem="gY0-ee-ebB" secondAttribute="bottom" constant="8" id="lZ9-SK-cmO"/>
+                                    <constraint firstItem="zpp-hg-Zax" firstAttribute="leading" secondItem="lta-5N-299" secondAttribute="leading" id="tvd-ng-dv9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="8bO-Yd-gTV" firstAttribute="trailing" secondItem="LYc-Va-JeH" secondAttribute="trailing" id="2a9-Bn-CS3"/>
+                            <constraint firstItem="lta-5N-299" firstAttribute="top" secondItem="8bO-Yd-gTV" secondAttribute="bottom" id="6Ha-bs-IeO"/>
                             <constraint firstItem="8bO-Yd-gTV" firstAttribute="leading" secondItem="LYc-Va-JeH" secondAttribute="leading" id="BXd-XZ-MAU"/>
                             <constraint firstItem="8bO-Yd-gTV" firstAttribute="top" secondItem="lLL-MP-MmO" secondAttribute="bottom" constant="8" id="EY6-ST-JCb"/>
                             <constraint firstItem="lLL-MP-MmO" firstAttribute="top" secondItem="LYc-Va-JeH" secondAttribute="bottom" constant="8" id="GzK-OO-Lg2"/>
                             <constraint firstItem="lLL-MP-MmO" firstAttribute="trailing" secondItem="LYc-Va-JeH" secondAttribute="trailing" constant="-16" id="Jvl-qX-vTD"/>
                             <constraint firstItem="lLL-MP-MmO" firstAttribute="leading" secondItem="LYc-Va-JeH" secondAttribute="leading" constant="16" id="KJE-xM-HXA"/>
-                            <constraint firstItem="PPO-LC-7ml" firstAttribute="top" secondItem="8bO-Yd-gTV" secondAttribute="bottom" id="RBy-QH-TYU"/>
+                            <constraint firstItem="PPO-LC-7ml" firstAttribute="top" secondItem="lta-5N-299" secondAttribute="bottom" id="ZFp-Dj-8fZ"/>
+                            <constraint firstItem="lta-5N-299" firstAttribute="trailing" secondItem="LYc-Va-JeH" secondAttribute="trailing" id="bnv-Tm-2PA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LYc-Va-JeH" secondAttribute="trailing" constant="-16" id="e6Q-d6-h9P"/>
+                            <constraint firstItem="lta-5N-299" firstAttribute="leading" secondItem="LYc-Va-JeH" secondAttribute="leading" id="iIQ-bh-ehW"/>
                             <constraint firstItem="LYc-Va-JeH" firstAttribute="leading" secondItem="WoP-IU-ns6" secondAttribute="leadingMargin" constant="-16" id="idp-Wm-9ZC"/>
                             <constraint firstItem="LYc-Va-JeH" firstAttribute="top" secondItem="0Nm-be-EHn" secondAttribute="bottom" constant="-20" id="mCA-hn-2Q6"/>
                         </constraints>
@@ -93,6 +136,8 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="arrowDown" destination="ziV-qn-C6I" id="sGI-yI-zhr"/>
+                        <outlet property="arrowUp" destination="N6w-Ag-4lS" id="R4v-Rp-cD6"/>
                         <outlet property="containerView" destination="8bO-Yd-gTV" id="0q4-Tq-uNj"/>
                         <outlet property="crossView" destination="YdF-sZ-mk1" id="CL4-VE-HQG"/>
                         <outlet property="headerView" destination="LYc-Va-JeH" id="IXh-dA-LQX"/>
@@ -101,6 +146,7 @@
                         <outlet property="maskView" destination="3X7-DI-cz0" id="nZ1-0e-e6Z"/>
                         <outlet property="menu" destination="lLL-MP-MmO" id="c2g-jN-pfB"/>
                         <outlet property="panGestureRecognizer" destination="5dG-DM-pkQ" id="luE-GZ-L5D"/>
+                        <outlet property="scoreLabel" destination="val-b6-mNV" id="fyb-l7-VWw"/>
                         <outlet property="titleLabel" destination="7pY-kC-ut0" id="1aA-k7-PCL"/>
                     </connections>
                 </viewController>
@@ -172,6 +218,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow Down" width="240" height="120"/>
+        <image name="Arrow Up" width="240" height="120"/>
         <image name="Cross" width="150" height="150"/>
     </resources>
 </document>
