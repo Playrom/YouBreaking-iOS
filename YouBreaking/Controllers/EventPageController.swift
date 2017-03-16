@@ -15,6 +15,15 @@ class EventPageController: NotizieController {
     var eventId : String?
     var event : JSON?
     
+    // MARK: - UIKit Methods
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = event?["name"].string
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+    }
+    
     // MARK: - Protocol Methods
     
     override func reload(){

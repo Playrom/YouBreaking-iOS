@@ -26,6 +26,7 @@ class NewsInfoViewController: UIViewController {
         super.viewDidLoad()
         self.reload()
         // Do any additional setup after loading the view.
+        
     }
     
     func reload(){
@@ -88,6 +89,15 @@ class NewsInfoViewController: UIViewController {
 
     
     // MARK: - Navigation
+    @IBAction func selectEvent(_ sender: UIButton) {
+        if let nav = self.parent?.parent?.navigationController {
+            let eventPage = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Event Page Controller") as! EventPageController
+            
+            eventPage.eventId = news?["evento"]["id"].string
+            nav.pushViewController(eventPage, animated: true)
+
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

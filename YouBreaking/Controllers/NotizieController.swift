@@ -20,6 +20,7 @@ class NotizieController: PagedTableController {
         self.tableView.register(UINib.init(nibName: "NotiziaCell", bundle: Bundle.main), forCellReuseIdentifier: "notizia")
     }
     
+    
     // MARK: - Protocol Methods
     
     override func reload(){
@@ -79,7 +80,7 @@ class NotizieController: PagedTableController {
                 
                 break
             case "Select News":
-                if let dvc = segue.destination as? NewsController, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
+                if let dvc = (segue.destination as? UINavigationController)?.viewControllers[0] as? NewsController, let indexPath = self.tableView.indexPath(for: sender as! NotiziaCell){
                     dvc.data = self.model.optionalSubscript(safe: indexPath.row)
                     dvc.delegate = self
                     self.tableView.deselectRow(at: indexPath, animated: true)

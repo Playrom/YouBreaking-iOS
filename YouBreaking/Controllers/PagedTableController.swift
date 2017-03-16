@@ -50,6 +50,8 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
 
         
         self.tableView.layoutMargins = .zero
+        self.tableView.separatorStyle = .none
+        
         if let nav = self.navigationController, let tab = self.tabBarController{
             
             let topHeight = nav.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height

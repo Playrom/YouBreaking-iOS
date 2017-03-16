@@ -168,12 +168,6 @@ class NotiziaCell: UITableViewCell {
                 break
         }
         
-        imageUp.image = imageUp.image!.withRenderingMode(.alwaysTemplate)
-        imageUp.tintColor = self.tintColor
-        
-        imageDown.image = imageDown.image!.withRenderingMode(.alwaysTemplate)
-        imageDown.tintColor = self.tintColor
-        
         self.currentVote = voto
         
     }
@@ -209,9 +203,9 @@ class NotiziaCell: UITableViewCell {
     
     
     @IBAction func pressEvent(_ sender: UIButton) {
-        if let eventId = self.model?["evento"]["id"].string{
-            self.delegate?.performSegueToEvent(eventId: eventId, sender: self)
-        }
+//        if let eventId = self.model?["evento"]["id"].string{
+//            self.delegate?.performSegueToEvent(eventId: eventId, sender: self)
+//        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

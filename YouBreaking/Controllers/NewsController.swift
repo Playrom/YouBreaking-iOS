@@ -18,6 +18,7 @@ class NewsController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var alternateTitleLabel: UILabel!
     @IBOutlet weak var menu: UISegmentedControl!
     @IBOutlet weak var crossView: UIImageView!
     
@@ -49,6 +50,7 @@ class NewsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.baseImageHeight = imageViewHeightConstraint.constant
+                        
         reload()
         
         self.containerView.backgroundColor = Colors.darkGray
@@ -61,11 +63,30 @@ class NewsController: UIViewController {
         blurEffectView.frame = self.imageView.bounds
         self.imageView.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
         
-        crossView.image = crossView.image!.withRenderingMode(.alwaysTemplate)
-        crossView.tintColor = Colors.white
-        let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
-        tapDismiss.numberOfTapsRequired = 1
-        crossView.addGestureRecognizer(tapDismiss)
+        /*let button = UIButton(type: .custom)
+        let crossImage = UIImage(named: "Cross")
+        button.setImage(crossImage, for: .normal)
+        button.adjustsImageWhenDisabled = false
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        button.addTarget(self, action: #selector(NewsController.dismissTap), for: .touchUpInside )
+        */
+        
+        let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
+        if let crossImage = crossImage{
+            let imageView = UIImageView(image: crossImage)
+            imageView.tintColor = Colors.white
+            imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            imageView.contentMode = .scaleAspectFit
+            
+            let button = UIBarButtonItem(customView: imageView)
+            
+            let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+            tapDismiss.numberOfTapsRequired = 1
+            imageView.addGestureRecognizer(tapDismiss)
+            
+            self.navigationItem.leftBarButtonItem = button
+        }
+        
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -74,10 +95,21 @@ class NewsController: UIViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Hide the navigation bar on the this view controller
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+
+    }
     
     func reload() {
         
         titleLabel.text = data?["title"].string
+        alternateTitleLabel.text = data?["title"].string
         
         var comps = [String : String]()
         
@@ -90,6 +122,8 @@ class NewsController: UIViewController {
             
             
             if comps["PHOTO"] != nil{
+                
+                alternateTitleLabel.text = nil
                 
                 coms.getPhoto(photo: comps["PHOTO"]!){
                     image in
@@ -104,6 +138,7 @@ class NewsController: UIViewController {
                 self.imageViewHeightConstraint.constant = finalHeight
                 self.maskView.backgroundColor = UIColor.clear
                 self.headerView.backgroundColor = Colors.red
+                self.titleLabel.text = nil
             }
         }
         
@@ -150,12 +185,6 @@ class NewsController: UIViewController {
             break
         }
         
-        arrowUp.image = arrowUp.image!.withRenderingMode(.alwaysTemplate)
-        arrowUp.tintColor = UIApplication.shared.delegate?.window??.tintColor
-        
-        arrowDown.image = arrowDown.image!.withRenderingMode(.alwaysTemplate)
-        arrowDown.tintColor = UIApplication.shared.delegate?.window??.tintColor
-        
         self.currentVote = voto
         
     }
@@ -196,6 +225,7 @@ class NewsController: UIViewController {
     }
     
     func dismissTap(){
+        print("TAP")
         self.delegate?.removeMask()
         self.dismiss(animated: true, completion: nil)
     }
@@ -335,6 +365,10 @@ extension NewsController : HeightDelegate{
             originalPosition = view.frame.origin
             originalSize = view.size
             
+            UIView.animate(withDuration: 0.2){
+                self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
+            }
+            
             currentPositionTouched = panGesture.location(in: view)
         } else if panGesture.state == .changed {
             let padding = translation.y / 10
@@ -376,6 +410,7 @@ extension NewsController : HeightDelegate{
                     self.view.frame.origin = self.originalPosition!
                     self.view.size = self.originalSize!
                     self.view.alpha = 1
+                    self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
                 })
             }
         }
