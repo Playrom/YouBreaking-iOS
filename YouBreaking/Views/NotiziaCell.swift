@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import DateToolsSwift
 
 class NotiziaCell: UITableViewCell {
     
@@ -23,6 +24,8 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
         
     @IBOutlet weak var divider: UIView!
+    @IBOutlet weak var author: UILabel!
+    @IBOutlet weak var position: UILabel!
     
     var model : JSON?
     var coms = ModelNotizie()
@@ -33,6 +36,8 @@ class NotiziaCell: UITableViewCell {
         super.awakeFromNib()
         mainImageView.isHidden = true
         divider.isHidden = false
+        author.text = nil
+        position.text = nil
         // Initialization code
         
     }
@@ -50,6 +55,9 @@ class NotiziaCell: UITableViewCell {
         testoTitolo.text = ""
         testo.text = ""
         scoreLabel.text = "0"
+        
+        author.text = nil
+        position.text = nil
     }
     
     override func layoutSubviews() {
@@ -123,6 +131,24 @@ class NotiziaCell: UITableViewCell {
             tapDown.numberOfTapsRequired = 1
             imageDown.isUserInteractionEnabled = true
             imageDown.addGestureRecognizer(tapDown)
+            
+            //author.text = model["user"]["name"].string
+            
+            if let date = model["created_at"].string?.date{
+                author.text = date.timeAgoSinceNow
+            }
+            
+            if let distance = model["distance"].double{
+                let formatter = NumberFormatter()
+                formatter.maximumFractionDigits = 2
+                let distanceString = formatter.string(from: NSNumber(floatLiteral: distance ) )
+                if let str = distanceString{
+                    position.text = "Distante " + str + "km"
+                }else{
+                    position.text = ""
+                }
+            }
+            
         }
     }
     

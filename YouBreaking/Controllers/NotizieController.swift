@@ -142,9 +142,7 @@ extension NotizieController : SingleNewsModalDelegate{
             
             coms.vote(voto: voto, notizia: newsId){
                 response in
-                
-                print(response)
-                
+                                
                 if(response?["data"]["voto"].string == Voto.NO.rawValue){
                     var dict = data.dictionaryObject
                     dict?.removeValue(forKey: "voto_utente")

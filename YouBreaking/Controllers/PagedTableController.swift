@@ -104,7 +104,7 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
             
             vi.backgroundColor = Colors.lightGray
             loadingSpin = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-            loadingSpin.center = vi.center
+            loadingSpin.center = CGPoint(x: vi.width/2 , y:  vi.height / 2)
             vi.addSubview(loadingSpin)
             loadingSpin.startAnimating()
             self.loadingView = vi

@@ -19,6 +19,16 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>DateToolsSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
+		<key>Fingertips.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>HanekeSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -122,6 +132,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>21958F2BEAB1209B6BDBBC986630CE5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>26A30E5FBC4FC2846394DDAA60066B70</key>
 		<dict>
 			<key>primary</key>
@@ -182,6 +197,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6914D4BD40C16A1B3EEB1772F294CB8A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6BB1C1403B2419F911818DA8413FDA07</key>
 		<dict>
 			<key>primary</key>
@@ -212,7 +232,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>88C406014FB91358FCA91B7B528CAC48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8A4C9D9BEEB161544EFA715935E341D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -263,6 +293,11 @@
 			<true/>
 		</dict>
 		<key>A3ECC6FDD6CFE11A4DAEEF00CC929A01</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A60F97745FEBBBE88B0AEA6C78830B9B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -332,12 +367,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DA74648589AFA25569F04CF31DF70975</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E1BF8F260DD1DBC7B28631C06FE446D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>E286325422420FD9B01FA6B2B534223C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E2F52FFAF549EE6FF0CB50A7D6621CF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E89CFD99B895BCC6E8EDC2F95A03500C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED173EC5816E03288FEF98EBE9FF87D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -358,6 +413,11 @@
 			<true/>
 		</dict>
 		<key>F7F02C0DE2A977BEF9609D582049EE51</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FC17AF184F2182FAE58D3496A605CB16</key>
 		<dict>
 			<key>primary</key>
 			<true/>

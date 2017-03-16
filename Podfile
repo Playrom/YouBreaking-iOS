@@ -18,6 +18,9 @@ target 'YouBreaking' do
     pod 'ImagePicker'
     pod 'Whisper'
     pod 'Onboard'
+    pod 'DateToolsSwift', :git => 'https://github.com/MatthewYork/DateTools', :branch => 'master'
+
+    
   # Pods for YouBreaking
 
 end

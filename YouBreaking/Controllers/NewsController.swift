@@ -248,6 +248,87 @@ class NewsController: UIViewController {
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
     @IBAction func panGestureAction(_ panGesture: UIPanGestureRecognizer) {
+        self.dismissGestureControll(panGesture: panGesture)
+    }
+
+}
+
+extension LightboxController{
+    open override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+}
+
+extension NewsController : HeightDelegate{
+    
+    func heightChanged(height : CGFloat?, animated : Bool , completition handler : ( (Void) -> () )? ){
+        
+        var newConstant : CGFloat? = nil
+        
+        if(self.imageView.image != nil){
+        
+            if let forced = baseImageHeight, let height = height{
+                let reduced = height
+                let final = forced - reduced/3
+                
+                if(final > finalHeight){
+                    newConstant = final
+                }else{
+                    newConstant = finalHeight
+                }
+            }else{
+                newConstant = finalHeight
+            }
+            
+            if let ct = newConstant{
+                
+                let originalHeight = self.imageViewHeightConstraint.constant
+
+                self.imageViewHeightConstraint.constant = ct
+                
+                if !UIAccessibilityIsReduceTransparencyEnabled() {
+                    
+                    if(ct > initialHeight - 20){
+                        UIView.animate(withDuration: 0.3 , animations: {
+                            self.blurEffectView.effect = nil
+                            self.blurEffectView.cornerRadius = 2
+                        })
+                    }else if(ct > finalHeight + 50){
+                        UIView.animate(withDuration: 0.3 , animations: {
+                            self.blurEffectView.effect = self.blurEffect
+                            self.blurEffectView.cornerRadius = 5
+                        })
+                    }else if(ct > finalHeight - 1){
+                        UIView.animate(withDuration: 0.3 , animations: {
+                            self.blurEffectView.effect = self.blurEffect
+                            self.blurEffectView.cornerRadius = 10
+                        })
+                    }
+                    
+
+                    
+                }
+                
+                
+                
+                
+                if(animated){
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.view.layoutIfNeeded()
+                    }, completion: {
+                        _ in
+                        if let handler = handler {
+                            handler()
+                        }
+                    })
+                }
+            }
+                
+        }
+    }
+    
+    func dismissGestureControll(panGesture: UIPanGestureRecognizer) {
+        
         let translation = panGesture.translation(in: view)
         
         if panGesture.state == .began {
@@ -297,81 +378,6 @@ class NewsController: UIViewController {
                     self.view.alpha = 1
                 })
             }
-        }
-    }
-
-}
-
-extension LightboxController{
-    open override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-}
-
-extension NewsController : HeightDelegate{
-    func heightChanged(height : CGFloat?, animated : Bool , completition handler : ( (Void) -> () )? ){
-        
-        var newConstant : CGFloat? = nil
-        
-        if(self.imageView.image != nil){
-        
-            if let forced = baseImageHeight, let height = height{
-                let reduced = height
-                let final = forced - reduced/3
-                
-                if(final > finalHeight){
-                    newConstant = final
-                }else{
-                    newConstant = finalHeight
-                }
-            }else{
-                newConstant = finalHeight
-            }
-            
-            if let ct = newConstant{
-                
-                let originalHeight = self.imageViewHeightConstraint.constant
-
-                self.imageViewHeightConstraint.constant = ct
-                
-                if !UIAccessibilityIsReduceTransparencyEnabled(), let height = height, height > 0 {
-                    
-                    if(ct > initialHeight - 20){
-                        UIView.animate(withDuration: 0.3 , animations: {
-                            self.blurEffectView.effect = nil
-                            self.blurEffectView.cornerRadius = 2
-                        })
-                    }else if(ct > finalHeight + 50){
-                        UIView.animate(withDuration: 0.3 , animations: {
-                            self.blurEffectView.effect = self.blurEffect
-                            self.blurEffectView.cornerRadius = 5
-                        })
-                    }else if(ct > finalHeight - 1){
-                        UIView.animate(withDuration: 0.3 , animations: {
-                            self.blurEffectView.effect = self.blurEffect
-                            self.blurEffectView.cornerRadius = 10
-                        })
-                    }
-                    
-
-                    
-                }
-                
-                
-                
-                
-                if(animated){
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.view.layoutIfNeeded()
-                    }, completion: {
-                        _ in
-                        if let handler = handler {
-                            handler()
-                        }
-                    })
-                }
-            }
-                
         }
     }
     

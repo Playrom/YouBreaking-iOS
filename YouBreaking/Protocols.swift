@@ -16,3 +16,8 @@ protocol SingleNewsModalDelegate {
 protocol DataNewsDelegate{
     var data : JSON? { get set }
 }
+
+protocol HeightDelegate{
+    func heightChanged(height : CGFloat?, animated : Bool , completition handler : ( (Void) -> () )? )
+    func dismissGestureControll(panGesture: UIPanGestureRecognizer)
+}

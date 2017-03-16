@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.3.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - DateToolsSwift (2.0.3)
   - HanekeSwift (0.10.1)
   - Hue (2.0.1)
   - ImagePicker (2.0.0)
@@ -19,6 +20,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.3)
   - AlamofireImage
+  - DateToolsSwift (from `https://github.com/MatthewYork/DateTools`, branch `master`)
   - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-3`)
   - ImagePicker
   - JWTDecode
@@ -30,11 +32,17 @@ DEPENDENCIES:
   - Whisper
 
 EXTERNAL SOURCES:
+  DateToolsSwift:
+    :branch: master
+    :git: https://github.com/MatthewYork/DateTools
   HanekeSwift:
     :branch: feature/swift-3
     :git: https://github.com/Haneke/HanekeSwift.git
 
 CHECKOUT OPTIONS:
+  DateToolsSwift:
+    :commit: f64edc01cd77c737ce9a987988b98e59c2b62f0a
+    :git: https://github.com/MatthewYork/DateTools
   HanekeSwift:
     :commit: 1157a124ec699f4ad926cb054f1d0bfce88ae7a9
     :git: https://github.com/Haneke/HanekeSwift.git
@@ -42,6 +50,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  DateToolsSwift: 303a194ec50a5f212abeb8924542c8cc16b04a35
   HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   Hue: 354caec055fdc9d38b5ef33ca2e7224721843baf
   ImagePicker: 81175d36c2852cb543cb4f5d6c19e28f3e8d90eb
@@ -54,6 +63,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   Whisper: 08be92623311f8e53201e62e17f6d7b9599a4714
 
-PODFILE CHECKSUM: ea9a1511dada1618b4c207f1c2b3680f1fd69e98
+PODFILE CHECKSUM: 69a566b2733436875fe3d52ac9aaa89c716931ec
 
 COCOAPODS: 1.2.0

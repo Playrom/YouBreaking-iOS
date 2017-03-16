@@ -20,7 +20,7 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate, CLLocationManagerDelegate {
 
-    var window: UIWindow?
+    var window: UIWindow? 
     
     var utils  = LoginUtils.sharedInstance
     private let locationManager = CLLocationManager()

@@ -24,6 +24,8 @@
 		6C74C5511E433FEC00CE8107 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */; };
 		6C74C5531E43407500CE8107 /* ScriviNotiziaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */; };
 		6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */; };
+		6C7D6BBB1E7AEBB700A32FCD /* NewsUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D6BBA1E7AEBB700A32FCD /* NewsUsersTableViewController.swift */; };
+		6C7D6BBD1E7B124E00A32FCD /* NewsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D6BBC1E7B124E00A32FCD /* NewsInfoViewController.swift */; };
 		6C84E3FF1E7803BC00871F9A /* ListTableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E3FE1E7803BC00871F9A /* ListTableViewProtocol.swift */; };
 		6C84E4011E78065000871F9A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E4001E78065000871F9A /* Extensions.swift */; };
 		6C84E4031E78077B00871F9A /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E4021E78077B00871F9A /* DataTypes.swift */; };
@@ -43,7 +45,7 @@
 		6CA0E7221E44EC3E0086D9BB /* VotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA0E7211E44EC3E0086D9BB /* VotaController.swift */; };
 		6CA0E7261E44EF930086D9BB /* VoteCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA0E7251E44EF930086D9BB /* VoteCard.swift */; };
 		6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0E7271E44EFA50086D9BB /* VoteCard.xib */; };
-		6CA5012C1E798CDA0098CAE9 /* SingleNewsModalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA5012B1E798CDA0098CAE9 /* SingleNewsModalDelegate.swift */; };
+		6CA5012C1E798CDA0098CAE9 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA5012B1E798CDA0098CAE9 /* Protocols.swift */; };
 		6CA8A4991E73771300AF5905 /* DismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8A4981E73771300AF5905 /* DismissAnimator.swift */; };
 		6CCF4F251E65CF5900842585 /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F241E65CF5900842585 /* NewsController.swift */; };
 		6CCF4F271E65D0EC00842585 /* NewsPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */; };
@@ -78,6 +80,8 @@
 		6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/MainTabBarController.swift; sourceTree = "<group>"; };
 		6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScriviNotiziaController.swift; path = Controllers/ScriviNotiziaController.swift; sourceTree = "<group>"; };
 		6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Utilities/Colors.swift; sourceTree = "<group>"; };
+		6C7D6BBA1E7AEBB700A32FCD /* NewsUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsUsersTableViewController.swift; path = Controllers/NewsUsersTableViewController.swift; sourceTree = "<group>"; };
+		6C7D6BBC1E7B124E00A32FCD /* NewsInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsInfoViewController.swift; path = Controllers/NewsInfoViewController.swift; sourceTree = "<group>"; };
 		6C84E3FE1E7803BC00871F9A /* ListTableViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewProtocol.swift; sourceTree = "<group>"; };
 		6C84E4001E78065000871F9A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6C84E4021E78077B00871F9A /* DataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
@@ -97,7 +101,7 @@
 		6CA0E7211E44EC3E0086D9BB /* VotaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VotaController.swift; path = Controllers/VotaController.swift; sourceTree = "<group>"; };
 		6CA0E7251E44EF930086D9BB /* VoteCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteCard.swift; path = Views/VoteCard.swift; sourceTree = "<group>"; };
 		6CA0E7271E44EFA50086D9BB /* VoteCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VoteCard.xib; path = Views/VoteCard.xib; sourceTree = "<group>"; };
-		6CA5012B1E798CDA0098CAE9 /* SingleNewsModalDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleNewsModalDelegate.swift; sourceTree = "<group>"; };
+		6CA5012B1E798CDA0098CAE9 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		6CA8A4981E73771300AF5905 /* DismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DismissAnimator.swift; path = Utilities/DismissAnimator.swift; sourceTree = "<group>"; };
 		6CCF4F241E65CF5900842585 /* NewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsController.swift; path = Controllers/NewsController.swift; sourceTree = "<group>"; };
 		6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPagesController.swift; sourceTree = "<group>"; };
@@ -151,9 +155,7 @@
 				6C8D99791E5DAF2B00D1C60C /* LocationSearchTable.swift */,
 				6C8E50A91E4B13040013B8E8 /* SettingsController.swift */,
 				6C5727221E4B84570047B199 /* SelectLocationSettingsController.swift */,
-				6CCF4F241E65CF5900842585 /* NewsController.swift */,
-				6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */,
-				6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */,
+				6C7D6BBE1E7B126800A32FCD /* Single News */,
 				6CD1D5731E3F86AF00C3208D /* ViewController.swift */,
 				6C74C5521E43407500CE8107 /* ScriviNotiziaController.swift */,
 				6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */,
@@ -191,6 +193,18 @@
 			name = Xib;
 			sourceTree = "<group>";
 		};
+		6C7D6BBE1E7B126800A32FCD /* Single News */ = {
+			isa = PBXGroup;
+			children = (
+				6CCF4F241E65CF5900842585 /* NewsController.swift */,
+				6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */,
+				6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */,
+				6C7D6BBC1E7B124E00A32FCD /* NewsInfoViewController.swift */,
+				6C7D6BBA1E7AEBB700A32FCD /* NewsUsersTableViewController.swift */,
+			);
+			name = "Single News";
+			sourceTree = "<group>";
+		};
 		6C84E4081E7809F500871F9A /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,7 +240,8 @@
 		6CD1D5701E3F86AF00C3208D /* YouBreaking */ = {
 			isa = PBXGroup;
 			children = (
-				6CA5012B1E798CDA0098CAE9 /* SingleNewsModalDelegate.swift */,
+				6CA5012B1E798CDA0098CAE9 /* Protocols.swift */,
+				6C84E4001E78065000871F9A /* Extensions.swift */,
 				6CA8A4981E73771300AF5905 /* DismissAnimator.swift */,
 				6C5727211E4B83A50047B199 /* YouBreaking.entitlements */,
 				6CD1D5711E3F86AF00C3208D /* AppDelegate.swift */,
@@ -237,7 +252,6 @@
 				6C351B3E1E40D8D40057309C /* LoginUtils.swift */,
 				6CD1D5781E3F86AF00C3208D /* Assets.xcassets */,
 				6C74C54E1E433DE700CE8107 /* Images.swift */,
-				6C84E4001E78065000871F9A /* Extensions.swift */,
 				6C84E4021E78077B00871F9A /* DataTypes.swift */,
 				6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */,
 				6CD1D57D1E3F86AF00C3208D /* Info.plist */,
@@ -418,11 +432,12 @@
 				6CE57A3D1E5B0075003F3EB1 /* SelectPhotoCell.swift in Sources */,
 				6C35FE741E488EC600373DC6 /* SearchEventController.swift in Sources */,
 				6C84E4011E78065000871F9A /* Extensions.swift in Sources */,
+				6C7D6BBB1E7AEBB700A32FCD /* NewsUsersTableViewController.swift in Sources */,
 				6CD1D5741E3F86AF00C3208D /* ViewController.swift in Sources */,
 				6CA0E7221E44EC3E0086D9BB /* VotaController.swift in Sources */,
 				6C74C5511E433FEC00CE8107 /* MainTabBarController.swift in Sources */,
 				6CCF4F291E65D58500842585 /* NewsTextTableViewController.swift in Sources */,
-				6CA5012C1E798CDA0098CAE9 /* SingleNewsModalDelegate.swift in Sources */,
+				6CA5012C1E798CDA0098CAE9 /* Protocols.swift in Sources */,
 				6C35FE701E487D0000373DC6 /* EventPageController.swift in Sources */,
 				6CA0E7261E44EF930086D9BB /* VoteCard.swift in Sources */,
 				6C8E50AA1E4B13040013B8E8 /* SettingsController.swift in Sources */,
@@ -441,6 +456,7 @@
 				6C74C5491E4333B500CE8107 /* ListaNotizieController.swift in Sources */,
 				6C351B3F1E40D8D40057309C /* LoginUtils.swift in Sources */,
 				6C84E4031E78077B00871F9A /* DataTypes.swift in Sources */,
+				6C7D6BBD1E7B124E00A32FCD /* NewsInfoViewController.swift in Sources */,
 				6C8D99781E5DA70E00D1C60C /* MapSearchLocationController.swift in Sources */,
 				6CA8A4991E73771300AF5905 /* DismissAnimator.swift in Sources */,
 			);

@@ -19,7 +19,9 @@ class NewsPagesController: UIPageViewController {
     var data : JSON?
     var nextIndex = 0
     var currentIndex = 0
-    let geocoder = CLGeocoder()
+    
+    
+    let coms = ModelNotizie()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,6 @@ class NewsPagesController: UIPageViewController {
         controllers.append(first)
         titles.append("Notizia")
         
-        
         var comps = [String : String]()
         
         if let aggiuntivi = data?["aggiuntivi"].array{
@@ -44,53 +45,34 @@ class NewsPagesController: UIPageViewController {
                 }
             }
             
-            if let latitudeString =  comps["LOCATION_LATITUDE"] , let longitudeString = comps["LOCATION_LONGITUDE"], let latitude = Double(latitudeString) , let longitude = Double(longitudeString){
-                
-                let second = UIViewController()
-                let map = MKMapView(frame: second.view.frame)
-                map.isScrollEnabled = false
-                map.isZoomEnabled = false
-                map.region = MKCoordinateRegionMake(CLLocationCoordinate2D(latitude: latitude , longitude: longitude )  , MKCoordinateSpanMake(0.05, 0.05) )
-                
-                
-                
-                map.removeAnnotations(map.annotations)
-                
-                geocoder.reverseGeocodeLocation(CLLocation(latitude: latitude , longitude: longitude)){
-                    place, error in
-                    if let place = place?.first , let location = place.location{
-                        
-                        let annotation = MKPointAnnotation()
-                        annotation.coordinate = location.coordinate
-                        annotation.title = comps["LOCATION_NAME"]
-                        annotation.subtitle = place.contextString
-                        map.addAnnotation(annotation)
-                        
-                        let span = MKCoordinateSpanMake(0.05, 0.05)
-                        let region = MKCoordinateRegionMake(location.coordinate, span)
-                        map.setRegion(region, animated: true)
-                    }
-                    
-                }
-                
-                
-                
-                
-                second.view.addSubview(map)
+            if data?["evento"]["id"].string != nil || (comps["LOCATION_LATITUDE"] != nil && comps["LOCATION_LONGITUDE"] != nil) || comps["LINK"] != nil  {
+
+                let second = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "News Info Controller") as! NewsInfoViewController
+                second.news = data
                 controllers.append(second)
-                
-                titles.append("Mappa")
+                titles.append("Info")
             }
+            
         }
         
-        if(controllers.count < 2){
-            self.menu?.isHidden = true
-        }
         
+        let third = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "News Users Table") as! NewsUsersTableViewController
+        controllers.append(third)
+        titles.append("Utenti")
+        
+        var query = ["fields" : "voti"]
+        
+        if let idNews = data?["id"].string {
+            
+            coms.getSingleNews(id: idNews , query : query){
+                model in
+                third.news = model
+                third.preload()
+            }
+            
+        }
         
         self.setViewControllers([first], direction: .forward, animated: false, completion: nil)
-        
-        
         
         menu?.segmentTitles = titles
         menu?.selectedSegmentIndex = 0
@@ -192,7 +174,4 @@ extension NewsPagesController : UIPageViewControllerDataSource{
     
 }
 
-protocol HeightDelegate{
-    func heightChanged(height : CGFloat?, animated : Bool , completition handler : ( (Void) -> () )? )
-}
 

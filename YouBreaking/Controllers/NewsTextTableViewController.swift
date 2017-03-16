@@ -12,6 +12,7 @@ class NewsTextTableViewController: UITableViewController {
     
     var delegate : HeightDelegate?
     var text : String?
+    var panGestureRecognizer : UIPanGestureRecognizer?
     
     @IBOutlet weak var label: UILabel!
     
@@ -22,6 +23,8 @@ class NewsTextTableViewController: UITableViewController {
         label.setNeedsLayout()
         label.setNeedsDisplay()
         label.layoutSubviews()
+        
+        self.tableView.bounces = false
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,6 +32,7 @@ class NewsTextTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
