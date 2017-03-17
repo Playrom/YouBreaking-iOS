@@ -66,9 +66,22 @@ class NotiziaCell: UITableViewCell {
         
         if let model = model{
             
-            testo.text = model["text"].string
-            testo.textAlignment = .justified
-            testo.sizeToFit()
+            if let text = model["text"].string{
+            
+                if(text.characters.count > 500){
+                    var temp = text.substring(to: text.index(text.startIndex, offsetBy: 500) )
+                    let endString = NSAttributedString(string: "\nFai un Tap per continuare a leggere", attributes: [NSForegroundColorAttributeName : Colors.red])
+                    let attributed = NSAttributedString(string: temp+"[...]")
+                    var mutable = NSMutableAttributedString(attributedString: attributed)
+                    mutable.append(endString)
+                    self.testo.attributedText = mutable
+                }else{
+                    
+                    testo.text = text
+                    testo.textAlignment = .justified
+                }
+            }
+            self.testo.sizeToFit()
             
             testoTitolo.textColor = Colors.red
             testoTitolo.text = model["title"].string
