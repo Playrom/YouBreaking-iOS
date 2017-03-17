@@ -14,24 +14,25 @@ import ImagePicker
 import MapKit
 import Whisper
 
-class ScriviNotiziaController: UITableViewController {
+class ScriviNotiziaController: BreakingTableViewController {
     
-    var coms = ModelNotizie()
-    
-    var location : MKPlacemark?
-    var event : JSON?
-    
-    var images = [[String : Any]]()
-    var data = Data()
-    
-    var notificationSelect = "NONE"
-    
-    var navigationDelegate : UINavigationController?
-    
+    // MARK: - IBOutlets
     @IBOutlet weak var titolo: UITextField!
     @IBOutlet weak var testo: UITextView!
     @IBOutlet weak var linkField: UITextField!
-
+    
+    // MARK: - MapKit Elements
+    var location : MKPlacemark?
+    
+    // MARK: - Class Elements
+    var coms = ModelNotizie()
+    var event : JSON?
+    var images = [[String : Any]]()
+    var data = Data()
+    var notificationSelect = "NONE"
+    var navigationDelegate : UINavigationController?
+    
+    // MARK: - MapKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,21 +41,16 @@ class ScriviNotiziaController: UITableViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ScriviNotiziaController.dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(tapGesture)
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // MARK: - Class Methods
     func dismissKeyboard(){
         titolo.resignFirstResponder()
         testo.resignFirstResponder()
         linkField.resignFirstResponder()
     }
     
+    // MARK: - IBActions
     @IBAction func save(_ sender: UIBarButtonItem) {
         
         var parameters: [String : Any] = [
@@ -166,11 +162,15 @@ class ScriviNotiziaController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func unwindToCreationVc(segue: UIStoryboardSegue) {
+        
     }
     
+    @IBAction func unwindToCreationVcSelectedEvent(segue: UIStoryboardSegue) {
+        
+    }
+    
+    // MARK: - Table View Data Source
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
             case 3,4,5,6,7:
@@ -225,21 +225,16 @@ class ScriviNotiziaController: UITableViewController {
             }
         }
     }
-
-    // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 7
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if(section == 6){ return 3 }
         return 1
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
@@ -312,13 +307,8 @@ class ScriviNotiziaController: UITableViewController {
     }
     
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
         if segue.identifier == "Pick Location" {
             if let locationPicker = segue.destination as? MapSearchLocationController{
                 locationPicker.delegate = self
@@ -326,39 +316,10 @@ class ScriviNotiziaController: UITableViewController {
         }
     }
     
-    @IBAction func unwindToCreationVc(segue: UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func unwindToCreationVcSelectedEvent(segue: UIStoryboardSegue) {
-        
-    }
-    
 
 }
 
-extension UIImageView {
-    
-    func imageFromURL(url : URL) {
-        
-        do{
-            let data = try Data.init(contentsOf: url)
-            self.image = UIImage(data: data)
-        }catch{
-            print("URL VUOTO")
-            self.image = nil
-        }
-        
-    }
-}
-
-extension UIImage {
-    func base64String() -> String?{
-        return UIImagePNGRepresentation(self)?.base64EncodedString()
-
-    }
-}
-
+// MARK: - Image Picker Delegate Extension
 extension ScriviNotiziaController : ImagePickerDelegate{
     func wrapperDidPress(_ imagePicker: ImagePicker.ImagePickerController, images: [UIImage]){
         
@@ -399,6 +360,7 @@ extension ScriviNotiziaController : ImagePickerDelegate{
     }
 }
 
+// MARK: - Select Location Delegate
 extension ScriviNotiziaController : SelectLocation{
     func selectLocation(location: MKPlacemark) {
         self.location = location

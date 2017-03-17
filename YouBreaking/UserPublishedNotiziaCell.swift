@@ -12,17 +12,14 @@ import SwiftyJSON
 class UserPublishedNotiziaCell: UITableViewCell {
 
     // MARK: - Class Attributes
-    
     var model : JSON?
     
     // MARK: - IBOutlets
-    
     @IBOutlet weak var titolo: UILabel!
     @IBOutlet weak var stato: UILabel!
     @IBOutlet weak var score: UILabel!
-    
-    
-    
+
+    // MARK: - UKit Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

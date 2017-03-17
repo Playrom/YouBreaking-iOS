@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class NewsPagesController: UIPageViewController {
     
+    // MARK: - Class Elements
     var controllers = [UIViewController]()
     var titles = [String]()
     var heightDelegate : HeightDelegate?
@@ -19,10 +20,9 @@ class NewsPagesController: UIPageViewController {
     var data : JSON?
     var nextIndex = 0
     var currentIndex = 0
-    
-    
     let coms = ModelNotizie()
     
+    // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
@@ -78,31 +78,12 @@ class NewsPagesController: UIPageViewController {
         menu?.selectedSegmentIndex = 0
         
         menu?.addTarget(self, action:  #selector( NewsPagesController.menuValueChanged(menu:) ), for: .valueChanged)
-
-        
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Class Methods
     func menuValueChanged(menu : UISegmentedControl){
         self.changeController(index: menu.selectedSegmentIndex)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func changeController(index : Int){
         if let vc = self.controllers.optionalSubscript(safe: index){
@@ -134,6 +115,7 @@ class NewsPagesController: UIPageViewController {
 
 }
 
+// MARK: - Page View Controller Delegate Extension
 extension NewsPagesController : UIPageViewControllerDelegate{
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, finished, let vc = self.controllers.optionalSubscript(safe: nextIndex){
@@ -152,6 +134,7 @@ extension NewsPagesController : UIPageViewControllerDelegate{
     }
 }
 
+// MARK: - Page View Controller Data Source Extension
 extension NewsPagesController : UIPageViewControllerDataSource{
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -173,5 +156,3 @@ extension NewsPagesController : UIPageViewControllerDataSource{
     }
     
 }
-
-

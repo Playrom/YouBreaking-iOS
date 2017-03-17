@@ -11,22 +11,18 @@ import SwiftyJSON
 
 class VoteCard: UIView {
     
-    var model : JSON?
-    var coms = ModelNotizie()
-
+    // MARK: - IBOutlets
     @IBOutlet weak var mainImageView: UIView!
     @IBOutlet weak var testoTitolo: UILabel!
     @IBOutlet weak var topicButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var mainImage: UIImageView!
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
+    // MARK: - Class Elements
+    var model : JSON?
+    var coms = ModelNotizie()
+    
+    //MARK: - UIKit Methods
     override func layoutSubviews() {
         
         mainImageView.backgroundColor = Colors.lightGray

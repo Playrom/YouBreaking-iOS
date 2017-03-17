@@ -10,28 +10,31 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapSearchLocationController: UIViewController {
+class MapSearchLocationController: BreakingViewController {
     
-    let locationManager = CLLocationManager()
-
+    // MARK: - IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     
+    // MARK: - UIKit Elements
     var searchController : UISearchController?
     
+    // MARK: - MapKit Elements
     var placemark : MKPlacemark?
-    
-    var delegate : SelectLocation?
     fileprivate var updatedLocation : CLLocation?
     fileprivate var geocoder = CLGeocoder()
+    let locationManager = CLLocationManager()
+    
+    // MARK: - Class Elements
+    var delegate : SelectLocation?
 
+    // MARK: - UIKit Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
-        
-        mapView.delegate = self
         
         let locationSearchTable = UIStoryboard.init(name: "LocationPicker", bundle: Bundle.main).instantiateViewController(withIdentifier: "Location Search Table") as! LocationSearchTable
         locationSearchTable.mapView = self.mapView
@@ -54,16 +57,13 @@ class MapSearchLocationController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    // MARK: - IBActions
     @IBAction func unwindToMapView(segue: UIStoryboardSegue) {
         
     }
     
+    // MARK: - Class Methods
     func selezionaLocation(){
         if let placemark = placemark{
             self.delegate?.selectLocation(location: placemark)
@@ -83,20 +83,10 @@ class MapSearchLocationController: UIViewController {
             }
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
+// MARK: - CLLocation Manager Delegate
 extension MapSearchLocationController : CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -123,14 +113,7 @@ extension MapSearchLocationController : CLLocationManagerDelegate{
     }
 }
 
-extension MapSearchLocationController : MKMapViewDelegate{
-    
-}
-
-extension MapSearchLocationController : UISearchControllerDelegate{
-    
-}
-
+// MARK: - Location Search Table Delegate
 extension MapSearchLocationController : LocationSearchTableDelegate{
     func selectPlacemark(placemark:MKPlacemark){
 
@@ -148,8 +131,4 @@ extension MapSearchLocationController : LocationSearchTableDelegate{
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
         mapView.setRegion(region, animated: true)
     }
-}
-
-protocol SelectLocation {
-    func selectLocation( location : MKPlacemark)
 }

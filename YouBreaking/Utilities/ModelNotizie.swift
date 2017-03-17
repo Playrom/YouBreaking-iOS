@@ -333,6 +333,37 @@ class ModelNotizie {
         
     }
     
+    
+    func getUser(id : String , query : [String:String], handler :  @escaping ( ( _ model : JSON?) -> Void ) ) {
+        
+        
+        var url = baseUrl + "/api/users/" + id
+        
+        if(query.count > 0){
+            url = url + "?"
+            for(key,value) in query{
+                url = url + "&\(key)=\(value)"
+            }
+        }
+        
+        print(url)
+        
+        session.request( url, method: .get,  headers: self.headers).responseJSON{
+            response in
+            if let data = response.data {
+                let json = JSON(data).dictionaryValue
+                if json["error"]?.bool == false , let data = json["data"]{
+                    
+                    handler(data)
+                    
+                }else{
+                    handler(nil)
+                }
+            }
+        }
+        
+    }
+    
     func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
         session.request( baseUrl + "/api/profile", method: .get, headers: self.headers).responseJSON{

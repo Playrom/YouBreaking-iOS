@@ -10,17 +10,21 @@ import UIKit
 import Koloda
 import SwiftyJSON
 
-class VotaController: UIViewController {
+class VotaController: BreakingViewController {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var koloda: KolodaView!
     @IBOutlet weak var no: UIImageView!
     @IBOutlet weak var yes: UIImageView!
     
+    // MARK: - UIKit Elements
+    var mask : UIView?
+    
+    // MARK: - Class Elements
     var coms = ModelNotizie()
     var model = [JSON]()
     
-    var mask : UIView?
-
+    // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,16 +61,6 @@ class VotaController: UIViewController {
         no.addGestureRecognizer(tapno)
         
         self.reload()
-
-        // Do any additional setup after loading the view.
-    }
-    
-    func tapYes(){
-        self.koloda.swipe(.right)
-    }
-    
-    func tapNo(){
-        self.koloda.swipe(.left)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,10 +69,13 @@ class VotaController: UIViewController {
         nc.removeObserver(self)
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: - Class Elements
+    func tapYes(){
+        self.koloda.swipe(.right)
+    }
+    
+    func tapNo(){
+        self.koloda.swipe(.left)
     }
     
     func reload(){
@@ -97,21 +94,12 @@ class VotaController: UIViewController {
 //        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     func tapCard(_ gesture : UITapGestureRecognizer){
 
         if let tapModel = (gesture.view as? VoteCard)?.model{
+            
             let vc = UIStoryboard.init(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! NewsController
+            vc.modalPresentationCapturesStatusBarAppearance = true
             vc.delegate = self
             vc.data = tapModel
 
@@ -130,6 +118,7 @@ class VotaController: UIViewController {
 
 }
 
+// MARK: - News Controller Delegate Extension
 extension VotaController : NewsControllerDelegate{
     func removeMask() {
         if let nvc = self.tabBarController, let modalMask = nvc.view.viewWithTag(999){
@@ -140,7 +129,7 @@ extension VotaController : NewsControllerDelegate{
     }
 }
 
-
+// MARK: - Single News Modal Delegate
 extension VotaController : SingleNewsModalDelegate{
     internal func vote(voto: Voto, sender : NewsController){
         if var data = sender.data , let newsId = data["id"].string{
@@ -171,6 +160,7 @@ extension VotaController : SingleNewsModalDelegate{
     }
 }
 
+// MARK: - Koloda View Delegate Extension
 extension VotaController: KolodaViewDelegate {
     func kolodaDidRunOutOfCards(koloda: KolodaView) {
 
@@ -183,6 +173,7 @@ extension VotaController: KolodaViewDelegate {
     
 }
 
+// MARK: - Koloda View Data Source Extension
 extension VotaController: KolodaViewDataSource {
     
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
@@ -204,7 +195,7 @@ extension VotaController: KolodaViewDataSource {
     }
     
     func koloda(koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        return nil //Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)?[0] as? OverlayView
+        return nil
     }
     
     func koloda(_ koloda: KolodaView, allowedDirectionsForIndex index: Int) -> [SwipeResultDirection] {

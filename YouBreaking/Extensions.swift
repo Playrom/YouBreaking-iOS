@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 extension Collection where Indices.Iterator.Element == Index {
     
@@ -53,5 +54,35 @@ extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         self.init(cgImage: (image?.cgImage!)!)
+    }
+    
+    func base64String() -> String?{
+        return UIImagePNGRepresentation(self)?.base64EncodedString()
+        
+    }
+}
+
+extension CLPlacemark{
+    var contextString : String?{
+        guard let locality = self.locality else{return nil}
+        guard let country = self.country else{return nil}
+        
+        return locality + " - " + country
+    }
+}
+
+
+extension UIImageView {
+    
+    func imageFromURL(url : URL) {
+        
+        do{
+            let data = try Data.init(contentsOf: url)
+            self.image = UIImage(data: data)
+        }catch{
+            print("URL VUOTO")
+            self.image = nil
+        }
+        
     }
 }

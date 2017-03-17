@@ -1,33 +1,43 @@
 //
-//  EventPageController.swift
+//  ListaNotizieController.swift
 //  YouBreaking
 //
-//  Created by Giorgio Romano on 06/02/2017.
+//  Created by Giorgio Romano on 02/02/2017.
 //  Copyright © 2017 Giorgio Romano. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
-class EventPageController: NotizieController {
+class UserListaNotizieController: NotizieController{
     
     // MARK: - Class Attributes
-    var eventId : String?
-    var event : JSON?
+    var id : String?
     
     // MARK: - UIKit Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = event?["name"].string
         // Hide the navigation bar on the this view controller
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = Colors.white
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let nc = NotificationCenter.default
+        nc.removeObserver(self)
     }
     
     // MARK: - Protocol Methods
     override func reload(){
-        if let eventId = eventId  {
-            
-            super.reload()
+        super.reload()
+        
+        if let id = id{
             
             if(coms.page == 1){
                 
@@ -36,9 +46,9 @@ class EventPageController: NotizieController {
                 coms.page = 1
             }
             
-            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "true"]
+            var query = ["sort" : self.sortOrder.rawValue, "live" : "true", "author" : id]
             
-            if let location = location, self.sortOrder == .Location{
+            if let location = location{
                 query["latitude"] = location.0
                 query["longitude"] = location.1
             }
@@ -50,24 +60,17 @@ class EventPageController: NotizieController {
                 self.tableView.reloadData()
                 self.endReload()
             }
-            
-            coms.getEvent(eventId: eventId){
-                model in
-                self.event = model
-                self.title = model?["name"].string
-                self.tableView.reloadData()
-                
-            }
-            
         }
-
+        
     }
     
     override func advance(){
-        if let eventId = eventId  {
+        
+        if let id = id{
+        
             coms.page = coms.page + 1
             
-            var query = ["event":eventId, "sort" : self.sortOrder.rawValue, "live" : "true"]
+            var query = ["sort" : self.sortOrder.rawValue, "live" : "true", "author" : id]
             
             if let location = location, self.sortOrder == .Location{
                 query["latitude"] = location.0
@@ -84,23 +87,9 @@ class EventPageController: NotizieController {
                     self.tableView.reloadData()
                 }
             }
+            
         }
     }
     
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
-        
-        if let contenuto = model.optionalSubscript(safe: indexPath.row){
-            cell.model = contenuto
-            cell.delegate = self
-            cell.topicButton.isHidden = true
-        }
-        
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
-        cell.layoutSubviews()
-                
-        return cell
-    }
+    
 }

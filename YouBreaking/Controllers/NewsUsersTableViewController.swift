@@ -1,5 +1,5 @@
 //
-//  NewsUsersCollectionViewController.swift
+//  NewsUsersTableViewController.swift
 //  YouBreaking
 //
 //  Created by Giorgio Romano on 16/03/2017.
@@ -11,34 +11,29 @@ import SwiftyJSON
 
 class NewsUsersTableViewController: UITableViewController{
     
-    // MARK: - Utility Classes
-    let coms = ModelNotizie()
-    
     // MARK: - IBOutlets
-
     @IBOutlet weak var avatarAuthor: UIImageView!
     @IBOutlet weak var labelAuthor: UILabel!
     @IBOutlet weak var scrollViewPositive: UIScrollView!
     @IBOutlet weak var scrollViewNegative: UIScrollView!
     
-    
-    // Mark: - IBOutlets Extensions
-    
+    // Mark: - UIKit Elements
     let spinAuthor = UIActivityIndicatorView()
     
-    // MARK: - Class attributes
-    
+    // MARK: - Class Elements
     var news : JSON?
     var upVotes = [JSON]()
     var downVotes = [JSON]()
     fileprivate var avatars = [String:UIImage]()
+    let coms = ModelNotizie()
     
-    
+    // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.reload()
     }
     
+    // MARK: - Class Methods
     func reload(){
         
         if let author = news?["user"]{
@@ -157,7 +152,6 @@ class NewsUsersTableViewController: UITableViewController{
     }
     
     // MARK: - Table view source data
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -165,6 +159,16 @@ class NewsUsersTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.section == 0){
+            let vc = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Author Controller") as! AuthorViewController
+            vc.authorId = news?["user"]["id"].string
+            vc.preload()
+            if let nav = self.parent?.parent?.navigationController {
+                nav.pushViewController(vc, animated: true)
+            }
+        }
+    }
 
 }

@@ -11,21 +11,44 @@ import SwiftyJSON
 import MapKit
 import CoreLocation
 
-class SettingsController: UITableViewController {
+class SettingsController: BreakingTableViewController {
     
-    var place : MKPlacemark?
+    // MARK: - IBOutlets
+    @IBOutlet weak var nameBorder: UIView!
+    @IBOutlet weak var emailBorder: UIView!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
     
+    // MARK: - Class Elements
     var editingData : Bool = false
-        
     var data : JSON?
-    
     var coms = ModelNotizie()
-    let locationManager = CLLocationManager()
-    let geocoder = CLGeocoder()
-    
     var selectedRow : Int?
     var locationType = NotificationLocation.None
     
+    // MARK: - MapKit Elements
+    let locationManager = CLLocationManager()
+    let geocoder = CLGeocoder()
+    var place : MKPlacemark?
+    
+    // MARK: - UIKit Elements
+    var activityIndicator = UIActivityIndicatorView()
+    
+    // MARK: - UIKit Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.image.contentMode   = .scaleAspectFill
+        self.image.clipsToBounds = true
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        
+        reload()
+    }
+    
+    // MARK: - IBActions
     @IBAction func editAction(_ sender: UIBarButtonItem) {
         if(editingData){
             
@@ -72,6 +95,12 @@ class SettingsController: UITableViewController {
             self.navigationItem.rightBarButtonItem = newButton
         }
     }
+    
+    @IBAction func unwindToSettings(segue: UIStoryboardSegue) {
+        
+    }
+    
+    // MARK: - Class Methods
     
     func reload(){
         nameField.textColor = .gray
@@ -128,8 +157,6 @@ class SettingsController: UITableViewController {
                     }
                 }
                 
-                // OTTENERE VALORI
-                
                 selectedRow = 1
                 
                 if let distance = location["distance"].int{
@@ -154,46 +181,12 @@ class SettingsController: UITableViewController {
 
     }
     
-    var activityIndicator = UIActivityIndicatorView()
-    
-    @IBOutlet weak var nameBorder: UIView!
-    @IBOutlet weak var emailBorder: UIView!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var emailField: UITextField!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.image.contentMode   = .scaleAspectFill
-        self.image.clipsToBounds = true
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
-        reload()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         switch section {
         case 2:
             if(locationType == .None){
@@ -243,9 +236,6 @@ class SettingsController: UITableViewController {
         }
     }
     
-    @IBAction func unwindToSettings(segue: UIStoryboardSegue) {
-        
-    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -265,55 +255,11 @@ class SettingsController: UITableViewController {
             }
         }
 
-        // Configure the cell...
-
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
         if let identifier = segue.identifier , identifier == "Select Location", let dvc = segue.destination as? SelectLocationSettingsController {
             dvc.delegate = self
             dvc.location = self.place
@@ -321,9 +267,9 @@ class SettingsController: UITableViewController {
         }
     }
     
-
 }
 
+// MARK: - Selection Location Settings Delegate Extension
 extension SettingsController : SelectLocationSettingsControllerDelegate{
     
     
@@ -339,6 +285,7 @@ extension SettingsController : SelectLocationSettingsControllerDelegate{
 
 }
 
+// MARK: - CLLocation Manager Delegate Delegate Extension
 extension SettingsController : CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()

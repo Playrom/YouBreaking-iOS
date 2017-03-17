@@ -12,15 +12,12 @@ import SwiftyJSON
 class ListaNotizieController: NotizieController{
 
     // MARK: - IBOutlets
-    
     @IBOutlet weak var iconaSettings: UIBarButtonItem!
     
     // MARK: - Class Attributes
-    
     var profile : JSON?
     
     // MARK: - UIKit Methods
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,7 +33,6 @@ class ListaNotizieController: NotizieController{
     }
     
     // MARK: - Protocol Methods
-    
     override func reload(){
         super.reload()
         
@@ -94,7 +90,6 @@ class ListaNotizieController: NotizieController{
 
     
     // MARK: - Segues
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         super.prepare(for: segue, sender: sender)

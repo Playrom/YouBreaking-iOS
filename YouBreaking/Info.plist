@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>139</string>
+	<string>188</string>
 	<key>FacebookAppID</key>
 	<string>1837423216500436</string>
 	<key>FacebookDisplayName</key>
@@ -73,6 +73,6 @@
 	<key>url_development</key>
 	<string>http://192.168.1.214</string>
 	<key>url_production</key>
-	<string>https://youbreaking.giorgioromano.it</string>
+	<string>https://youbreaking.news</string>
 </dict>
 </plist>

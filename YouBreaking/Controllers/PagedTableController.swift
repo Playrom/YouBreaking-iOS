@@ -10,28 +10,24 @@ import UIKit
 import SwiftyJSON
 import CoreLocation
 
-class PagedTableController: UITableViewController , ListTableViewProtocol{
+class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
     
     // MARK: - Protocol Attributes
-    
     let coms = ModelNotizie()
     var model = [JSON]()
     var reloading = true
     
     // MARK: - Class Attributes
-    
     var sortOrder : SortOrder = SortOrder.Hot
     var location : ( String, String )?
     var heights = [Int : CGFloat]()
     
     // MARK: - UIKit Elements
-    
     var mask : UIView?
     var loadingView : UIView?
     var loadingSpin = UIActivityIndicatorView()
     
     // MARK: - UIKit Methods
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,10 +52,6 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
             
             let topHeight = nav.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
             let totalHeight = self.tableView.bounds.height - topHeight - tab.tabBar.frame.height
-            
-            print("Top Padding: \(topHeight)")
-            print("Tab Height: \(tab.tabBar.frame.height)")
-            print("Height: \(totalHeight)")
             
             self.loadingView = UIView(frame : CGRect(x: 0, y: topHeight, width: self.tableView.bounds.width, height: totalHeight ) )
         }
@@ -233,8 +225,6 @@ class PagedTableController: UITableViewController , ListTableViewProtocol{
         }
         return UITableViewAutomaticDimension
     }
-    
-    // MARK: - Segues
     
 }
 

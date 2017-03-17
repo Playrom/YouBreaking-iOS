@@ -63,7 +63,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Vota" id="fkU-Vx-Zn6">
-                        <barButtonItem key="leftBarButtonItem" title="Tutti" id="6Pg-QH-ia9">
+                        <barButtonItem key="leftBarButtonItem" title="Già Votati" id="6Pg-QH-ia9">
                             <connections>
                                 <segue destination="6Bw-Nl-TtU" kind="show" id="ILj-py-IAY"/>
                             </connections>

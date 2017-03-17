@@ -778,7 +778,7 @@
         <!--Tab Bar-->
         <scene sceneID="rQq-2f-yne">
             <objects>
-                <tabBarController storyboardIdentifier="UITabBarController-F6K-4K-uzu" title="Tab Bar" id="F6K-4K-uzu" customClass="MainTabBarController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main Tab Bar" title="Tab Bar" id="F6K-4K-uzu" customClass="MainTabBarController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="a1B-9y-tmG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

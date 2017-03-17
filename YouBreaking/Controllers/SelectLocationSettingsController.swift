@@ -10,18 +10,15 @@ import UIKit
 import CoreLocation
 import MapKit
 
-enum NotificationLocation : String{
-    case Gps = "Gps"
-    case Place = "Place"
-    case None = "None"
-}
-
-class SelectLocationSettingsController: UITableViewController, CLLocationManagerDelegate {
+class SelectLocationSettingsController: BreakingTableViewController{
     
-    var coms = ModelNotizie()
+    // MARK: - MapKit Elements
     var location : MKPlacemark?
-    private let locationManager = CLLocationManager()
-    private let geocoder = CLGeocoder()
+    fileprivate let locationManager = CLLocationManager()
+    fileprivate let geocoder = CLGeocoder()
+    
+    // MARK: - Class Elements
+    var coms = ModelNotizie()
     var delegate : SelectLocationSettingsControllerDelegate?
     
     var selectionType = NotificationLocation.None{
@@ -67,38 +64,23 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
             }
         }
     }
-
+    
+    // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 3
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
@@ -108,22 +90,7 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
                 cell.detailTextLabel?.text = location.contextString
             }
         }
-
-        // Configure the cell...
-
         return cell
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
-        if segue.identifier == "Pick Location" {
-            if let locationPicker = segue.destination as? MapSearchLocationController{
-                locationPicker.delegate = self
-            }
-        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -143,7 +110,20 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
         }
         
     }
+
     
+    // MARK: - Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Pick Location" {
+            if let locationPicker = segue.destination as? MapSearchLocationController{
+                locationPicker.delegate = self
+            }
+        }
+    }
+}
+
+extension SelectLocationSettingsController : CLLocationManagerDelegate{
+
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
             case CLAuthorizationStatus.authorizedAlways,CLAuthorizationStatus.authorizedWhenInUse:
@@ -185,15 +165,11 @@ class SelectLocationSettingsController: UITableViewController, CLLocationManager
 
 }
 
+// MARK: - Select Location Delegate Extension
 extension SelectLocationSettingsController : SelectLocation{
     func selectLocation(location: MKPlacemark) {
         self.location = location
         self.selectionType = .Place
         self.tableView.reloadData()
     }
-}
-
-protocol SelectLocationSettingsControllerDelegate {
-    func updateLocation(place : MKPlacemark?)
-    func updateSelectionType( type : NotificationLocation)
 }

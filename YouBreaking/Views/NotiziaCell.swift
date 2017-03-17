@@ -12,6 +12,7 @@ import DateToolsSwift
 
 class NotiziaCell: UITableViewCell {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var testoTitolo: UILabel!
     @IBOutlet weak var topicButton: UIButton!
     @IBOutlet weak var testo: UILabel!
@@ -27,11 +28,13 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var position: UILabel!
     
+    // MARK: - Class Elements
     var model : JSON?
     var coms = ModelNotizie()
-    
     var delegate : NotiziaCellDelegate?
-    
+    var currentVote = Voto.NO
+
+    // MARK: - UIKit Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         mainImageView.isHidden = true
@@ -41,8 +44,6 @@ class NotiziaCell: UITableViewCell {
         // Initialization code
         
     }
-    
-    var currentVote = Voto.NO
     
     override func prepareForReuse() {
         topicButton.isHidden = false
@@ -61,7 +62,6 @@ class NotiziaCell: UITableViewCell {
     }
     
     override func layoutSubviews() {
-        
         mainImageView.backgroundColor = Colors.lightGray
         
         if let model = model{
@@ -165,6 +165,15 @@ class NotiziaCell: UITableViewCell {
         }
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if let id = self.model?["id"].string , selected == true{
+            self.delegate?.performSegueToSingle(id: id, sender: self)
+        }
+    }
+    
+    // MARK: - Class Methods
     func setVoteImages(voto : Voto){
         switch voto {
             case .UP:
@@ -214,26 +223,12 @@ class NotiziaCell: UITableViewCell {
         }
     }
     
-    
+    // MARK: - IBActions
     @IBAction func pressEvent(_ sender: UIButton) {
 //        if let eventId = self.model?["evento"]["id"].string{
 //            self.delegate?.performSegueToEvent(eventId: eventId, sender: self)
 //        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        if let id = self.model?["id"].string , selected == true{
-            self.delegate?.performSegueToSingle(id: id, sender: self)
-        }
-    }
-    
     
 }
 
-protocol NotiziaCellDelegate{
-    func vote(voto : Voto, sender : NotiziaCell)
-    func performSegueToEvent(eventId : String, sender : NotiziaCell)
-    func performSegueToSingle(id : String, sender : NotiziaCell)
-}

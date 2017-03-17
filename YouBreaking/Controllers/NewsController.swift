@@ -10,8 +10,9 @@ import UIKit
 import SwiftyJSON
 import Lightbox
 
-class NewsController: UIViewController {
-
+class NewsController: BreakingViewController {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var maskView: UIView!
@@ -26,27 +27,25 @@ class NewsController: UIViewController {
     @IBOutlet weak var arrowDown: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
     
-    var currentVote : Voto = Voto.NO
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     
+    // MARK: - UIKit Elements
     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
     let blurEffectView = UIVisualEffectView()
     
+    // MARK: - Class Elements
+    var currentVote : Voto = Voto.NO
     var finalHeight : CGFloat = 130
     var initialHeight : CGFloat = 250
-
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
-    }
-    
     var baseImageHeight : CGFloat? = nil
-    
     var data : JSON?
     var coms = ModelNotizie()
-    
     var delegate : ( NewsControllerDelegate & SingleNewsModalDelegate )?
+    var originalPosition: CGPoint?
+    var originalSize : CGSize?
+    var currentPositionTouched: CGPoint?
     
-    
+    // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.baseImageHeight = imageViewHeightConstraint.constant
@@ -61,15 +60,7 @@ class NewsController: UIViewController {
         headerView.addGestureRecognizer(tapGesture)
         
         blurEffectView.frame = self.imageView.bounds
-        self.imageView.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
-        
-        /*let button = UIButton(type: .custom)
-        let crossImage = UIImage(named: "Cross")
-        button.setImage(crossImage, for: .normal)
-        button.adjustsImageWhenDisabled = false
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        button.addTarget(self, action: #selector(NewsController.dismissTap), for: .touchUpInside )
-        */
+        self.imageView.addSubview(blurEffectView)
         
         let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
         if let crossImage = crossImage{
@@ -86,26 +77,17 @@ class NewsController: UIViewController {
             
             self.navigationItem.leftBarButtonItem = button
         }
-        
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Hide the navigation bar on the this view controller
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-
     }
     
+    // MARK: - Class Methods
     func reload() {
         
         titleLabel.text = data?["title"].string
@@ -189,7 +171,6 @@ class NewsController: UIViewController {
         
     }
 
-    
     func voteUp(){
         if let data = data{
             
@@ -256,13 +237,9 @@ class NewsController: UIViewController {
     
 
     
-    // MARK: - Navigation
+    // MARK: - Segues
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
         if segue.identifier == "Embed Page Controller", let dvc = segue.destination as? NewsPagesController{
             dvc.heightDelegate = self
             dvc.data = self.data
@@ -270,25 +247,22 @@ class NewsController: UIViewController {
         }
         
     }
-    
-    var originalPosition: CGPoint?
-    var originalSize : CGSize?
-    var currentPositionTouched: CGPoint?
 
-    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
-    
+    // MARK: - IBActions
     @IBAction func panGestureAction(_ panGesture: UIPanGestureRecognizer) {
         self.dismissGestureControll(panGesture: panGesture)
     }
 
 }
 
+// MARK: - Extend Lightbox
 extension LightboxController{
     open override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
 }
 
+// MARK: - Height Delegate Extension
 extension NewsController : HeightDelegate{
     
     func heightChanged(height : CGFloat?, animated : Bool , completition handler : ( (Void) -> () )? ){
@@ -338,8 +312,6 @@ extension NewsController : HeightDelegate{
 
                     
                 }
-                
-                
                 
                 
                 if(animated){
@@ -416,8 +388,4 @@ extension NewsController : HeightDelegate{
         }
     }
     
-}
-
-protocol NewsControllerDelegate{
-    func removeMask()
 }

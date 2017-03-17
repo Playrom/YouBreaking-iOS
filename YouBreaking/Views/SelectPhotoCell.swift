@@ -10,21 +10,21 @@ import UIKit
 
 class SelectPhotoCell: UITableViewCell {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var fullImageView: UIImageView!
-    var url : [URL]?
     @IBOutlet weak var overlay: UIView!
     
+    // MARK: - Class Elements
+    var url : [URL]?
+    
+    // MARK: - UIKit Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         self.clipsToBounds = true;
-
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     override func layoutSubviews() {

@@ -13,14 +13,11 @@ import CoreLocation
 class UserPublishedNewsController: PagedTableController{
     
     // MARK: - UIKit Methods
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     // MARK: - Protocol Methods
-    
-    
     override func reload(){
         super.reload()
         
@@ -80,7 +77,6 @@ class UserPublishedNewsController: PagedTableController{
     
     
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! UserPublishedNotiziaCell
         
@@ -126,7 +122,5 @@ class UserPublishedNewsController: PagedTableController{
             return [UITableViewRowAction]()
         }
     }
-    
-    // MARK: - Segues
-    
+        
 }

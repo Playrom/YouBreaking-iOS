@@ -1,12 +1,18 @@
 //
-//  DataTypes.swift
+//  Enums.swift
 //  YouBreaking
 //
-//  Created by Giorgio Romano on 14/03/2017.
+//  Created by Giorgio Romano on 17/03/2017.
 //  Copyright © 2017 Giorgio Romano. All rights reserved.
 //
 
 import Foundation
+
+enum NotificationLocation : String{
+    case Gps = "Gps"
+    case Place = "Place"
+    case None = "None"
+}
 
 enum SortOrder : String{
     case Score = "score"

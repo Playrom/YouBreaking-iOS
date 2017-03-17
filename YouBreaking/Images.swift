@@ -32,6 +32,8 @@ public class Images : NSObject {
         static var yesTargets: [AnyObject]?
         static var imageOfCross: UIImage?
         static var crossTargets: [AnyObject]?
+        static var imageOfBack: UIImage?
+        static var backTargets: [AnyObject]?
     }
 
     //// Drawing Methods
@@ -48,7 +50,7 @@ public class Images : NSObject {
 
 
         //// Color Declarations
-        let color6 = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
+        let red = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
 
         //// Polygon Drawing
         let polygonPath = UIBezierPath()
@@ -56,7 +58,7 @@ public class Images : NSObject {
         polygonPath.addLine(to: CGPoint(x: 234.75, y: 117.5))
         polygonPath.addLine(to: CGPoint(x: 5.25, y: 117.5))
         polygonPath.close()
-        color6.setStroke()
+        red.setStroke()
         polygonPath.lineWidth = 5
         polygonPath.stroke()
 
@@ -67,7 +69,7 @@ public class Images : NSObject {
         bezier3Path.addLine(to: CGPoint(x: 119.5, y: 99.5))
         bezier3Path.move(to: CGPoint(x: 84.5, y: 64.5))
         bezier3Path.addLine(to: CGPoint(x: 154.5, y: 64.5))
-        color6.setStroke()
+        red.setStroke()
         bezier3Path.lineWidth = 5
         bezier3Path.stroke()
         
@@ -87,7 +89,7 @@ public class Images : NSObject {
 
 
         //// Color Declarations
-        let color6 = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
+        let red = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
 
         //// Polygon Drawing
         context.saveGState()
@@ -99,7 +101,7 @@ public class Images : NSObject {
         polygonPath.addLine(to: CGPoint(x: 247.25, y: 114.75))
         polygonPath.addLine(to: CGPoint(x: 17.75, y: 114.75))
         polygonPath.close()
-        color6.setStroke()
+        red.setStroke()
         polygonPath.lineWidth = 5
         polygonPath.stroke()
 
@@ -114,7 +116,7 @@ public class Images : NSObject {
         let bezier3Path = UIBezierPath()
         bezier3Path.move(to: CGPoint(x: 0, y: 0))
         bezier3Path.addLine(to: CGPoint(x: 0, y: 70))
-        color6.setStroke()
+        red.setStroke()
         bezier3Path.lineWidth = 5
         bezier3Path.stroke()
 
@@ -136,9 +138,8 @@ public class Images : NSObject {
 
 
         //// Color Declarations
-        let color2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        let color4 = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
-        let color5 = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
+        let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        let red = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
 
         //// Polygon Drawing
         let polygonPath = UIBezierPath()
@@ -146,9 +147,9 @@ public class Images : NSObject {
         polygonPath.addLine(to: CGPoint(x: 235.25, y: 117.5))
         polygonPath.addLine(to: CGPoint(x: 5.75, y: 117.5))
         polygonPath.close()
-        color4.setFill()
+        red.setFill()
         polygonPath.fill()
-        color5.setStroke()
+        red.setStroke()
         polygonPath.lineWidth = 5
         polygonPath.stroke()
 
@@ -159,7 +160,7 @@ public class Images : NSObject {
         bezierPath.addLine(to: CGPoint(x: 120.5, y: 99.5))
         bezierPath.move(to: CGPoint(x: 85.5, y: 64.5))
         bezierPath.addLine(to: CGPoint(x: 155.5, y: 64.5))
-        color2.setStroke()
+        white.setStroke()
         bezierPath.lineWidth = 5
         bezierPath.stroke()
         
@@ -179,8 +180,8 @@ public class Images : NSObject {
 
 
         //// Color Declarations
-        let color3 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        let color6 = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
+        let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        let red = UIColor(red: 0.839, green: 0.157, blue: 0.157, alpha: 1.000)
 
         //// Polygon Drawing
         context.saveGState()
@@ -192,9 +193,9 @@ public class Images : NSObject {
         polygonPath.addLine(to: CGPoint(x: 247.25, y: 114.75))
         polygonPath.addLine(to: CGPoint(x: 17.75, y: 114.75))
         polygonPath.close()
-        color6.setFill()
+        red.setFill()
         polygonPath.fill()
-        color6.setStroke()
+        red.setStroke()
         polygonPath.lineWidth = 5
         polygonPath.stroke()
 
@@ -209,7 +210,7 @@ public class Images : NSObject {
         let bezierPath = UIBezierPath()
         bezierPath.move(to: CGPoint(x: 0, y: 0))
         bezierPath.addLine(to: CGPoint(x: 0, y: 70))
-        color3.setStroke()
+        white.setStroke()
         bezierPath.lineWidth = 5
         bezierPath.stroke()
 
@@ -359,6 +360,45 @@ public class Images : NSObject {
 
     }
 
+    public dynamic class func drawBack(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 22, height: 22), resizing: ResizingBehavior = .aspectFit) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()!
+        
+        //// Resize to Target Frame
+        context.saveGState()
+        let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 22, height: 22), target: targetFrame)
+        context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
+        context.scaleBy(x: resizedFrame.width / 22, y: resizedFrame.height / 22)
+
+
+        //// Group 2
+        //// Bezier Drawing
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: 6, y: 11.48))
+        bezierPath.addCurve(to: CGPoint(x: 16, y: 1.5), controlPoint1: CGPoint(x: 16.23, y: 1.27), controlPoint2: CGPoint(x: 16, y: 1.5))
+        UIColor.black.setStroke()
+        bezierPath.lineWidth = 2
+        bezierPath.stroke()
+
+
+        //// Bezier 2 Drawing
+        context.saveGState()
+        context.translateBy(x: 16, y: 10.57)
+        context.rotate(by: 90 * CGFloat.pi/180)
+
+        let bezier2Path = UIBezierPath()
+        bezier2Path.move(to: CGPoint(x: -0, y: 9.45))
+        bezier2Path.addCurve(to: CGPoint(x: 9.93, y: 0), controlPoint1: CGPoint(x: 10.16, y: -0.22), controlPoint2: CGPoint(x: 9.93, y: 0))
+        UIColor.black.setStroke()
+        bezier2Path.lineWidth = 2
+        bezier2Path.stroke()
+
+        context.restoreGState()
+        
+        context.restoreGState()
+
+    }
+
     //// Generated Images
 
     public dynamic class var imageOfArrowUp: UIImage {
@@ -459,6 +499,20 @@ public class Images : NSObject {
         return Cache.imageOfCross!
     }
 
+    public dynamic class var imageOfBack: UIImage {
+        if Cache.imageOfBack != nil {
+            return Cache.imageOfBack!
+        }
+
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 22), false, 0)
+            Images.drawBack()
+
+        Cache.imageOfBack = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return Cache.imageOfBack!
+    }
+
     //// Customization Infrastructure
 
     @IBOutlet dynamic var arrowUpTargets: [AnyObject]! {
@@ -527,6 +581,16 @@ public class Images : NSObject {
             Cache.crossTargets = newValue
             for target: AnyObject in newValue {
                 let _ = target.perform(NSSelectorFromString("setImage:"), with: Images.imageOfCross)
+            }
+        }
+    }
+
+    @IBOutlet dynamic var backTargets: [AnyObject]! {
+        get { return Cache.backTargets }
+        set {
+            Cache.backTargets = newValue
+            for target: AnyObject in newValue {
+                let _ = target.perform(NSSelectorFromString("setImage:"), with: Images.imageOfBack)
             }
         }
     }

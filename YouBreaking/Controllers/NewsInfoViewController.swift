@@ -11,24 +11,26 @@ import MapKit
 import SwiftyJSON
 
 class NewsInfoViewController: UIViewController {
-
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var eventButton: UIButton!
     @IBOutlet weak var linkButton: UIButton!
     @IBOutlet weak var map: MKMapView!
     
-    
+    // MARK: - MapKit Elements
     let geocoder = CLGeocoder()
     
+    // MARK: - Class Elements
     var news : JSON?
     
-    
+    // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.reload()
-        // Do any additional setup after loading the view.
         
     }
     
+    // MARK: - Class Methods
     func reload(){
         var comps = [String : String]()
         
@@ -88,7 +90,7 @@ class NewsInfoViewController: UIViewController {
     }
 
     
-    // MARK: - Navigation
+    // MARK: - IBActions
     @IBAction func selectEvent(_ sender: UIButton) {
         if let nav = self.parent?.parent?.navigationController {
             let eventPage = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Event Page Controller") as! EventPageController
@@ -99,23 +101,4 @@ class NewsInfoViewController: UIViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "Select Event":
-                if let dvc = (segue.destination as? NavigationRed)?.viewControllers[0] as? EventPageController, let eventId = self.news?["evento"]["id"].string {
-                    dvc.eventId = eventId
-                }
-                
-                
-                break
-            default:
-                break
-            }
-        }
-    }
-
- 
-
 }
