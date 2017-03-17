@@ -14,7 +14,7 @@
         <!--News Controller-->
         <scene sceneID="WQ7-7J-gU1">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="zRk-nk-ug6" customClass="NewsController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Single News Controller" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="zRk-nk-ug6" customClass="NewsController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Nm-be-EHn"/>
                         <viewControllerLayoutGuide type="bottom" id="PPO-LC-7ml"/>
@@ -41,7 +41,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k20-n5-5MQ">
-                                        <rect key="frame" x="41" y="16" width="326" height="24"/>
+                                        <rect key="frame" x="49" y="16" width="318" height="24"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                                     <constraint firstAttribute="trailing" secondItem="k20-n5-5MQ" secondAttribute="trailing" constant="8" id="a6E-E9-uh7"/>
                                     <constraint firstItem="YdF-sZ-mk1" firstAttribute="top" secondItem="LYc-Va-JeH" secondAttribute="top" constant="16" id="caQ-f5-trW"/>
                                     <constraint firstItem="3X7-DI-cz0" firstAttribute="centerY" secondItem="LYc-Va-JeH" secondAttribute="centerY" id="kVh-4t-8ro"/>
-                                    <constraint firstItem="k20-n5-5MQ" firstAttribute="leading" secondItem="YdF-sZ-mk1" secondAttribute="trailing" constant="8" id="mbA-Ef-e3x"/>
+                                    <constraint firstItem="k20-n5-5MQ" firstAttribute="leading" secondItem="YdF-sZ-mk1" secondAttribute="trailing" constant="16" id="mbA-Ef-e3x"/>
                                     <constraint firstItem="YdF-sZ-mk1" firstAttribute="leading" secondItem="LYc-Va-JeH" secondAttribute="leading" constant="8" id="nAH-cK-w2O"/>
                                     <constraint firstItem="7pY-kC-ut0" firstAttribute="leading" secondItem="YdF-sZ-mk1" secondAttribute="leading" id="nYh-gm-mNb"/>
                                     <constraint firstItem="3X7-DI-cz0" firstAttribute="height" secondItem="LYc-Va-JeH" secondAttribute="height" id="qio-en-uYd"/>
@@ -203,11 +203,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="a22-Yg-O0R">
+                                                    <rect key="frame" x="8" y="8" width="359" height="28"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="3Hr-IP-44g" secondAttribute="bottom" id="2eg-SS-qEL"/>
                                                 <constraint firstAttribute="leadingMargin" secondItem="3Hr-IP-44g" secondAttribute="leading" constant="-16" id="UUC-Ec-AOU"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="3Hr-IP-44g" secondAttribute="trailing" constant="16" id="aOa-WH-z5A"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="a22-Yg-O0R" secondAttribute="leading" id="bM1-Ob-wGz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="a22-Yg-O0R" secondAttribute="bottom" id="ekR-Ul-eai"/>
+                                                <constraint firstItem="a22-Yg-O0R" firstAttribute="top" secondItem="cTf-IU-UY5" secondAttribute="topMargin" id="fL9-Na-qtL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="a22-Yg-O0R" secondAttribute="trailing" id="keh-Ph-Gri"/>
                                                 <constraint firstItem="3Hr-IP-44g" firstAttribute="top" secondItem="cTf-IU-UY5" secondAttribute="topMargin" id="n6H-70-8JW"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -222,6 +232,7 @@
                     </tableView>
                     <connections>
                         <outlet property="label" destination="3Hr-IP-44g" id="M0x-pI-XDe"/>
+                        <outlet property="textView" destination="a22-Yg-O0R" id="jWk-Ld-Imr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCp-xI-rXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -351,13 +362,13 @@
                                 <rect key="frame" x="16" y="0.0" width="343" height="33"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Evento" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0AN-4v-I2w">
-                                        <rect key="frame" x="0.0" y="0.0" width="172" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wht-Vj-jog">
-                                        <rect key="frame" x="172" y="0.0" width="171" height="33"/>
+                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Link Evento"/>
                                         <connections>
@@ -370,13 +381,13 @@
                                 <rect key="frame" x="16" y="41" width="343" height="33"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link Fonte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bek-0h-AbJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="172" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kn-6h-qR4">
-                                        <rect key="frame" x="172" y="0.0" width="171" height="33"/>
+                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Link Sito"/>
                                     </button>
@@ -414,7 +425,7 @@
         <!--Navigation Red-->
         <scene sceneID="NkI-Lk-Z7R">
             <objects>
-                <navigationController storyboardIdentifier="Single News Controller" automaticallyAdjustsScrollViewInsets="NO" id="glR-AS-IKD" customClass="NavigationRed" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Single News Controller Navigation" automaticallyAdjustsScrollViewInsets="NO" id="glR-AS-IKD" customClass="NavigationRed" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qZm-ZC-mca">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

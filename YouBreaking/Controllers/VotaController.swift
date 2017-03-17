@@ -98,10 +98,13 @@ class VotaController: BreakingViewController {
 
         if let tapModel = (gesture.view as? VoteCard)?.model{
             
-            let vc = UIStoryboard.init(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! NewsController
-            vc.modalPresentationCapturesStatusBarAppearance = true
-            vc.delegate = self
-            vc.data = tapModel
+            let singleController = UIStoryboard.init(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller Navigation") as! NavigationRed
+            if let vc = singleController.viewControllers[0] as? NewsController{
+                vc.modalPresentationCapturesStatusBarAppearance = true
+                vc.delegate = self
+                vc.data = tapModel
+            }
+            
 
             if let nvc = self.tabBarController{
                 mask = UIView(frame : nvc.view.frame)
@@ -111,8 +114,8 @@ class VotaController: BreakingViewController {
                 nvc.view.addSubview(mask!)
             }
             
-            vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true, completion: nil)
+            singleController.modalPresentationStyle = .overFullScreen
+            self.present(singleController, animated: true, completion: nil)
         }
     }
 

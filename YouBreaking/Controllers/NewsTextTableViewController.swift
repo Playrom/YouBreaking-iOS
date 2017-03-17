@@ -12,6 +12,7 @@ class NewsTextTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var textView: UITextView!
     
     // MARK: - Class Elements
     var delegate : HeightDelegate?
@@ -23,9 +24,19 @@ class NewsTextTableViewController: UITableViewController {
         super.viewDidLoad()
         label.text = text
         label.textAlignment = .justified
+        label.isEnabled = false
+        
         label.setNeedsLayout()
         label.setNeedsDisplay()
         label.layoutSubviews()
+        
+        if let text = text{
+            textView.text = text
+            textView.textAlignment = .justified
+            textView.setNeedsLayout()
+            textView.setNeedsDisplay()
+            textView.layoutSubviews()
+        }
         
         self.tableView.bounces = false
     }

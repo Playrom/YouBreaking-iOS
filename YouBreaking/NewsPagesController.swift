@@ -106,9 +106,14 @@ class NewsPagesController: UIPageViewController {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64.init(9*100) )){
                 self.heightDelegate?.heightChanged(height: vc.tableView.contentOffset.y, animated : true, completition : nil)
             }
-        }else{
+        }else if let vc = controller as? NewsInfoViewController{
             DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64.init(9*100) )){
                 self.heightDelegate?.heightChanged(height: nil, animated : true, completition : nil)
+            }
+            
+        }else{
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64.init(9*100) )){
+                self.heightDelegate?.heightChanged(height: 0, animated : true, completition : nil)
             }
         }
     }

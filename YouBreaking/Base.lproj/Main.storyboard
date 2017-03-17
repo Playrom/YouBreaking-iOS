@@ -16,7 +16,7 @@
             <objects>
                 <tableViewController id="2b2-HC-69o" customClass="SettingsController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="lHr-sS-tbI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -223,6 +223,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="emailBorder" destination="xg0-Wc-vNm" id="B5D-lZ-hlO"/>
                         <outlet property="emailField" destination="FXW-KT-5rI" id="ivA-3T-9xT"/>
@@ -240,7 +242,7 @@
             <objects>
                 <tableViewController id="XAM-UR-aao" customClass="UserPublishedNewsController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="vbv-Ab-iKY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -302,14 +304,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vTF-u1-xpr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4573.6000000000004" y="-960.2698650674663"/>
+            <point key="canvasLocation" x="4574" y="-1108"/>
         </scene>
         <!--Seleziona Localizzazione-->
         <scene sceneID="7VD-AX-udb">
             <objects>
                 <tableViewController title="Seleziona Localizzazione" id="ayU-SS-VKI" customClass="SelectLocationSettingsController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="vh2-YG-5Mz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -405,7 +407,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IL3-IY-IhZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4574" y="371"/>
+            <point key="canvasLocation" x="4574" y="440"/>
         </scene>
         <!--Notizie-->
         <scene sceneID="8AX-I4-hBN">
@@ -794,18 +796,18 @@
             </objects>
             <point key="canvasLocation" x="918" y="40"/>
         </scene>
-        <!--Single News Controller-->
+        <!--Single News Controller Navigation-->
         <scene sceneID="HMT-sa-obA">
             <objects>
-                <viewControllerPlaceholder storyboardName="Single" referencedIdentifier="Single News Controller" id="3CE-4O-com" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Single" referencedIdentifier="Single News Controller Navigation" id="3CE-4O-com" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKZ-C4-rN0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5346" y="370"/>
         </scene>
-        <!--Single News Controller-->
+        <!--Single News Controller Navigation-->
         <scene sceneID="ERw-Sl-P2c">
             <objects>
-                <viewControllerPlaceholder storyboardName="Single" referencedIdentifier="Single News Controller" id="ZJb-gE-qlx" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Single" referencedIdentifier="Single News Controller Navigation" id="ZJb-gE-qlx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1A-sr-CU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3517" y="347"/>

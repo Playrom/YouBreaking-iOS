@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         // Override point for customization after application launch.
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
          _ = FBSDKLoginButton()
-        
+                
         self.window?.tintColor = Colors.red
         
         locationManager.delegate = self
@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
                     self.window?.rootViewController = rootController
                     
-                    let first = OnboardingContentViewController(title: "Benvenuto su You Breaking", body: "Per prima cosa per favore autorizza la ricezione delle notifiche, potrai impostare dettagli più avanti", image:  nil , buttonText: "Autorizza") { () -> Void in
+                    let first = OnboardingContentViewController(title: "Benvenuto su You Breaking", body: "Per prima cosa per favore autorizza la ricezione delle notifiche, potrai impostare i dettagli più avanti nelle impostazioni", image:  nil , buttonText: "Autorizza") { () -> Void in
                         // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
                         
                         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     }
                     
                     second.movesToNextViewController = true
-                    
+                                        
                     let third = OnboardingContentViewController(title: "Buona Lettura!", body: nil, image:  nil , buttonText: "Inizia ad usare You Breaking") { () -> Void in
                         self.handleOnboardDismiss()
                     }
@@ -130,11 +130,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     let root = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as! UITabBarController
                     root.selectedIndex = 0
                     
-                    let singleController = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller") as! NewsController
-                    singleController.data = payload["data"]
-                    
+                    let singleController = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "Single News Controller Navigation") as! NavigationRed
                     self.window?.rootViewController = root
-                    root.present(singleController, animated: true, completion: nil)
+                    
+                    if let vc = singleController.viewControllers[0] as? NewsController{
+                        vc.data = payload["data"]
+                    
+                        root.present(singleController, animated: true, completion: nil)
+                    }
 
                 }
             }

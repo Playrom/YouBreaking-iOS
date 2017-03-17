@@ -126,10 +126,10 @@
             </objects>
             <point key="canvasLocation" x="1849" y="1702"/>
         </scene>
-        <!--Single News Controller-->
+        <!--Single News Controller Navigation-->
         <scene sceneID="Hgu-yK-iRH">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Single News Controller" storyboardName="Single" referencedIdentifier="Single News Controller" id="Wig-Oi-NCi" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="Single News Controller" storyboardName="Single" referencedIdentifier="Single News Controller Navigation" id="Wig-Oi-NCi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EI-hU-llH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2456" y="1701"/>
