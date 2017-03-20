@@ -26,6 +26,7 @@ class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
     var mask : UIView?
     var loadingView : UIView?
     var loadingSpin = UIActivityIndicatorView()
+    var noContentLabel = UILabel()
     
     // MARK: - UIKit Methods
     override func viewDidLoad() {
@@ -83,6 +84,10 @@ class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
         nc.removeObserver(self)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.loadingView?.removeFromSuperview()
+    }
+    
     func refresh(_ refreshControl: UIRefreshControl) {
         // Do your job, when done:
         reload()
@@ -95,7 +100,7 @@ class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
     func reload(){
         self.tableView.contentOffset = CGPoint(x: 0, y: 0)
         if let vi = loadingView{
-            
+            noContentLabel.removeFromSuperview()
             vi.backgroundColor = Colors.lightGray
             loadingSpin = UIActivityIndicatorView(activityIndicatorStyle: .gray)
             loadingSpin.center = CGPoint(x: vi.width/2 , y:  vi.height / 2)
@@ -110,6 +115,19 @@ class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
         self.loadingSpin.stopAnimating()
         self.loadingView?.removeFromSuperview()
     }
+    
+    func endReloadNoContent(){
+        self.loadingSpin.stopAnimating()
+        self.loadingSpin.removeFromSuperview()
+        
+        if let vi = loadingView{
+            noContentLabel.text = "Nessuna Notizia"
+            noContentLabel.sizeToFit()
+            noContentLabel.center = CGPoint(x: vi.width/2 , y:  vi.height / 2)
+            vi.addSubview(noContentLabel)
+        }
+    }
+    
     func advance(){
         
     }

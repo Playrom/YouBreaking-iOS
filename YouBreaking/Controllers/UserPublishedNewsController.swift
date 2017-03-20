@@ -42,7 +42,11 @@ class UserPublishedNewsController: PagedTableController{
                 self.model = model
                 self.reloading = false
                 self.tableView.reloadData()
-                self.endReload()
+                if(model.count > 0){
+                    self.endReload()
+                }else{
+                    self.endReloadNoContent()
+                }
             }
         }
   

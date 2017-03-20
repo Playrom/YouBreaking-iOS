@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>101</string>
+	<string>1</string>
 	<key>FacebookAppID</key>
 	<string>1837423216500436</string>
 	<key>FacebookDisplayName</key>
@@ -47,7 +47,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Vuoi autorizzare You Breaking ad usare la tua posizione?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Vuoi autorizzare You Breaking ad usare la tua posizione quando l'applicazione è in uso?</string>
+	<string>Vuoi autorizzare You Breaking ad usare la tua posizione quando l&apos;applicazione è in uso?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Vuoi autorizzare You Breaking ad accedere alle foto?</string>
 	<key>UIBackgroundModes</key>

@@ -24,7 +24,6 @@ class NavigationRed : UINavigationController{
         let backImage = Images.imageOfBack.withRenderingMode(.alwaysTemplate)
         self.navigationBar.backIndicatorImage = backImage
         self.navigationBar.backIndicatorTransitionMaskImage = backImage
-        self.navigationItem.backBarButtonItem?.title = ""
         
     }
     
