@@ -18,7 +18,9 @@ class NewsController: BreakingViewController {
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var alternateTitleLabelStack: UIStackView!
     @IBOutlet weak var alternateTitleLabel: UILabel!
     @IBOutlet weak var menu: UISegmentedControl!
     @IBOutlet weak var crossView: UIImageView!
@@ -52,6 +54,7 @@ class NewsController: BreakingViewController {
                         
         reload()
         
+        self.alternateTitleLabelStack.backgroundColor = Colors.lightGray
         self.containerView.backgroundColor = Colors.darkGray
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(NewsController.displayImage))
@@ -62,21 +65,7 @@ class NewsController: BreakingViewController {
         blurEffectView.frame = self.imageView.bounds
         self.imageView.addSubview(blurEffectView)
         
-        let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
-        if let crossImage = crossImage{
-            let imageView = UIImageView(image: crossImage)
-            imageView.tintColor = Colors.white
-            imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            imageView.contentMode = .scaleAspectFit
-            
-            let button = UIBarButtonItem(customView: imageView)
-            
-            let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
-            tapDismiss.numberOfTapsRequired = 1
-            imageView.addGestureRecognizer(tapDismiss)
-            
-            self.navigationItem.leftBarButtonItem = button
-        }
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -105,7 +94,7 @@ class NewsController: BreakingViewController {
             
             if comps["PHOTO"] != nil{
                 
-                alternateTitleLabel.text = nil
+                alternateTitleLabelStack.isHidden = true
                 
                 coms.getPhoto(photo: comps["PHOTO"]!){
                     image in
@@ -115,12 +104,49 @@ class NewsController: BreakingViewController {
                     self.imageView.layoutSubviews()
                     
                 }
+                
+                let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
+                if let crossImage = crossImage{
+                    var imageView = UIImageView(image: crossImage)
+                    imageView.tintColor = Colors.white
+                    imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+                    imageView.contentMode = .scaleAspectFit
+                    
+                    let button = UIBarButtonItem(customView: imageView)
+                    let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+                    tapDismiss.numberOfTapsRequired = 1
+                    imageView.addGestureRecognizer(tapDismiss)
+                    
+                    self.navigationItem.leftBarButtonItem = button
+                }
+                
             }else{
-                self.initialHeight = finalHeight
-                self.imageViewHeightConstraint.constant = finalHeight
-                self.maskView.backgroundColor = UIColor.clear
-                self.headerView.backgroundColor = Colors.red
-                self.titleLabel.text = nil
+//                self.initialHeight = finalHeight
+//                self.imageViewHeightConstraint.constant = finalHeight
+//                self.maskView.backgroundColor = UIColor.clear
+//                self.headerView.backgroundColor = Colors.red
+//                self.titleLabel.text = nil
+                self.statusBarStyle = .default
+                self.headerView.isHidden = true
+                
+                let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
+                if let crossImage = crossImage{
+                    var imageView = UIImageView(image: crossImage)
+                    imageView.tintColor = Colors.red
+                    imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+                    imageView.contentMode = .scaleAspectFit
+                    
+                    let button = UIBarButtonItem(customView: imageView)
+                    
+                    let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+                    tapDismiss.numberOfTapsRequired = 1
+                    imageView.addGestureRecognizer(tapDismiss)
+                    
+                    self.navigationItem.leftBarButtonItem = button
+                }
+                
+                self.alternateTitleLabelStack.isHidden = false
+                self.stackViewTopConstraint.constant = 0
             }
         }
         
@@ -335,7 +361,7 @@ extension NewsController : HeightDelegate{
         
         if panGesture.state == .began {
             originalPosition = view.frame.origin
-            originalSize = view.size
+            //originalSize = view.size
             
             UIView.animate(withDuration: 0.2){
                 self.navigationItem.leftBarButtonItem?.customView?.isHidden = true
@@ -349,16 +375,17 @@ extension NewsController : HeightDelegate{
             
             if(translation.y > 0){
                 point = CGPoint(
-                    x: padding ,
+                    //x: padding ,
+                    x: 0,
                     y: translation.y
                 )
             }
             
             if(point.y > 0){
                 view.frame.origin = point
-                view.frame.size.width =  originalSize!.width - ( 2 * padding)
+                //view.frame.size.width =  originalSize!.width - ( 2 * padding)
                 
-                view.alpha = ( originalSize!.height - ( translation.y / 2 ) ) / originalSize!.height
+                //view.alpha = ( originalSize!.height - ( translation.y / 2 ) ) / originalSize!.height
                 
             }
         } else if panGesture.state == .ended {
@@ -380,8 +407,8 @@ extension NewsController : HeightDelegate{
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.frame.origin = self.originalPosition!
-                    self.view.size = self.originalSize!
-                    self.view.alpha = 1
+                    //self.view.size = self.originalSize!
+                    //self.view.alpha = 1
                     self.navigationItem.leftBarButtonItem?.customView?.isHidden = false
                 })
             }

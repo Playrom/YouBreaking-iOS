@@ -17,7 +17,6 @@ class NewsTextTableViewController: UITableViewController {
     // MARK: - Class Elements
     var delegate : HeightDelegate?
     var text : String?
-    var panGestureRecognizer : UIPanGestureRecognizer?
     
     // MARK: - UIKit Methods
     override func viewDidLoad() {

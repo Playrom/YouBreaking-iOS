@@ -9,8 +9,15 @@
 import UIKit
 
 class BreakingViewController : UIViewController{
+    
+    var statusBarStyle : UIStatusBarStyle = .lightContent {
+        didSet{
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
+        return statusBarStyle
     }
     
     override func viewDidLoad() {
@@ -20,8 +27,14 @@ class BreakingViewController : UIViewController{
 }
 
 class BreakingTableViewController : UITableViewController{
+    var statusBarStyle : UIStatusBarStyle = .lightContent {
+        didSet{
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
+        return statusBarStyle
     }
     
     override func viewDidLoad() {

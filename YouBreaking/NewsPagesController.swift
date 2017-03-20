@@ -30,11 +30,13 @@ class NewsPagesController: UIPageViewController {
         
         self.view.backgroundColor = Colors.lightGray
         
-        let first = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "News Text Page") as! NewsTextTableViewController
-        first.delegate = self.heightDelegate
-        first.text = data?["text"].string
-        controllers.append(first)
-        titles.append("Notizia")
+        if let text = data?["text"].string, text != "" {
+            let first = UIStoryboard(name: "Single", bundle: Bundle.main).instantiateViewController(withIdentifier: "News Text Page") as! NewsTextTableViewController
+            first.delegate = self.heightDelegate
+            first.text = data?["text"].string
+            controllers.append(first)
+            titles.append("Notizia")
+        }
         
         var comps = [String : String]()
         
@@ -72,7 +74,7 @@ class NewsPagesController: UIPageViewController {
             
         }
         
-        self.setViewControllers([first], direction: .forward, animated: false, completion: nil)
+        self.setViewControllers([controllers.first!], direction: .forward, animated: false, completion: nil)
         
         menu?.segmentTitles = titles
         menu?.selectedSegmentIndex = 0

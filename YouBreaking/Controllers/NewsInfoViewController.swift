@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import SwiftyJSON
+import SafariServices
 
 class NewsInfoViewController: UIViewController {
     
@@ -78,8 +79,10 @@ class NewsInfoViewController: UIViewController {
                 eventButton.isEnabled = false
             }
             
-            if let link = comps["LINK"]{
-                linkButton.setTitle(link , for: .normal)
+            if let link = comps["LINK"], let url = URL(string: link){
+                //linkButton.setTitle(link , for: .normal)
+                let safari = SFSafariViewController(url: url)
+                
             }else{
                 linkButton.titleForDisabled = "Nessun Link"
                 linkButton.isEnabled = false
@@ -101,4 +104,25 @@ class NewsInfoViewController: UIViewController {
         }
     }
     
+    @IBAction func selectLink(_ sender: UIButton) {
+        if let aggiuntivi = news?["aggiuntivi"].array, let nav = self.parent?.parent?.navigationController{
+            
+            var comps = [String : String]()
+            
+            _ = aggiuntivi.map{
+                if let temp =  $0.dictionary , let tipo = temp["tipo"]?.string{
+                    comps[tipo] = temp["valore"]!.stringValue
+                }
+            }
+            
+            if let link = comps["LINK"], let url = URL(string: link){
+                //linkButton.setTitle(link , for: .normal)
+                let safari = SFSafariViewController(url: url)
+                nav.present(safari, animated: true, completion: nil)
+            }
+            
+            
+        }
+        
+    }
 }
