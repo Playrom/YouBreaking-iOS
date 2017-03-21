@@ -91,7 +91,6 @@ class LoginUtils {
     
     
     func loginWithFacebookToken(handler : @escaping ( () -> Void ) ) {
-        print(baseUrl)
         
         if let fbToken = FBSDKAccessToken.current()?.tokenString {
             
@@ -99,7 +98,7 @@ class LoginUtils {
             if(FBSDKAccessToken.current().expirationDate.compare(Date()) == ComparisonResult.orderedDescending){
                 print(session)
                 //Richiedo al server un nuovo token dell'applicazione utilizzando il token di facebook
-                session.request( baseUrl + "/auth/facebook/token?access_token=" + fbToken, method : .get).responseData { response in
+                session.request( baseUrl + "/api/auth/facebook/token?access_token=" + fbToken, method : .get).responseData { response in
                     if let data = response.data{
                         
                         let dict = JSON(data: data).dictionaryValue

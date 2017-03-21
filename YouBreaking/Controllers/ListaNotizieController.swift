@@ -43,7 +43,7 @@ class ListaNotizieController: NotizieController{
             coms.page = 1
         }
         
-        var query = ["sort" : self.sortOrder.rawValue, "live" : "true"]
+        var query = ["sort" : self.sortOrder.rawValue, "live" : "true", "dateLimit" : "true"]
         
         if let location = location{
             query["latitude"] = location.0
@@ -73,7 +73,7 @@ class ListaNotizieController: NotizieController{
         
         coms.page = coms.page + 1
         
-        var query = ["sort" : self.sortOrder.rawValue, "live" : "true"]
+        var query = ["sort" : self.sortOrder.rawValue, "live" : "true", "dateLimit" : "true"]
         
         if let location = location, self.sortOrder == .Location{
             query["latitude"] = location.0
