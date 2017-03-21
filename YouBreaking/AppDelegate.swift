@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     
                         DispatchQueue.main.async {
                             rootController.present(onboard, animated: true){
-                                //UserDefaults.standard.set(true, forKey: "Already Launched")
+                                UserDefaults.standard.set(true, forKey: "Already Launched")
                             }
                         }
                     }
