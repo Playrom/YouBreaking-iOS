@@ -65,59 +65,6 @@ class ModelNotizie {
         
     }
     
-    func getNews(handler :  @escaping ( ( _ model : [JSON], _ pagination : [String : JSON]?) -> Void ) ) {
-        
-        if(self.page > self.totalPages){
-            self.page = self.totalPages
-            return
-        }
-        
-        session.request( baseUrl + "/api/news?live=true&page=\(page)&pageSize=\(pageSize)", method: .get).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"], let pagination = json["pagination"] {
-                    
-                    handler(data.arrayValue,pagination.dictionaryValue)
-
-                    self.page = pagination["page"].int!
-                    self.pageSize = pagination["pageSize"].int!
-                    self.totalPages = pagination["pages"].int!
-                    self.totalItems = pagination["total"].int!
-                }else{
-                    handler([JSON](), nil)
-                }
-            }
-        }
-        
-    }
-    
-    func getNewsNotLive(handler :  @escaping ( ( _ model : [JSON], _ pagination : [String : JSON]?) -> Void ) ) {
-        
-        if(self.page > self.totalPages){
-            self.page = self.totalPages
-            return
-        }
-        session.request( baseUrl + "/api/news?live=false&page=\(page)&pageSize=\(pageSize)", method: .get,  headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"], let pagination = json["pagination"] {
-                    
-                    handler(data.arrayValue,pagination.dictionaryValue)
-                    
-                    self.page = pagination["page"].int!
-                    self.pageSize = pagination["pageSize"].int!
-                    self.totalPages = pagination["pages"].int!
-                    self.totalItems = pagination["total"].int!
-                }else{
-                    handler([JSON](), nil)
-                }
-            }
-        }
-        
-    }
-    
     func getNewsWithQuery(query : [String:String], handler :  @escaping ( ( _ model : [JSON], _ pagination : [String : JSON]?) -> Void ) ) {
         
         if(self.page > self.totalPages){
@@ -189,86 +136,96 @@ class ModelNotizie {
     
     func postNews(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
-            response in
-                        
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data)
-                }else{
-                    handler(nil)
+        self.login.isLogged {
+            self.session.request( self.baseUrl + "/api/news", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                response in
+                
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false , let data = json["data"] {
+                        handler(data)
+                    }else{
+                        handler(nil)
+                    }
                 }
             }
         }
+
         
     }
     
     func vote(voto : Voto, notizia : String, handler :  @escaping ( (_ model : JSON?) -> Void )){
-        
-        let parameters = [
-            "notizia_id" : notizia,
-            "voto" : voto.rawValue
-        ]
-        
-        session.request( baseUrl + "/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false {
-                    handler(JSON(data))
-                }else{
-                    handler(nil)
+        self.login.isLogged {
+            let parameters = [
+                "notizia_id" : notizia,
+                "voto" : voto.rawValue
+            ]
+            
+            self.session.request( self.baseUrl + "/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false {
+                        handler(JSON(data))
+                    }else{
+                        handler(nil)
+                    }
                 }
             }
         }
     }
     
     func getNewsToVote(handler :  @escaping ( (_ model : [JSON]) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/vote", method: .get, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data.arrayValue)
-                }else{
-                    handler([JSON]())
+        self.login.isLogged {
+            self.session.request( self.baseUrl + "/api/vote", method: .get, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false , let data = json["data"] {
+                        handler(data.arrayValue)
+                    }else{
+                        handler([JSON]())
+                    }
                 }
             }
         }
+        
         
     }
     
     func deleteNews(id : String , handler :  @escaping ( ( _ response : Bool ) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/news/\(id)", method: .delete, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false  {
-                    handler(true)
-                }else{
-                    handler(false)
+        self.login.isLogged {
+            self.session.request( self.baseUrl + "/api/news/\(id)", method: .delete, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false  {
+                        handler(true)
+                    }else{
+                        handler(false)
+                    }
                 }
             }
+
         }
-        
+    
     }
     
     func promoteNews(id : String , handler :  @escaping ( ( _ response : Bool ) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/news/promote/\(id)", method: .put, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false  {
-                    handler(true)
-                }else{
-                    handler(false)
+        self.login.isLogged {
+            self.session.request( self.baseUrl + "/api/news/promote/\(id)", method: .put, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false  {
+                        handler(true)
+                    }else{
+                        handler(false)
+                    }
                 }
             }
         }
+        
         
     }
     
@@ -318,18 +275,20 @@ class ModelNotizie {
     }
     
     func postEvent(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/events", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data)
-                }else{
-                    handler(nil)
+        self.login.isLogged {
+            self.session.request( self.baseUrl + "/api/events", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false , let data = json["data"] {
+                        handler(data)
+                    }else{
+                        handler(nil)
+                    }
                 }
             }
         }
+        
         
     }
     
@@ -365,33 +324,36 @@ class ModelNotizie {
     }
     
     func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/profile", method: .get, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data)
-                }else{
-                    handler(nil)
+        if let _ = login.id {
+            self.session.request( self.baseUrl + "/api/profile", method: .get, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false , let data = json["data"] {
+                        handler(data)
+                    }else{
+                        handler(nil)
+                    }
                 }
             }
         }
+        
         
     }
     
     func updateProfile(parameters : [String : Any], handler :  @escaping ( (_ : Bool) -> Void ) ) {
                 
         if let id = login.id{
-        
-            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
-                response in
-                if let data = response.data {
-                    let json = JSON(data).dictionaryValue
-                    if json["error"]?.bool == false  {
-                        handler(true)
-                    }else{
-                        handler(false)
+            self.login.isLogged {
+                self.session.request( self.baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                    response in
+                    if let data = response.data {
+                        let json = JSON(data).dictionaryValue
+                        if json["error"]?.bool == false  {
+                            handler(true)
+                        }else{
+                            handler(false)
+                        }
                     }
                 }
             }
@@ -408,15 +370,16 @@ class ModelNotizie {
     }
     
     func updateUserLocation(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data)
-                }else{
-                    handler(nil)
+        if let _ = login.id {
+            self.session.request( self.baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false , let data = json["data"] {
+                        handler(data)
+                    }else{
+                        handler(nil)
+                    }
                 }
             }
         }
@@ -424,34 +387,38 @@ class ModelNotizie {
     }
     
     func updateUserLocationDistance(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false , let data = json["data"] {
-                    handler(data)
-                }else{
-                    handler(nil)
+        if let _ = login.id {
+            self.login.session.request( self.baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false , let data = json["data"] {
+                        handler(data)
+                    }else{
+                        handler(nil)
+                    }
                 }
             }
         }
+        
         
     }
     
     func deleteUserLocation(handler :  @escaping ( (_ model : Bool) -> Void ) ) {
-        
-        session.request( baseUrl + "/api/profile/location", method: .delete, headers: self.headers).responseJSON{
-            response in
-            if let data = response.data {
-                let json = JSON(data).dictionaryValue
-                if json["error"]?.bool == false  {
-                    handler(true)
-                }else{
-                    handler(false)
+        self.login.isLogged {
+            self.session.request( self.baseUrl + "/api/profile/location", method: .delete, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false  {
+                        handler(true)
+                    }else{
+                        handler(false)
+                    }
                 }
             }
         }
+        
         
     }
     
@@ -493,8 +460,3 @@ class ModelNotizie {
 }
 
 
-enum Voto: String{
-    case UP = "UP"
-    case DOWN = "DOWN"
-    case NO = "NO"
-}

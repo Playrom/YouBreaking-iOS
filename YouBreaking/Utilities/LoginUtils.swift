@@ -6,12 +6,12 @@
 //  Copyright © 2017 Giorgio Romano. All rights reserved.
 //
 
-import Foundation
 import FBSDKLoginKit
 import Alamofire
 import SwiftyJSON
 import JWTDecode
 import UserNotifications
+import UIKit
 
 class LoginUtils {
     
@@ -89,6 +89,16 @@ class LoginUtils {
         return Bundle.main.object(forInfoDictionaryKey: "url_development") as! String
     }
     
+    func isLogged(success: @escaping( () -> Void ) ){
+        if let token = self.token{
+            success()
+        }else{
+            let vc = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login View Controller") as! LoginViewController
+            vc.completition = success
+            UIApplication.shared.delegate?.window??.rootViewController?.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
     func loginWithFacebookToken(handler : @escaping ( () -> Void ) ) {
         
@@ -145,37 +155,7 @@ class LoginUtils {
         }
         
     }
-    
-    func checkStatus(){
-        if let token = self.token{
-            
-            print(token)
-            
-            session.request(baseUrl + "/api/auth/check", method: .get).responseJSON{
-                response in
-                if response.response?.statusCode == 401{
-                    print("NON AUTORIZZATO")
-                    
-                    if let data = response.data{
-                        
-                        let dict = JSON(data: data).dictionaryValue
-                        let message = dict["message"]?.stringValue
-                        if(message == "ExpiredToken"){
-                            print("TOKEN SCADUTO")
-                            self.token = nil
-                            FBSDKLoginManager().logOut()
-                        }}
-                    
-                }else{
-                    print(response)
-                }
-            }
-            
-        }else{
-            print("Token Non Presente")
-        }
-    }
-    
+        
     func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
         session.request( baseUrl + "/api/profile", method: .get).responseJSON{

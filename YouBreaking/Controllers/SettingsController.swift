@@ -46,6 +46,11 @@ class SettingsController: BreakingTableViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
         reload()
+        coms.getProfile{
+            json in
+            self.data = json
+            self.reload()
+        }
     }
     
     // MARK: - IBActions
@@ -228,10 +233,7 @@ class SettingsController: BreakingTableViewController {
         }else if(indexPath.section == 3 && indexPath.row == 0){
             // Logout
             coms.login.logout {
-                if let window = UIApplication.shared.delegate?.window{
-                    let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
-                    window?.rootViewController = rootController
-                }
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
@@ -296,18 +298,19 @@ extension SettingsController : CLLocationManagerDelegate{
                 place, error in
                 if let place = place?.first{
                     self.place = MKPlacemark(placemark: place)
-                    
-                    let parameters : [String : Any] = [
-                        "latitude" : self.place!.coordinate.latitude,
-                        "longitude" : self.place!.coordinate.longitude,
-                        "name" : self.place!.name!,
-                        "country" : self.place!.country!,
-                        "type" : "Gps"
-                    ]
-                    
-                    self.coms.updateUserLocation(parameters: parameters){
-                        response in
-                        self.reload()
+                    if let pl = self.place, let name = pl.name, let country = pl.country{
+                        let parameters : [String : Any] = [
+                            "latitude" : pl.coordinate.latitude,
+                            "longitude" : pl.coordinate.longitude,
+                            "name" : name,
+                            "country" : country,
+                            "type" : "Gps"
+                        ]
+                        
+                        self.coms.updateUserLocation(parameters: parameters){
+                            response in
+                            self.reload()
+                        }
                     }
                     
                 }

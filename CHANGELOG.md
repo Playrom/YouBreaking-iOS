@@ -3,13 +3,16 @@
 * Miglioramento: Cancellato testo del tasto indietro
 * Miglioramento: Se non esistono News compare la scritta "Nessuna Notizia"
 * Miglioramento: Nuova Schermata Single se non esiste notizia
+* Miglioramento: Notizie nel feed principale limitate agli ultimi giorni
+* Miglioramento: App utilizzabile anche senza login
+* Miglioramento: Per le notizie già votate l'ordinamento predefinito è il recente
 
 * Change: Api Login Path
 
 * Bugfix: Apertura link notizia
 * Bugfix: Tasto Facebook
 * Bugfix: Onboard Bugfix
+* 
 #Bug Noti
 
 #Improvements
-inserire ordinazione per recenti nella schermata voti gia dati

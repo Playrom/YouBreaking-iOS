@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="133"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xe1-sb-Bc2" id="6Me-WE-rBW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="132"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="133"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TlS-bo-94Q">
@@ -250,7 +250,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="adY-BI-luR" id="gs6-BN-wOj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WhK-9L-YUb">
@@ -425,7 +425,7 @@
                     <navigationItem key="navigationItem" title="Notizie" id="LtE-ve-sWv">
                         <barButtonItem key="leftBarButtonItem" image="Icona Settings" id="s2a-1l-LqT" userLabel="Icona Settings">
                             <connections>
-                                <segue destination="2b2-HC-69o" kind="show" identifier="Present Settings" id="kUR-JQ-iFL"/>
+                                <action selector="pressSettings:" destination="KIe-rv-hgb" id="nec-Mq-t1f"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -437,6 +437,7 @@
                         <outlet property="iconaSettings" destination="s2a-1l-LqT" id="Ogg-2t-r0y"/>
                         <segue destination="ciD-Ca-fwp" kind="show" identifier="Select Event" id="jtl-i2-hCu"/>
                         <segue destination="ZJb-gE-qlx" kind="presentation" identifier="Select News" modalPresentationStyle="overFullScreen" id="VdX-R6-Osx"/>
+                        <segue destination="2b2-HC-69o" kind="show" identifier="Present Settings" id="bZm-gK-8mI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pD1-sB-G8G" userLabel="First Responder" sceneMemberID="firstResponder"/>

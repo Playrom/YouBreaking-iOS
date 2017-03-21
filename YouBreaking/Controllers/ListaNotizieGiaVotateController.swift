@@ -10,6 +10,12 @@ import UIKit
 
 class ListaNotizieGiaVotateController: NotizieController {
     
+    // MARK: - UIKit Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.sortOrder = .Recent
+    }
+    
     // MARK: - Protocol Methods
     override func reload(){
         

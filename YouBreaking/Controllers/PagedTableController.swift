@@ -33,11 +33,14 @@ class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
         super.viewDidLoad()
         
         let locationManager = CLLocationManager()
-        locationManager.requestWhenInUseAuthorization()
         
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.startUpdatingLocation()
+        
+        if let _ = coms.login.id{
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
         
         let latitude = locationManager.location?.coordinate.latitude.description;
         let longitude = locationManager.location?.coordinate.longitude.description;
@@ -251,9 +254,12 @@ class PagedTableController: BreakingTableViewController , ListTableViewProtocol{
 extension PagedTableController : NewsControllerDelegate{
     func removeMask() {
         if let nvc = self.navigationController, let modalMask = nvc.view.viewWithTag(999){
-            UIView.animate(withDuration: 0.3){
-                modalMask.removeFromSuperview()
-            }
+            UIView.animate(withDuration: 0.3, animations: {
+                self.mask?.alpha = 0
+            }, completion: {
+                _ in
+                self.mask?.removeFromSuperview()
+            })
         }
     }
 }

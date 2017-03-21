@@ -91,7 +91,13 @@ class ListaNotizieController: NotizieController{
             }
         }
     }
-
+    
+    // MARK: - IBActions
+    @IBAction func pressSettings(_ sender: UIBarButtonItem) {
+        self.coms.login.isLogged {
+            self.performSegue(withIdentifier: "Present Settings", sender: sender)
+        }
+    }
     
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

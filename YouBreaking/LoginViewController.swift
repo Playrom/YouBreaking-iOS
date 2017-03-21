@@ -13,20 +13,36 @@ import SafariServices
 import SwiftyJSON
 import JWTDecode
 
-class LandingViewController: BreakingViewController , FBSDKLoginButtonDelegate{
+class LoginViewController: BreakingViewController , FBSDKLoginButtonDelegate{
 
     @IBOutlet weak var loginButton: FBSDKLoginButton!
+    @IBOutlet weak var cross: UIImageView!
+    
+    var completition : ( () -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.readPermissions = ["public_profile","email"]
         loginButton.delegate = self
+        cross.image = cross.image?.withRenderingMode(.alwaysTemplate)
+        cross.tintColor = Colors.white
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissLogin))
+        tapGesture.numberOfTapsRequired = 1
+        cross.isUserInteractionEnabled = true
+        cross.addGestureRecognizer(tapGesture)
         
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         LoginUtils.sharedInstance.loginWithFacebookToken{
-            self.performSegue(withIdentifier: "Login Completato", sender: self)
+            if let completition = self.completition{
+                self.dismiss(animated: true) {
+                    _ in
+                    completition()
+
+                }
+            }
         }
     }
     
@@ -34,6 +50,10 @@ class LandingViewController: BreakingViewController , FBSDKLoginButtonDelegate{
         LoginUtils.sharedInstance.logout{
             
         }
+    }
+    
+    func dismissLogin(){
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

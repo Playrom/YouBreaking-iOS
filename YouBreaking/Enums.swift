@@ -20,3 +20,9 @@ enum SortOrder : String{
     case Recent = "recent"
     case Hot = "hot"
 }
+
+enum Voto: String{
+    case UP = "UP"
+    case DOWN = "DOWN"
+    case NO = "NO"
+}

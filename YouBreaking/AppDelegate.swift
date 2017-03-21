@@ -37,11 +37,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
-        LoginUtils.sharedInstance.loginWithFacebookToken{
-                        
-            if let _ = LoginUtils.sharedInstance.token{
-                //self.locationManager.requestAlwaysAuthorization()
-                //self.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
+        
+        if UserDefaults.standard.bool(forKey: "Already Launched"){
+            //let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
+            //self.window?.rootViewController = rootController
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
+                (granted,error) in
+                if(granted){
+                    UIApplication.shared.registerForRemoteNotifications()
+                }else{
+                    
+                }
+            }
+        }else{
+            let rootController = self.window?.rootViewController
+
+            let first = OnboardingContentViewController(title: "Benvenuto su You Breaking", body: "Per prima cosa per favore autorizza la ricezione delle notifiche, potrai impostare i dettagli più avanti nelle impostazioni", image:  nil , buttonText: "Autorizza") { () -> Void in
+                // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
                 
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
                     (granted,error) in
@@ -51,70 +63,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
                     }
                 }
-                
-            }else{
-                
-                if UserDefaults.standard.bool(forKey: "Already Launched"){
-                    let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
-                    self.window?.rootViewController = rootController
-                }else{
-                    let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
-                    self.window?.rootViewController = rootController
+            
 
-                    let first = OnboardingContentViewController(title: "Benvenuto su You Breaking", body: "Per prima cosa per favore autorizza la ricezione delle notifiche, potrai impostare i dettagli più avanti nelle impostazioni", image:  nil , buttonText: "Autorizza") { () -> Void in
-                        // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
-                        
-                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){
-                            (granted,error) in
-                            if(granted){
-                                UIApplication.shared.registerForRemoteNotifications()
-                            }else{
-
-                            }
-                        }
-                    
-
-                    }
-                    
-                    first.movesToNextViewController = true
-                    first.iconImageView.contentMode = .scaleAspectFit
-                    first.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
-                    
-                    let second = OnboardingContentViewController(title: "Fornisci la tua posizione", body: "Per poter ricevere notifiche geolocalizzate ti chiediamo di fornirci la tua posizione.", image:  nil , buttonText: "Autorizza") { () -> Void in
-                        self.locationManager.requestWhenInUseAuthorization()
-                    }
-                    
-                    second.movesToNextViewController = true
-                    second.iconImageView.contentMode = .scaleAspectFit
-                    second.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
-                                        
-                    let third = OnboardingContentViewController(title: "Buona Lettura!", body: nil, image:  nil , buttonText: "Leggi") { () -> Void in
-                        self.handleOnboardDismiss()
-                    }
-                    
-                    third.movesToNextViewController = true
-                    third.iconImageView.contentMode = .scaleAspectFit
-                    third.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
-                    
-                    self.onboard = OnboardingViewController(backgroundImage: UIImage.init(named: "red-background")! , contents: [first,second,third])
-                    
-                    if let onboard = self.onboard{
-                        onboard.shouldMaskBackground = false
-                        onboard.shouldBlurBackground = true
-                    
-                        DispatchQueue.main.async {
-                            rootController.present(onboard, animated: true){
-                                UserDefaults.standard.set(true, forKey: "Already Launched")
-                            }
-                        }
-                    }
-                
-                }
-                
             }
+            
+            first.movesToNextViewController = true
+            first.iconImageView.contentMode = .scaleAspectFit
+            first.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
+            
+            let second = OnboardingContentViewController(title: "Fornisci la tua posizione", body: "Per poter ricevere notifiche geolocalizzate ti chiediamo di fornirci la tua posizione.", image:  nil , buttonText: "Autorizza") { () -> Void in
+                self.locationManager.requestWhenInUseAuthorization()
+            }
+            
+            second.movesToNextViewController = true
+            second.iconImageView.contentMode = .scaleAspectFit
+            second.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
+                                
+            let third = OnboardingContentViewController(title: "Buona Lettura!", body: nil, image:  nil , buttonText: "Leggi") { () -> Void in
+                self.handleOnboardDismiss()
+            }
+            
+            third.movesToNextViewController = true
+            third.iconImageView.contentMode = .scaleAspectFit
+            third.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
+            
+            self.onboard = OnboardingViewController(backgroundImage: UIImage.init(named: "red-background")! , contents: [first,second,third])
+            
+            if let onboard = self.onboard{
+                onboard.shouldMaskBackground = false
+                onboard.shouldBlurBackground = true
+            
+                DispatchQueue.main.async {
+                    rootController?.present(onboard, animated: true){
+                        UserDefaults.standard.set(true, forKey: "Already Launched")
+                    }
+                }
+            }
+        
         }
-        
-        
                 
         return true
     }
@@ -159,26 +145,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        if (viewController as? UINavigationController)?.viewControllers[0] is ScriviNotiziaController {
-            if let newVC = tabBarController.storyboard?.instantiateViewController(withIdentifier: "Navigation Scrivi Notizia Controller")  {
-                                
-                if let root = tabBarController.selectedViewController as? UINavigationController, let write = newVC.childViewControllers.first as? ScriviNotiziaController{
-                    write.navigationDelegate = root
-                }else if let root = tabBarController.selectedViewController?.navigationController, let write = newVC.childViewControllers.first as? ScriviNotiziaController{
-                    write.navigationDelegate = root
+        if (viewController as? UINavigationController)?.viewControllers[0] is ScriviNotiziaController  {
+            if let _ = LoginUtils.sharedInstance.id{
+
+                if let newVC = tabBarController.storyboard?.instantiateViewController(withIdentifier: "Navigation Scrivi Notizia Controller")  {
+                    
+                    if let root = tabBarController.selectedViewController as? UINavigationController, let write = newVC.childViewControllers.first as? ScriviNotiziaController{
+                        write.navigationDelegate = root
+                    }else if let root = tabBarController.selectedViewController?.navigationController, let write = newVC.childViewControllers.first as? ScriviNotiziaController{
+                        write.navigationDelegate = root
+                    }
+                    tabBarController.present(newVC, animated: true)
+                    return false
                 }
-                tabBarController.present(newVC, animated: true)
+            }else{
+                LoginUtils.sharedInstance.isLogged {
+                    if let newVC = tabBarController.storyboard?.instantiateViewController(withIdentifier: "Navigation Scrivi Notizia Controller")  {
+                        
+                        if let root = tabBarController.selectedViewController as? UINavigationController, let write = newVC.childViewControllers.first as? ScriviNotiziaController{
+                            write.navigationDelegate = root
+                        }else if let root = tabBarController.selectedViewController?.navigationController, let write = newVC.childViewControllers.first as? ScriviNotiziaController{
+                            write.navigationDelegate = root
+                        }
+                        tabBarController.present(newVC, animated: true)
+                    }
+                }
                 return false
+                
+
+            }
+        }else if (viewController as? UINavigationController)?.viewControllers[0] is VotaController  {
+            if let _ = LoginUtils.sharedInstance.id{
+                return true
+            }else{
+                LoginUtils.sharedInstance.isLogged {
+                    tabBarController.selectedIndex = 2
+                }
+                return false
+                
+                
             }
         }
-        
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("REGISTATION SUCCESS")
         let token = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-
+        
         utils = LoginUtils.sharedInstance
         if let _ = self.utils.token{
             let parameters = [ "devicetoken" : token ]

@@ -6,14 +6,15 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Landing View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="Login Landing Page" id="BYZ-38-t0r" customClass="LandingViewController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login View Controller" id="BYZ-38-t0r" customClass="LoginViewController" customModule="YouBreaking" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -36,20 +37,28 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Per Scrivere o Votare una notizia è richiesta la creazione di un account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRt-AC-Kj8">
-                                <rect key="frame" x="16" y="255" width="343" height="151"/>
+                                <rect key="frame" x="16" y="255" width="343" height="99.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Usa il tuo account Facebook per registrarti od effettuare il login" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yp-QC-QXM">
-                                <rect key="frame" x="16" y="414" width="343" height="48"/>
+                                <rect key="frame" x="16" y="362.5" width="343" height="99.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cross" translatesAutoresizingMaskIntoConstraints="NO" id="bgh-ed-xHY">
+                                <rect key="frame" x="16" y="28" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="51b-B9-m7q"/>
+                                    <constraint firstAttribute="width" secondItem="bgh-ed-xHY" secondAttribute="height" multiplier="1:1" id="uy4-PN-0Dm"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.83921568629999999" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="bgh-ed-xHY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="6kf-4k-wn7"/>
                             <constraint firstItem="8Yp-QC-QXM" firstAttribute="leading" secondItem="jRt-AC-Kj8" secondAttribute="leading" id="8eM-lX-03w"/>
                             <constraint firstItem="jRt-AC-Kj8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9mY-eu-OR6"/>
                             <constraint firstItem="PgC-1B-AsR" firstAttribute="leading" secondItem="mEu-hp-jRC" secondAttribute="leading" id="AUd-dx-G7g"/>
@@ -59,13 +68,16 @@
                             <constraint firstAttribute="trailingMargin" secondItem="jRt-AC-Kj8" secondAttribute="trailing" id="O1a-BX-Sjv"/>
                             <constraint firstItem="8Yp-QC-QXM" firstAttribute="top" secondItem="jRt-AC-Kj8" secondAttribute="bottom" constant="8" id="UWL-KO-PEd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PgC-1B-AsR" secondAttribute="bottom" constant="107" id="ZJQ-wP-xLR"/>
+                            <constraint firstItem="8Yp-QC-QXM" firstAttribute="height" secondItem="jRt-AC-Kj8" secondAttribute="height" id="b7d-Uq-YUH"/>
                             <constraint firstItem="mEu-hp-jRC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="eUz-Iw-75c"/>
+                            <constraint firstItem="bgh-ed-xHY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ekj-5b-DA4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mEu-hp-jRC" secondAttribute="trailing" constant="52" id="gOV-Ge-iAA"/>
                             <constraint firstItem="8Yp-QC-QXM" firstAttribute="trailing" secondItem="jRt-AC-Kj8" secondAttribute="trailing" id="thj-yj-zuu"/>
                             <constraint firstItem="PgC-1B-AsR" firstAttribute="top" secondItem="8Yp-QC-QXM" secondAttribute="bottom" constant="58" id="zBE-O4-oRt"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cross" destination="bgh-ed-xHY" id="Jna-xf-47B"/>
                         <outlet property="loginButton" destination="PgC-1B-AsR" id="zQH-CH-0cG"/>
                         <segue destination="h2N-k7-wa9" kind="presentation" identifier="Login Completato" modalTransitionStyle="crossDissolve" id="OUR-fl-BOL"/>
                     </connections>
@@ -84,6 +96,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cross" width="150" height="150"/>
         <image name="You Breaking Text" width="200" height="98"/>
     </resources>
 </document>

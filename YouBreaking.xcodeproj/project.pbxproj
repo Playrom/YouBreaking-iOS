@@ -51,7 +51,7 @@
 		6CA737411E7BF9B3002AA51E /* UserListaNotiziaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737401E7BF9B3002AA51E /* UserListaNotiziaController.swift */; };
 		6CA737431E7C265D002AA51E /* BreakingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737421E7C265D002AA51E /* BreakingController.swift */; };
 		6CA737451E7C287B002AA51E /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737441E7C287B002AA51E /* Enums.swift */; };
-		6CA7374A1E7C377D002AA51E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737491E7C377D002AA51E /* ViewController.swift */; };
+		6CA7374A1E7C377D002AA51E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737491E7C377D002AA51E /* LoginViewController.swift */; };
 		6CCF4F251E65CF5900842585 /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F241E65CF5900842585 /* NewsController.swift */; };
 		6CCF4F271E65D0EC00842585 /* NewsPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */; };
 		6CCF4F291E65D58500842585 /* NewsTextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */; };
@@ -110,7 +110,7 @@
 		6CA737401E7BF9B3002AA51E /* UserListaNotiziaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListaNotiziaController.swift; path = Controllers/UserListaNotiziaController.swift; sourceTree = "<group>"; };
 		6CA737421E7C265D002AA51E /* BreakingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BreakingController.swift; path = Controllers/BreakingController.swift; sourceTree = "<group>"; };
 		6CA737441E7C287B002AA51E /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
-		6CA737491E7C377D002AA51E /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6CA737491E7C377D002AA51E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6CCF4F241E65CF5900842585 /* NewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsController.swift; path = Controllers/NewsController.swift; sourceTree = "<group>"; };
 		6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPagesController.swift; sourceTree = "<group>"; };
 		6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsTextTableViewController.swift; path = Controllers/NewsTextTableViewController.swift; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 		6C7C927B1E4CA56D00CA0DA7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6CA737491E7C377D002AA51E /* ViewController.swift */,
+				6CA737491E7C377D002AA51E /* LoginViewController.swift */,
 				6CA737421E7C265D002AA51E /* BreakingController.swift */,
 				6C84E4081E7809F500871F9A /* Table Views */,
 				6C8D99771E5DA70E00D1C60C /* MapSearchLocationController.swift */,
@@ -469,7 +469,7 @@
 				6CA0E7261E44EF930086D9BB /* VoteCard.swift in Sources */,
 				6C8E50AA1E4B13040013B8E8 /* SettingsController.swift in Sources */,
 				6C74C54D1E43347100CE8107 /* ModelNotizie.swift in Sources */,
-				6CA7374A1E7C377D002AA51E /* ViewController.swift in Sources */,
+				6CA7374A1E7C377D002AA51E /* LoginViewController.swift in Sources */,
 				6CA737431E7C265D002AA51E /* BreakingController.swift in Sources */,
 				6CCF4F271E65D0EC00842585 /* NewsPagesController.swift in Sources */,
 				6C74C54B1E4333D000CE8107 /* NotiziaCell.swift in Sources */,
