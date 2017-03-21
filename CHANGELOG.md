@@ -7,7 +7,8 @@
 * Change: Api Login Path
 
 * Bugfix: Apertura link notizia
-
+* Bugfix: Tasto Facebook
+* 
 #Bug Noti
 
 #Improvements

@@ -24,7 +24,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="PgC-1B-AsR" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="67" y="520" width="240" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="qQ3-kq-REj"/>
                                 </constraints>
