@@ -26,6 +26,7 @@
 		6C7C927F1E4CA5C900CA0DA7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */; };
 		6C7D6BBB1E7AEBB700A32FCD /* NewsUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D6BBA1E7AEBB700A32FCD /* NewsUsersTableViewController.swift */; };
 		6C7D6BBD1E7B124E00A32FCD /* NewsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D6BBC1E7B124E00A32FCD /* NewsInfoViewController.swift */; };
+		6C7E637C1E81678C00DA471D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C7E637B1E81678C00DA471D /* Assets.xcassets */; };
 		6C84E3FF1E7803BC00871F9A /* ListTableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E3FE1E7803BC00871F9A /* ListTableViewProtocol.swift */; };
 		6C84E4011E78065000871F9A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E4001E78065000871F9A /* Extensions.swift */; };
 		6C84E4051E7807C000871F9A /* UserPublishedNewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E4041E7807C000871F9A /* UserPublishedNewsController.swift */; };
@@ -55,7 +56,6 @@
 		6CCF4F271E65D0EC00842585 /* NewsPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */; };
 		6CCF4F291E65D58500842585 /* NewsTextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */; };
 		6CD1D5721E3F86AF00C3208D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD1D5711E3F86AF00C3208D /* AppDelegate.swift */; };
-		6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD1D5781E3F86AF00C3208D /* Assets.xcassets */; };
 		6CE147621E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */; };
 		6CE26B931E5DE9D6005F73D8 /* LocationPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CE26B911E5DE9D6005F73D8 /* LocationPicker.storyboard */; };
 		6CE57A3D1E5B0075003F3EB1 /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE57A3B1E5B0075003F3EB1 /* SelectPhotoCell.swift */; };
@@ -85,6 +85,7 @@
 		6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Colors.swift; path = Utilities/Colors.swift; sourceTree = "<group>"; };
 		6C7D6BBA1E7AEBB700A32FCD /* NewsUsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsUsersTableViewController.swift; path = Controllers/NewsUsersTableViewController.swift; sourceTree = "<group>"; };
 		6C7D6BBC1E7B124E00A32FCD /* NewsInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsInfoViewController.swift; path = Controllers/NewsInfoViewController.swift; sourceTree = "<group>"; };
+		6C7E637B1E81678C00DA471D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C84E3FE1E7803BC00871F9A /* ListTableViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTableViewProtocol.swift; sourceTree = "<group>"; };
 		6C84E4001E78065000871F9A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6C84E4041E7807C000871F9A /* UserPublishedNewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPublishedNewsController.swift; path = Controllers/UserPublishedNewsController.swift; sourceTree = "<group>"; };
@@ -115,7 +116,6 @@
 		6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsTextTableViewController.swift; path = Controllers/NewsTextTableViewController.swift; sourceTree = "<group>"; };
 		6CD1D56E1E3F86AF00C3208D /* YouBreaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouBreaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD1D5711E3F86AF00C3208D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6CD1D5781E3F86AF00C3208D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CD1D57D1E3F86AF00C3208D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE147611E51BDBA00E22AB3 /* ListaNotizieGiaVotateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListaNotizieGiaVotateController.swift; path = Controllers/ListaNotizieGiaVotateController.swift; sourceTree = "<group>"; };
 		6CE26B921E5DE9D6005F73D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LocationPicker.storyboard; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 				6C7C927D1E4CA59C00CA0DA7 /* Xib */,
 				6C74C54C1E43347100CE8107 /* ModelNotizie.swift */,
 				6C351B3E1E40D8D40057309C /* LoginUtils.swift */,
-				6CD1D5781E3F86AF00C3208D /* Assets.xcassets */,
+				6C7E637B1E81678C00DA471D /* Assets.xcassets */,
 				6CD1D57D1E3F86AF00C3208D /* Info.plist */,
 				6C91881B1E48C4FB00FA7311 /* Info_Production.plist */,
 			);
@@ -368,8 +368,8 @@
 			files = (
 				6CE26B931E5DE9D6005F73D8 /* LocationPicker.storyboard in Resources */,
 				6C9F2D3C1E41E89B0002C782 /* Landing.storyboard in Resources */,
+				6C7E637C1E81678C00DA471D /* Assets.xcassets in Resources */,
 				6C8D99741E5D949700D1C60C /* Single.storyboard in Resources */,
-				6CD1D5791E3F86AF00C3208D /* Assets.xcassets in Resources */,
 				6CE57A3E1E5B0075003F3EB1 /* SelectPhotoCell.xib in Resources */,
 				6CF47D0D1E4CC68600BE5F08 /* Main.storyboard in Resources */,
 				6C14446E1E54DCFD00E1AC5E /* LaunchScreen.storyboard in Resources */,

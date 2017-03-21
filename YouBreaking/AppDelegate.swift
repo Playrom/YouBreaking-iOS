@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 }else{
                     let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")
                     self.window?.rootViewController = rootController
-                    
+
                     let first = OnboardingContentViewController(title: "Benvenuto su You Breaking", body: "Per prima cosa per favore autorizza la ricezione delle notifiche, potrai impostare i dettagli più avanti nelle impostazioni", image:  nil , buttonText: "Autorizza") { () -> Void in
                         // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
                         
@@ -77,16 +77,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     }
                     
                     first.movesToNextViewController = true
+                    first.iconImageView.contentMode = .scaleAspectFit
+                    first.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
                     
                     let second = OnboardingContentViewController(title: "Fornisci la tua posizione", body: "Per poter ricevere notifiche geolocalizzate ti chiediamo di fornirci la tua posizione.", image:  nil , buttonText: "Autorizza") { () -> Void in
                         self.locationManager.requestWhenInUseAuthorization()
                     }
                     
                     second.movesToNextViewController = true
+                    second.iconImageView.contentMode = .scaleAspectFit
+                    second.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
                                         
-                    let third = OnboardingContentViewController(title: "Buona Lettura!", body: nil, image:  nil , buttonText: "Inizia ad usare You Breaking") { () -> Void in
+                    let third = OnboardingContentViewController(title: "Buona Lettura!", body: nil, image:  nil , buttonText: "Leggi") { () -> Void in
                         self.handleOnboardDismiss()
                     }
+                    
+                    third.movesToNextViewController = true
+                    third.iconImageView.contentMode = .scaleAspectFit
+                    third.bodyLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body )
                     
                     self.onboard = OnboardingViewController(backgroundImage: UIImage.init(named: "red-background")! , contents: [first,second,third])
                     
@@ -96,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                     
                         DispatchQueue.main.async {
                             rootController.present(onboard, animated: true){
-                                UserDefaults.standard.set(true, forKey: "Already Launched")
+                                //UserDefaults.standard.set(true, forKey: "Already Launched")
                             }
                         }
                     }

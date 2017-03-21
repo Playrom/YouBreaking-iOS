@@ -8,7 +8,7 @@
 
 * Bugfix: Apertura link notizia
 * Bugfix: Tasto Facebook
-* 
+* Bugfix: Onboard Bugfix
 #Bug Noti
 
 #Improvements

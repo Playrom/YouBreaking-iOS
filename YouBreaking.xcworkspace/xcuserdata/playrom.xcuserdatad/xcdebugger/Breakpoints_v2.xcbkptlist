@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YouBreaking/AppDelegate.swift"
-            timestampString = "511459698.199099"
+            timestampString = "511797344.952954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "application(_:open:options:)"
             landmarkType = "7">
          </BreakpointContent>

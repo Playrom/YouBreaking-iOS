@@ -25,22 +25,44 @@
                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="PgC-1B-AsR" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="67" y="520" width="240" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="qQ3-kq-REj"/>
+                                    <constraint firstAttribute="height" constant="40" id="qQ3-kq-REj"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="You Breaking Text" translatesAutoresizingMaskIntoConstraints="NO" id="mEu-hp-jRC">
-                                <rect key="frame" x="67" y="57" width="240" height="263"/>
+                                <rect key="frame" x="67" y="57" width="240" height="98"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="98" id="14F-gQ-aBl"/>
+                                    <constraint firstAttribute="width" constant="240" id="nCU-XH-nye"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Per Scrivere o Votare una notizia è richiesta la creazione di un account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRt-AC-Kj8">
+                                <rect key="frame" x="16" y="255" width="343" height="151"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Usa il tuo account Facebook per registrarti od effettuare il login" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yp-QC-QXM">
+                                <rect key="frame" x="16" y="414" width="343" height="48"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.83921568629999999" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="8Yp-QC-QXM" firstAttribute="leading" secondItem="jRt-AC-Kj8" secondAttribute="leading" id="8eM-lX-03w"/>
+                            <constraint firstItem="jRt-AC-Kj8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="9mY-eu-OR6"/>
                             <constraint firstItem="PgC-1B-AsR" firstAttribute="leading" secondItem="mEu-hp-jRC" secondAttribute="leading" id="AUd-dx-G7g"/>
+                            <constraint firstItem="jRt-AC-Kj8" firstAttribute="top" secondItem="mEu-hp-jRC" secondAttribute="bottom" constant="100" id="AbV-yu-h8Q"/>
                             <constraint firstItem="mEu-hp-jRC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="ExV-wU-PtB"/>
                             <constraint firstItem="PgC-1B-AsR" firstAttribute="trailing" secondItem="mEu-hp-jRC" secondAttribute="trailing" id="LYe-2s-Ndn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jRt-AC-Kj8" secondAttribute="trailing" id="O1a-BX-Sjv"/>
+                            <constraint firstItem="8Yp-QC-QXM" firstAttribute="top" secondItem="jRt-AC-Kj8" secondAttribute="bottom" constant="8" id="UWL-KO-PEd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PgC-1B-AsR" secondAttribute="bottom" constant="107" id="ZJQ-wP-xLR"/>
                             <constraint firstItem="mEu-hp-jRC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="eUz-Iw-75c"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mEu-hp-jRC" secondAttribute="trailing" constant="52" id="gOV-Ge-iAA"/>
-                            <constraint firstItem="PgC-1B-AsR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mEu-hp-jRC" secondAttribute="bottom" constant="200" id="n59-Jq-tqH"/>
+                            <constraint firstItem="8Yp-QC-QXM" firstAttribute="trailing" secondItem="jRt-AC-Kj8" secondAttribute="trailing" id="thj-yj-zuu"/>
+                            <constraint firstItem="PgC-1B-AsR" firstAttribute="top" secondItem="8Yp-QC-QXM" secondAttribute="bottom" constant="58" id="zBE-O4-oRt"/>
                         </constraints>
                     </view>
                     <connections>
@@ -62,6 +84,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="You Breaking Text" width="1051" height="483"/>
+        <image name="You Breaking Text" width="200" height="98"/>
     </resources>
 </document>

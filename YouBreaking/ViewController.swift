@@ -21,28 +21,7 @@ class LandingViewController: BreakingViewController , FBSDKLoginButtonDelegate{
         super.viewDidLoad()
         loginButton.readPermissions = ["public_profile","email"]
         loginButton.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
-//        
-//        UIGraphicsBeginImageContext(self.view.frame.size)
-//        UIImage(named: "red-background")?.draw(in: self.view.bounds)
-//        
-//        if let image: UIImage = UIGraphicsGetImageFromCurrentImageContext(){
-//            UIGraphicsEndImageContext()
-//            self.view.backgroundColor = UIColor(patternImage: image)
-//        }else{
-//            UIGraphicsEndImageContext()
-//            debugPrint("Image not available")
-//        }
         
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        UIApplication.shared.statusBarStyle = .default
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -55,10 +34,6 @@ class LandingViewController: BreakingViewController , FBSDKLoginButtonDelegate{
         LoginUtils.sharedInstance.logout{
             
         }
-    }
-
-    @IBAction func connessione(_ sender: UIButton) {
-        LoginUtils.sharedInstance.checkStatus()
     }
 }
 
