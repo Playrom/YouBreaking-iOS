@@ -12,7 +12,9 @@
 * Bugfix: Apertura link notizia
 * Bugfix: Tasto Facebook
 * Bugfix: Onboard Bugfix
-* 
+
 #Bug Noti
+* Caricamento informazioni utenti schermata single
 
 #Improvements
+* Modifica notizie
