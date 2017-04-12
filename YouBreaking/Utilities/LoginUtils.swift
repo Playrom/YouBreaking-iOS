@@ -49,7 +49,8 @@ class LoginUtils {
             
             return [
                 "Authorization": "JWT " + token ,
-                "Accept": "application/json"
+                "Accept": "application/json",
+                "Content-Type": "application/json"
             ]
         }
         
@@ -91,11 +92,21 @@ class LoginUtils {
     
     func isLogged(success: @escaping( () -> Void ) ){
         if let token = self.token{
+            print(token)
+            print(self.user)
             success()
         }else{
             let vc = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login View Controller") as! LoginViewController
             vc.completition = success
             UIApplication.shared.delegate?.window??.rootViewController?.present(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func renewToken(){
+        if let _ = token{
+            self.loginWithFacebookToken {
+                
+            }
         }
     }
     
@@ -106,12 +117,17 @@ class LoginUtils {
             
             // Comparo la data di scadenza del token per vedere se è maggiore dell'istante attuale
             if(FBSDKAccessToken.current().expirationDate.compare(Date()) == ComparisonResult.orderedDescending){
-                print(session)
+
+                var url = baseUrl + "/api/auth/facebook/token?access_token=" + fbToken
+                print(url)
+                
                 //Richiedo al server un nuovo token dell'applicazione utilizzando il token di facebook
-                session.request( baseUrl + "/api/auth/facebook/token?access_token=" + fbToken, method : .get).responseData { response in
+                session.request( url , method : .get, headers: self.headers).responseJSON { response in
+                    print(response.description)
                     if let data = response.data{
-                        
                         let dict = JSON(data: data).dictionaryValue
+                        print("DIZIONARIO")
+                        print(dict)
                         if let tempToken = dict["token"]?.string{
                             do{
                                 // Decodifico il token JWT
@@ -127,14 +143,18 @@ class LoginUtils {
                                 handler()
                             }
                         }else{
-                            let alert = UIAlertController(title: "Server Non Disponibile", message: "Riprova più tardi", preferredStyle: UIAlertControllerStyle.alert )
+                            print("ERRORE NON ESISTE TOKEN")
+                            let alert = UIAlertController(title: "Rilogga, il tuo token è scaduto", message: "Riprova più tardi", preferredStyle: UIAlertControllerStyle.alert )
                             UIApplication.shared.delegate?.window??.rootViewController?.present(alert, animated: true, completion: nil)
+                            self.token = nil
+                            let manager = FBSDKLoginManager()
+                            manager.logOut()
                         }
                     }
                     
                 }
             }else{
-                print("Token Scaduto, Riloggarsi");
+                print("Token Facebook Scaduto, Riloggarsi");
                 handler()
             }
         }else{
@@ -146,7 +166,7 @@ class LoginUtils {
     func logout(handler : @escaping ( () -> Void )) {
         print("Logged Out")
         if  token != nil {
-            session.request(baseUrl + "/api/auth/logout", method: .post).responseJSON{
+            session.request(baseUrl + "/api/auth/logout", method: .post, headers: self.headers).responseJSON{
                 response in
                 self.token = nil
                 FBSDKLoginManager().logOut()
@@ -158,7 +178,7 @@ class LoginUtils {
         
     func getProfile(handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile", method: .get).responseJSON{
+        session.request( baseUrl + "/api/profile", method: .get, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -176,7 +196,7 @@ class LoginUtils {
         
         if let id = self.id{
             
-            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+            session.request( baseUrl + "/api/profile/" + id, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
                 response in
                 if let data = response.data {
                     let json = JSON(data).dictionaryValue
@@ -201,7 +221,7 @@ class LoginUtils {
     
     func updateUserLocation(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/profile/location", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -217,7 +237,7 @@ class LoginUtils {
     
     func updateUserLocationDistance(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default).responseJSON{
+        session.request( baseUrl + "/api/profile/location/distance", method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -233,7 +253,7 @@ class LoginUtils {
     
     func deleteUserLocation(handler :  @escaping ( (_ model : Bool) -> Void ) ) {
         
-        session.request( baseUrl + "/api/profile/location", method: .delete).responseJSON{
+        session.request( baseUrl + "/api/profile/location", method: .delete, headers: self.headers).responseJSON{
             response in
             if let data = response.data {
                 let json = JSON(data).dictionaryValue
@@ -246,8 +266,5 @@ class LoginUtils {
         }
         
     }
-    
-    
-    
-    
+
 }

@@ -119,15 +119,11 @@ class SettingsController: BreakingTableViewController {
         
         if let imageUrl = data?["picture"].string{
 
-            coms.getImage(url: imageUrl){
-                responseData in
-                if let responseData = responseData{
-                    let img = UIImage(data: responseData)
-                    if let img = img{
-                        self.image.image = img.af_imageRoundedIntoCircle()
-                        self.activityIndicator.stopAnimating()
-                    }
-                }
+            coms.getImage(url: imageUrl)
+            .then{
+                image -> Void in
+                self.image.image = image.af_imageRoundedIntoCircle()
+                self.activityIndicator.stopAnimating()
             }
         }
         
@@ -208,7 +204,7 @@ class SettingsController: BreakingTableViewController {
             let cell = self.tableView(tableView, cellForRowAt: indexPath)
             
             if let row = selectedRow{
-                self.tableView(tableView, cellForRowAt: IndexPath(row: row, section: 1 ) ).accessoryType = .none
+                self.tableView(tableView, cellForRowAt: IndexPath(row: row, section: 2 ) ).accessoryType = .none
             }
             
             selectedRow = indexPath.row

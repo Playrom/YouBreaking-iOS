@@ -1,4 +1,8 @@
 #Changelog You Breaking App
+##Versione 1.0.2
+* Bugfix: Token Scaduti
+* Bugfix: Visualizzazione voti espressi nella singola notizia
+
 ##Versione 1.0.1
 * Miglioramento: Cancellato testo del tasto indietro
 * Miglioramento: Se non esistono News compare la scritta "Nessuna Notizia"
@@ -14,7 +18,6 @@
 * Bugfix: Onboard Bugfix
 
 #Bug Noti
-* Caricamento informazioni utenti schermata single
 
 #Improvements
 * Modifica notizie

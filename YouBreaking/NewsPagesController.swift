@@ -65,11 +65,10 @@ class NewsPagesController: UIPageViewController {
         var query = ["fields" : "voti"]
         
         if let idNews = data?["id"].string {
-            
+            third.news = data
             coms.getSingleNews(id: idNews , query : query){
                 model in
                 third.news = model
-                third.preload()
             }
             
         }

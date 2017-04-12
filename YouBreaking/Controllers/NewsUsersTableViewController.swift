@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import PromiseKit
 
 class NewsUsersTableViewController: UITableViewController{
     
@@ -19,18 +20,24 @@ class NewsUsersTableViewController: UITableViewController{
     
     // Mark: - UIKit Elements
     let spinAuthor = UIActivityIndicatorView()
+    var loadingView : UIView?
+    var loadingSpin = UIActivityIndicatorView()
     
     // MARK: - Class Elements
     var news : JSON?
     var upVotes = [JSON]()
     var downVotes = [JSON]()
-    fileprivate var avatars = [String:UIImage]()
+    fileprivate var avatars = [String:UIImage](){
+        didSet{
+            self.endReload()
+        }
+    }
     let coms = ModelNotizie()
     
     // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.reload()
+        self.preload()
     }
     
     // MARK: - Class Methods
@@ -85,24 +92,35 @@ class NewsUsersTableViewController: UITableViewController{
         
         scrollViewNegative.contentSize = CGSize(width: ( scrollViewNegative.height + CGFloat(4) ) * CGFloat(downVotes.count), height: scrollViewNegative.height)
 
+        self.endReload()
         
-        
+    }
+    
+    func endReload(){
+        self.loadingView?.removeFromSuperview()
+        self.loadingSpin.stopAnimating()
     }
     
     func preload(){
         
+        self.loadingView = UIView(frame : self.parent!.view.frame)
+        self.loadingView?.backgroundColor = Colors.white
+        self.loadingSpin.activityIndicatorViewStyle = .gray
+        self.loadingSpin.center = CGPoint(x: self.parent!.view.width/2 , y:  self.parent!.view.height / 2)
+        self.loadingView?.addSubview(self.loadingSpin)
+        self.parent?.view.addSubview(self.loadingView!)
+        self.loadingSpin.startAnimating()
+        
+        var promises = [Promise<Void>]()
+        
         if let author = news?["user"]{
             
             if let picture = author["picture"].string{
-                coms.getImage(url: picture){
-                    data in
-                    
-                    if let data = data{
-                        if let img = UIImage(data: data){
-                            self.avatars[author["id"].stringValue] = img.af_imageRoundedIntoCircle()
-                        }
-                    }
+                let item = coms.getImage(url: picture).then{
+                    image -> Void in
+                    self.avatars[author["id"].stringValue] = image.af_imageRoundedIntoCircle()
                 }
+                promises.append(item)
             }
         }
         
@@ -116,36 +134,33 @@ class NewsUsersTableViewController: UITableViewController{
             }
         }
         
-        for (index,vote) in upVotes.enumerated(){
+        for (_,vote) in upVotes.enumerated(){
             
             if let picture = vote["user"]["picture"].string{
-                coms.getImage(url: picture){
-                    data in
-                    
-                    if let data = data{
-                        if let img = UIImage(data: data){
-                            self.avatars[vote["user"]["id"].stringValue] = img.af_imageRoundedIntoCircle()
-                        }
-                    }
+                let item = coms.getImage(url: picture).then{
+                    image -> Void in
+                    self.avatars[vote["user"]["id"].stringValue] = image.af_imageRoundedIntoCircle()
                 }
+                promises.append(item)
             }
             
         }
         
-        for (index,vote) in downVotes.enumerated(){
+        for (_,vote) in downVotes.enumerated(){
             
             if let picture = vote["user"]["picture"].string{
-                coms.getImage(url: picture){
-                    data in
-                    
-                    if let data = data{
-                        if let img = UIImage(data: data){
-                            self.avatars[vote["user"]["id"].stringValue] = img.af_imageRoundedIntoCircle()
-                        }
-                    }
+                let item = coms.getImage(url: picture).then{
+                    image -> Void in
+                    self.avatars[vote["user"]["id"].stringValue] = image.af_imageRoundedIntoCircle()
                 }
+                promises.append(item)
             }
             
+        }
+        
+        _ = when(fulfilled: promises).then{ _ -> () in
+            print(self.avatars.description)
+            self.reload()
         }
         
 

@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
+        LoginUtils.sharedInstance.renewToken()
         
         if UserDefaults.standard.bool(forKey: "Already Launched"){
             //let rootController = UIStoryboard(name: "Landing", bundle: Bundle.main).instantiateViewController(withIdentifier: "Login Landing Page")

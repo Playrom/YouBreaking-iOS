@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import Lightbox
+import PromiseKit
 
 class AuthorViewController: BreakingViewController {
     
@@ -97,15 +98,15 @@ class AuthorViewController: BreakingViewController {
             titleLabel.text = author?["name"].string
             
             if let picture = author?["picture"].string{
-                coms.getImage(url: picture){
-                    data in
-                    if let data = data{
-                        self.avatarView.image = UIImage(data: data)?.af_imageRoundedIntoCircle()
-                        self.avatarView.setNeedsLayout()
-                        self.avatarView.layoutSubviews()
-                        self.endReload()
-                    }
-                    
+                coms.getImage(url: picture)
+                .then{
+                    image -> Void in
+                    self.avatarView.image = image.af_imageRoundedIntoCircle()
+                    self.avatarView.setNeedsLayout()
+                    self.avatarView.layoutSubviews()
+                    self.endReload()
+                }
+                .catch { error in
                 }
             }
         }else{
@@ -118,15 +119,14 @@ class AuthorViewController: BreakingViewController {
                     self.titleLabel.text = self.author?["name"].string
                     
                     if let picture = self.author?["picture"].string{
-                        self.coms.getImage(url: picture){
-                            data in
-                            if let data = data{
-                                self.avatarView.image = UIImage(data: data)?.af_imageRoundedIntoCircle()
-                                self.avatarView.setNeedsLayout()
-                                self.avatarView.layoutSubviews()
-                                self.endReload()
-                            }
-                            
+                        self.coms.getImage(url: picture)
+                        .then{
+                            image -> Void in
+                            self.avatarView.image = image.af_imageRoundedIntoCircle()
+                            self.avatarView.setNeedsLayout()
+                            self.avatarView.layoutSubviews()
+                            self.endReload()
+                                
                         }
                     }
                     

@@ -120,9 +120,11 @@ class ScriviNotiziaController: BreakingTableViewController {
             
             do{
                 let base64 = try Data(contentsOf: images[0]["URL"] as! URL).base64EncodedString()
+                let imageExtension = try Data(contentsOf: images[0]["URL"] as! URL).format
+                let encoded = "data:image/\(imageExtension);base64,\(base64))"
                 aggiuntivi.append([
-                "tipo" : "PHOTO",
-                "valore" : base64
+                    "tipo" : "FEATURED_PHOTO",
+                    "valore" : encoded
                 ])
             }catch{
                 print("Data Base64 Non Corretta")

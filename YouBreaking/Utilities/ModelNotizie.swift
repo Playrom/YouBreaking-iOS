@@ -14,6 +14,7 @@ import AlamofireImage
 import SwiftyJSON
 import JWTDecode
 import Haneke
+import PromiseKit
 
 class ModelNotizie {
     
@@ -360,13 +361,19 @@ class ModelNotizie {
         }
     }
     
-    func getImage(url : String , handler :  @escaping ( (_ : Data?) -> Void ) ) {
-        
-        session.request( url , method: .get, headers: self.headers).responseImage{
-            response in
-            handler(response.data)
+    func getImage(url : String) -> Promise<UIImage> {
+        return Promise { fulfill, reject in
+            session.request( url , method: .get, headers: self.headers).responseImage{
+                response in
+                switch response.result {
+                    case .success(let image):
+                        fulfill(image)
+                    case .failure(let error):
+                        reject(error)
+                }
+            }
+
         }
-        
     }
     
     func updateUserLocation(parameters : [String : Any], handler :  @escaping ( (_ model : JSON?) -> Void ) ) {

@@ -84,6 +84,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>PromiseKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>23</integer>
+		</dict>
 		<key>SwifterSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -237,6 +242,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>769D13C37799E320144B61565F734F8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7EAE07012FF92757A7AA8B03073DA4B7</key>
 		<dict>
 			<key>primary</key>
@@ -273,6 +283,11 @@
 			<true/>
 		</dict>
 		<key>910926231EF0F647E93DD4026607EEB0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>99F190952CBE307E757966F1C1F7555E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -352,6 +367,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CA716DD3B4B5AFDC84B42EE32A5DF03D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CFA76A513C57D009FA67BF8D178FEF6E</key>
 		<dict>
 			<key>primary</key>
@@ -368,6 +388,11 @@
 			<true/>
 		</dict>
 		<key>D4683E1B0396191D5D5AE953550D3D8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D72F9FC96A38325AA88A0C89FBFF6E7B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -398,6 +423,11 @@
 			<true/>
 		</dict>
 		<key>E2F52FFAF549EE6FF0CB50A7D6621CF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E3EC2449E5E83E7E1F18FB936605EFB5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
