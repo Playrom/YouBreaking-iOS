@@ -11,7 +11,8 @@ import SwiftyJSON
 import MapKit
 
 protocol SingleNewsModalDelegate {
-    func vote(voto : Voto , sender : NewsController)
+    func likePost(sender : NewsController)
+    func unlikePost(sender : NewsController)
 }
 
 protocol DataNewsDelegate{
@@ -28,9 +29,10 @@ protocol SelectLocation {
 }
 
 protocol NotiziaCellDelegate{
-    func vote(voto : Voto, sender : NotiziaCell)
     func performSegueToEvent(eventId : String, sender : NotiziaCell)
     func performSegueToSingle(id : String, sender : NotiziaCell)
+    func like(sender : NotiziaCell)
+    func unlike(sender : NotiziaCell)
 }
 
 protocol LocationSearchTableDelegate{

@@ -19,10 +19,20 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>DOFavoriteButton.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>25</integer>
+		</dict>
 		<key>DateToolsSwift.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>21</integer>
+		</dict>
+		<key>FaveButton.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>24</integer>
 		</dict>
 		<key>Fingertips.xcscheme</key>
 		<dict>
@@ -137,6 +147,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>19A84944F23378443E1AB7C7898040B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
 		<dict>
 			<key>primary</key>
@@ -152,7 +167,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>30566F47BE2D3EF70D96982B646D6357</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3196CA7DC03F26320DA4506BE6A3E646</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>32E5C8F7EE2A542ADBC4CFA0582ADEA2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -168,6 +193,11 @@
 			<true/>
 		</dict>
 		<key>3BFF9F651824EF6D7159B996DAA71D25</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>429702511EF28E0A5FFA82ADD845F0AC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -203,6 +233,16 @@
 			<true/>
 		</dict>
 		<key>55AB330E23BDFF5201555148E00819A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>59B8B96A34E6E7909501A2C443DFE098</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5B643B5E4DC84477A6102421E0F71D7B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -247,7 +287,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7C08227B6E14D87F0F5B0FD6DFFA1A3E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7D58E7E5B035F781FAB5C83516AD2CDD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7EAE07012FF92757A7AA8B03073DA4B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84A869DF979AE9C57FD9DEF2FF46C743</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -367,6 +422,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C147FB851C4B97A7B663598589B9ABA5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CA716DD3B4B5AFDC84B42EE32A5DF03D</key>
 		<dict>
 			<key>primary</key>
@@ -378,6 +438,11 @@
 			<true/>
 		</dict>
 		<key>D36E051B47E772F4781D64CDCE023815</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D3AC5A1C5D8BF1B48B6ED19FC1CC919B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -433,6 +498,11 @@
 			<true/>
 		</dict>
 		<key>E89CFD99B895BCC6E8EDC2F95A03500C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC4305F53882544F1E725C757567D574</key>
 		<dict>
 			<key>primary</key>
 			<true/>

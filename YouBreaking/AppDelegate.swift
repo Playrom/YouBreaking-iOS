@@ -175,17 +175,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
                 
 
             }
-        }else if (viewController as? UINavigationController)?.viewControllers[0] is VotaController  {
-            if let _ = LoginUtils.sharedInstance.id{
-                return true
-            }else{
-                LoginUtils.sharedInstance.isLogged {
-                    tabBarController.selectedIndex = 2
-                }
-                return false
-                
-                
-            }
         }
         return true
     }

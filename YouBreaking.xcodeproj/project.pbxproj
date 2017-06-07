@@ -33,7 +33,6 @@
 		6C84E4071E78082800871F9A /* PagedTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E4061E78082800871F9A /* PagedTableController.swift */; };
 		6C84E40A1E780B8800871F9A /* UserPublishedNotiziaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C84E4091E780B8800871F9A /* UserPublishedNotiziaCell.swift */; };
 		6C8D99741E5D949700D1C60C /* Single.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C8D99721E5D949700D1C60C /* Single.storyboard */; };
-		6C8D99761E5D950900D1C60C /* Vota.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C8D99751E5D950900D1C60C /* Vota.storyboard */; };
 		6C8D99781E5DA70E00D1C60C /* MapSearchLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8D99771E5DA70E00D1C60C /* MapSearchLocationController.swift */; };
 		6C8D997A1E5DAF2B00D1C60C /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8D99791E5DAF2B00D1C60C /* LocationSearchTable.swift */; };
 		6C8E50AA1E4B13040013B8E8 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8E50A91E4B13040013B8E8 /* SettingsController.swift */; };
@@ -42,7 +41,6 @@
 		6C97E7641E3F8E6E002E57C6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C97E7621E3F8E6D002E57C6 /* FBSDKCoreKit.framework */; };
 		6C97E7651E3F8E6E002E57C6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C97E7631E3F8E6E002E57C6 /* FBSDKShareKit.framework */; };
 		6C9F2D3C1E41E89B0002C782 /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */; };
-		6CA0E7221E44EC3E0086D9BB /* VotaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA0E7211E44EC3E0086D9BB /* VotaController.swift */; };
 		6CA0E7261E44EF930086D9BB /* VoteCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA0E7251E44EF930086D9BB /* VoteCard.swift */; };
 		6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0E7271E44EFA50086D9BB /* VoteCard.xib */; };
 		6CA5012C1E798CDA0098CAE9 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA5012B1E798CDA0098CAE9 /* Protocols.swift */; };
@@ -52,6 +50,7 @@
 		6CA737431E7C265D002AA51E /* BreakingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737421E7C265D002AA51E /* BreakingController.swift */; };
 		6CA737451E7C287B002AA51E /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737441E7C287B002AA51E /* Enums.swift */; };
 		6CA7374A1E7C377D002AA51E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA737491E7C377D002AA51E /* LoginViewController.swift */; };
+		6CB2F3421EE1EEA7002F3003 /* DOFavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB2F3411EE1EEA7002F3003 /* DOFavoriteButton.swift */; };
 		6CCF4F251E65CF5900842585 /* NewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F241E65CF5900842585 /* NewsController.swift */; };
 		6CCF4F271E65D0EC00842585 /* NewsPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */; };
 		6CCF4F291E65D58500842585 /* NewsTextTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */; };
@@ -92,7 +91,6 @@
 		6C84E4061E78082800871F9A /* PagedTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagedTableController.swift; path = Controllers/PagedTableController.swift; sourceTree = "<group>"; };
 		6C84E4091E780B8800871F9A /* UserPublishedNotiziaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPublishedNotiziaCell.swift; sourceTree = "<group>"; };
 		6C8D99731E5D949700D1C60C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Single.storyboard; sourceTree = "<group>"; };
-		6C8D99751E5D950900D1C60C /* Vota.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Vota.storyboard; sourceTree = "<group>"; };
 		6C8D99771E5DA70E00D1C60C /* MapSearchLocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapSearchLocationController.swift; path = Controllers/MapSearchLocationController.swift; sourceTree = "<group>"; };
 		6C8D99791E5DAF2B00D1C60C /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		6C8E50A91E4B13040013B8E8 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsController.swift; path = Controllers/SettingsController.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 		6C97E7621E3F8E6D002E57C6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		6C97E7631E3F8E6E002E57C6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		6C9F2D3B1E41E89B0002C782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Landing.storyboard; sourceTree = "<group>"; };
-		6CA0E7211E44EC3E0086D9BB /* VotaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VotaController.swift; path = Controllers/VotaController.swift; sourceTree = "<group>"; };
 		6CA0E7251E44EF930086D9BB /* VoteCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteCard.swift; path = Views/VoteCard.swift; sourceTree = "<group>"; };
 		6CA0E7271E44EFA50086D9BB /* VoteCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VoteCard.xib; path = Views/VoteCard.xib; sourceTree = "<group>"; };
 		6CA5012B1E798CDA0098CAE9 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -111,6 +108,7 @@
 		6CA737421E7C265D002AA51E /* BreakingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BreakingController.swift; path = Controllers/BreakingController.swift; sourceTree = "<group>"; };
 		6CA737441E7C287B002AA51E /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		6CA737491E7C377D002AA51E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6CB2F3411EE1EEA7002F3003 /* DOFavoriteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DOFavoriteButton.swift; path = Utilities/DOFavoriteButton.swift; sourceTree = "<group>"; };
 		6CCF4F241E65CF5900842585 /* NewsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsController.swift; path = Controllers/NewsController.swift; sourceTree = "<group>"; };
 		6CCF4F261E65D0EC00842585 /* NewsPagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsPagesController.swift; sourceTree = "<group>"; };
 		6CCF4F281E65D58500842585 /* NewsTextTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsTextTableViewController.swift; path = Controllers/NewsTextTableViewController.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				6C74C5501E433FEC00CE8107 /* MainTabBarController.swift */,
 				6C35FE731E488EC600373DC6 /* SearchEventController.swift */,
 				6C1444691E54CDBE00E1AC5E /* NavigationRed.swift */,
-				6CA0E7211E44EC3E0086D9BB /* VotaController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -195,7 +192,6 @@
 				6C9F2D3A1E41E89B0002C782 /* Landing.storyboard */,
 				6CF47D0B1E4CC68600BE5F08 /* Main.storyboard */,
 				6CE26B911E5DE9D6005F73D8 /* LocationPicker.storyboard */,
-				6C8D99751E5D950900D1C60C /* Vota.storyboard */,
 				6C8D99721E5D949700D1C60C /* Single.storyboard */,
 			);
 			name = Xib;
@@ -245,6 +241,7 @@
 				6CA737441E7C287B002AA51E /* Enums.swift */,
 				6C74C54E1E433DE700CE8107 /* Images.swift */,
 				6C7C927E1E4CA5C900CA0DA7 /* Colors.swift */,
+				6CB2F3411EE1EEA7002F3003 /* DOFavoriteButton.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -375,7 +372,6 @@
 				6C14446E1E54DCFD00E1AC5E /* LaunchScreen.storyboard in Resources */,
 				6C2D39171E5C479900097881 /* NotiziaCell.xib in Resources */,
 				6CA0E7281E44EFA50086D9BB /* VoteCard.xib in Resources */,
-				6C8D99761E5D950900D1C60C /* Vota.storyboard in Resources */,
 				6C91881C1E48C4FB00FA7311 /* Info_Production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,7 +456,6 @@
 				6C35FE741E488EC600373DC6 /* SearchEventController.swift in Sources */,
 				6C84E4011E78065000871F9A /* Extensions.swift in Sources */,
 				6C7D6BBB1E7AEBB700A32FCD /* NewsUsersTableViewController.swift in Sources */,
-				6CA0E7221E44EC3E0086D9BB /* VotaController.swift in Sources */,
 				6C74C5511E433FEC00CE8107 /* MainTabBarController.swift in Sources */,
 				6CCF4F291E65D58500842585 /* NewsTextTableViewController.swift in Sources */,
 				6CA5012C1E798CDA0098CAE9 /* Protocols.swift in Sources */,
@@ -486,6 +481,7 @@
 				6C74C5491E4333B500CE8107 /* ListaNotizieController.swift in Sources */,
 				6C351B3F1E40D8D40057309C /* LoginUtils.swift in Sources */,
 				6C7D6BBD1E7B124E00A32FCD /* NewsInfoViewController.swift in Sources */,
+				6CB2F3421EE1EEA7002F3003 /* DOFavoriteButton.swift in Sources */,
 				6C8D99781E5DA70E00D1C60C /* MapSearchLocationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +570,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -616,6 +613,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

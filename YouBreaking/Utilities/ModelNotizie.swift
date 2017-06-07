@@ -155,14 +155,33 @@ class ModelNotizie {
         
     }
     
-    func vote(voto : Voto, notizia : String, handler :  @escaping ( (_ model : JSON?) -> Void )){
+    func like(notizia : String, handler :  @escaping ( (_ model : JSON?) -> Void )){
         self.login.isLogged {
             let parameters = [
-                "notizia_id" : notizia,
-                "voto" : voto.rawValue
+                "notizia_id" : notizia
             ]
             
-            self.session.request( self.baseUrl + "/api/vote", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+            self.session.request( self.baseUrl + "/api/likes", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
+                response in
+                if let data = response.data {
+                    let json = JSON(data).dictionaryValue
+                    if json["error"]?.bool == false {
+                        handler(JSON(data))
+                    }else{
+                        handler(nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func unlike(notizia : String, handler :  @escaping ( (_ model : JSON?) -> Void )){
+        self.login.isLogged {
+            let parameters = [
+                "notizia_id" : notizia
+            ]
+            
+            self.session.request( self.baseUrl + "/api/likes", method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: self.headers).responseJSON{
                 response in
                 if let data = response.data {
                     let json = JSON(data).dictionaryValue

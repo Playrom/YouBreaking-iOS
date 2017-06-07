@@ -16,9 +16,6 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var testoTitolo: UILabel!
     @IBOutlet weak var topicButton: UIButton!
     @IBOutlet weak var testo: UILabel!
-    @IBOutlet weak var imageUp: UIImageView!
-    @IBOutlet weak var imageDown: UIImageView!
-    @IBOutlet weak var scoreLabel: UILabel!
     
     @IBOutlet weak var mainImageView: UIView!
     @IBOutlet weak var mainImage: UIImageView!
@@ -28,11 +25,17 @@ class NotiziaCell: UITableViewCell {
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var position: UILabel!
     
+    @IBOutlet weak var likeButton: UIButton!
+    
     // MARK: - Class Elements
     var model : JSON?
+    var liked : Bool = false {
+        didSet{
+            self.likeButton.isSelected = self.liked
+        }
+    }
     var coms = ModelNotizie()
     var delegate : NotiziaCellDelegate?
-    var currentVote = Voto.NO
 
     // MARK: - UIKit Methods
     override func awakeFromNib() {
@@ -43,11 +46,13 @@ class NotiziaCell: UITableViewCell {
         position.text = nil
         // Initialization code
         
+        likeButton.setImage(UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate) , for: .selected)
+        self.liked = false
+        
     }
     
     override func prepareForReuse() {
         topicButton.isHidden = false
-        currentVote = Voto.NO
         
         mainImageView.isHidden = true
         divider.isHidden = false
@@ -55,10 +60,11 @@ class NotiziaCell: UITableViewCell {
         
         testoTitolo.text = ""
         testo.text = ""
-        scoreLabel.text = "0"
         
         author.text = nil
         position.text = nil
+        
+        self.liked = false
     }
     
     override func layoutSubviews() {
@@ -66,7 +72,11 @@ class NotiziaCell: UITableViewCell {
         
         if let model = model{
             
-            if let text = model["text"].string{
+            if let liked = model["userLike"].dictionary, liked.count > 0{
+                self.liked = true
+            }
+            
+            if let text = model["description"].string{
             
                 if(text.characters.count > 500){
                     var temp = text.substring(to: text.index(text.startIndex, offsetBy: 500) )
@@ -86,9 +96,6 @@ class NotiziaCell: UITableViewCell {
             testoTitolo.textColor = Colors.red
             testoTitolo.text = model["title"].string
             testoTitolo.sizeToFit()
-            
-            scoreLabel.text = model["score"].intValue.description
-            scoreLabel.textColor = Colors.red
             
             
             if let eventName = model["evento"]["name"].string {
@@ -120,30 +127,11 @@ class NotiziaCell: UITableViewCell {
                                 
             }
             
-            
-            if let vote = model["voto_utente"].dictionary{
-                if let v = vote["voto"]?.stringValue , v.contains("UP"){
-                    self.currentVote = .UP
-                    self.setVoteImages(voto: .UP)
-                }
-                
-                if let v = vote["voto"]?.stringValue , v.contains("DOWN"){
-                    self.currentVote = .DOWN
-                    self.setVoteImages(voto: .DOWN)
-                }
-            }else{
-                self.setVoteImages(voto: .NO)
-            }
-            
-            let tapUp = UITapGestureRecognizer(target: self, action: #selector(NotiziaCell.voteUp))
-            tapUp.numberOfTapsRequired = 1
-            imageUp.isUserInteractionEnabled = true
-            imageUp.addGestureRecognizer(tapUp)
-            
-            let tapDown = UITapGestureRecognizer(target: self, action: #selector(NotiziaCell.voteDown))
-            tapDown.numberOfTapsRequired = 1
-            imageDown.isUserInteractionEnabled = true
-            imageDown.addGestureRecognizer(tapDown)
+        
+//            let tapDown = UITapGestureRecognizer(target: self, action: #selector(NotiziaCell.voteDown))
+//            tapDown.numberOfTapsRequired = 1
+//            imageDown.isUserInteractionEnabled = true
+//            imageDown.addGestureRecognizer(tapDown)
             
             //author.text = model["user"]["name"].string
             
@@ -173,55 +161,65 @@ class NotiziaCell: UITableViewCell {
         }
     }
     
+    @IBAction func tapLike(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        self.liked = sender.isSelected
+        if(self.liked){
+            self.delegate?.like(sender : self)
+        }else{
+            self.delegate?.unlike(sender : self)
+        }
+        
+    }
     // MARK: - Class Methods
-    func setVoteImages(voto : Voto){
-        switch voto {
-            case .UP:
-                imageUp.image = Images.imageOfArrowUpFill
-                imageDown.image = Images.imageOfArrowDown
-                break
-            case .DOWN:
-                imageUp.image = Images.imageOfArrowUp
-                imageDown.image = Images.imageOfArrowDownFill
-                break
-            case .NO:
-                imageUp.image = Images.imageOfArrowUp
-                imageDown.image = Images.imageOfArrowDown
-                break
-        }
-        
-        self.currentVote = voto
-        
-    }
-    
-    func voteUp(){
-        if let model = model{
-            
-            if (self.currentVote == Voto.UP) {
-                setVoteImages(voto: .NO)
-                self.delegate?.vote(voto: .NO , sender: self)
-            }else{
-                setVoteImages(voto: .UP)
-                self.delegate?.vote(voto: .UP , sender: self)
-            }
-            
-            
-            
-        }
-    }
-    
-    func voteDown(){
-        if let model = model{
-            
-            if (self.currentVote == Voto.DOWN) {
-                setVoteImages(voto: .NO)
-                self.delegate?.vote(voto: .NO , sender: self)
-            }else{
-                setVoteImages(voto: .DOWN)
-                self.delegate?.vote(voto: .DOWN , sender: self)
-            }
-        }
-    }
+//    func setVoteImages(voto : Voto){
+//        switch voto {
+//            case .UP:
+//                imageUp.image = Images.imageOfArrowUpFill
+//                imageDown.image = Images.imageOfArrowDown
+//                break
+//            case .DOWN:
+//                imageUp.image = Images.imageOfArrowUp
+//                imageDown.image = Images.imageOfArrowDownFill
+//                break
+//            case .NO:
+//                imageUp.image = Images.imageOfArrowUp
+//                imageDown.image = Images.imageOfArrowDown
+//                break
+//        }
+//        
+//        self.currentVote = voto
+//        
+//    }
+//    
+//    func voteUp(){
+//        if let model = model{
+//            
+//            if (self.currentVote == Voto.UP) {
+//                setVoteImages(voto: .NO)
+//                self.delegate?.vote(voto: .NO , sender: self)
+//            }else{
+//                setVoteImages(voto: .UP)
+//                self.delegate?.vote(voto: .UP , sender: self)
+//            }
+//            
+//            
+//            
+//        }
+//    }
+//    
+//    func voteDown(){
+//        if let model = model{
+//            
+//            if (self.currentVote == Voto.DOWN) {
+//                setVoteImages(voto: .NO)
+//                self.delegate?.vote(voto: .NO , sender: self)
+//            }else{
+//                setVoteImages(voto: .DOWN)
+//                self.delegate?.vote(voto: .DOWN , sender: self)
+//            }
+//        }
+//    }
     
     // MARK: - IBActions
     @IBAction func pressEvent(_ sender: UIButton) {
@@ -230,5 +228,16 @@ class NotiziaCell: UITableViewCell {
 //        }
     }
     
+    @IBAction func pressShare(_ sender: UIButton) {
+        // grab an item we want to share
+        let url = model?["news_url"].url
+        let items : [Any] = [url]
+        
+        // build an activity view controller
+        let activityController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        self.parentViewController?.present(activityController, animated: true, completion: nil)
+    }
 }
+
+// MARK: - Extension 
 

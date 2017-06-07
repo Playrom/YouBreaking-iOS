@@ -228,7 +228,7 @@ class NewsController: BreakingViewController {
     }
     
     internal func vote(voto: Voto) {
-        self.delegate?.vote(voto: voto, sender: self)
+        self.delegate?.likePost( sender: self)
     }
     
     func dismissTap(){

@@ -102,28 +102,30 @@ class NotizieController: PagedTableController {
 // MARK: - Notizia Cell Delegate Extension
 extension NotizieController : NotiziaCellDelegate{
     
-    internal func vote(voto: Voto, sender : NotiziaCell) {
+    internal func like(sender : NotiziaCell) {
         if let row = self.tableView.indexPath(for: sender)?.row{
             if let newsId = model[row].dictionaryValue["id"]?.stringValue{
-                coms.vote(voto: voto, notizia: newsId){
+                coms.like(notizia: newsId){
                     response in
-                    
-                    if(response?["data"]["voto"].string == Voto.NO.rawValue){
-                        var dict = self.model[row].dictionaryObject
-                        dict?.removeValue(forKey: "voto_utente")
-                        self.model[row].dictionaryObject = dict
-                        self.model[row]["score"].int = response?["data"]["score"].int
-                    }else{
-                        self.model[row]["voto_utente"] = JSON.init(dictionaryLiteral: ("voto" , response!["data"]["voto"].stringValue ) )
-                        self.model[row]["score"].int = response?["data"]["score"].int
-                    }
-                    
                     
                     let nc = NotificationCenter.default
                     nc.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
+                }
+            }
+            
+        }
+        
+        
+    }
+    
+    internal func unlike(sender : NotiziaCell) {
+        if let row = self.tableView.indexPath(for: sender)?.row{
+            if let newsId = model[row].dictionaryValue["id"]?.stringValue{
+                coms.unlike(notizia: newsId){
+                    response in
                     
-                    self.tableView.reloadRows(at: [ IndexPath(row: row, section: 0) ], with: .none)
-                    
+                    let nc = NotificationCenter.default
+                    nc.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
                 }
             }
             
@@ -135,50 +137,33 @@ extension NotizieController : NotiziaCellDelegate{
 
 // MARK: - Single News Modal Delegate Extension
 extension NotizieController : SingleNewsModalDelegate{
-    internal func vote(voto: Voto, sender : NewsController){
+    
+    internal func likePost(sender : NewsController) {
         if var data = sender.data , let newsId = data["id"].string{
-            
-            coms.vote(voto: voto, notizia: newsId){
+            coms.like(notizia: newsId){
                 response in
-                                
-                if(response?["data"]["voto"].string == Voto.NO.rawValue){
-                    var dict = data.dictionaryObject
-                    dict?.removeValue(forKey: "voto_utente")
-                    data = JSON.init(dict)
-                    data["score"].int = response?["data"]["score"].int
-                }else{
-                    data["voto_utente"] = JSON.init(dictionaryLiteral: ("voto" , response!["data"]["voto"].stringValue ) )
-                    data["score"].int = response?["data"]["score"].int
-                }
-                
-                sender.data = data
-                sender.reload()
-                
-                var row : Int?
-                
-                for (index,json) in self.model.enumerated(){
-                    
-                    if(json["id"].string == data["id"].string){
-                        
-                        if(response?["data"]["voto"].string == Voto.NO.rawValue){
-                            var dict = json.dictionaryObject
-                            dict?.removeValue(forKey: "voto_utente")
-                            self.model[index] = JSON.init(dict)
-                            data["score"].int = response?["data"]["score"].int
-                        }else{
-                            self.model[index]["voto_utente"] = JSON.init(dictionaryLiteral: ("voto" , response!["data"]["voto"].stringValue ) )
-                            self.model[index]["score"].int = response?["data"]["score"].int
-                        }
-                        
-                        self.tableView.reloadRows(at: [ IndexPath(row: index, section: 0) ], with: .none)
-                    }
-                }
-                
                 
                 let nc = NotificationCenter.default
                 nc.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
-                
             }
+            
         }
+        
+        
     }
+    
+    internal func unlikePost(sender : NewsController) {
+        if var data = sender.data , let newsId = data["id"].string{
+            coms.unlike(notizia: newsId){
+                response in
+                
+                let nc = NotificationCenter.default
+                nc.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
+            }
+            
+        }
+        
+        
+    }
+    
 }
