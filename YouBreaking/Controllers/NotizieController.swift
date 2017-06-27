@@ -16,7 +16,9 @@ class NotizieController: PagedTableController {
     // MARK: - UIKit Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UINib.init(nibName: "NotiziaCell", bundle: Bundle.main), forCellReuseIdentifier: "notizia")
+        self.tableView.register(UINib.init(nibName: "NotiziaStandardCell", bundle: Bundle.main), forCellReuseIdentifier: "notizia")
+        self.tableView.register(UINib.init(nibName: "NotiziaWithImageCell", bundle: Bundle.main), forCellReuseIdentifier: "notiziaWithImage")
+        self.tableView.backgroundColor = Colors.lightGray
     }
     
     
@@ -32,18 +34,25 @@ class NotizieController: PagedTableController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "notizia", for: indexPath) as! NotiziaCell
         
         if let contenuto = model.optionalSubscript(safe: indexPath.row){
+            if let url_image = contenuto["featured_photo"]["thumb"].url{
+                cell = tableView.dequeueReusableCell(withIdentifier: "notiziaWithImage", for: indexPath) as! NotiziaCell
+            }
+            cell.selectionStyle = .none
             cell.model = contenuto
             cell.delegate = self
         }
         
-        if(indexPath.row % 2 == 0){
-            cell.backgroundColor = Colors.white
-        }else{
-            cell.backgroundColor = Colors.lightGray
-        }
+//        if(indexPath.row % 2 == 0){
+//            cell.backgroundColor = Colors.white
+//        }else{
+//            cell.backgroundColor = Colors.lightGray
+//        }
+        
+        cell.backgroundColor = UIColor.clear
                 
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
@@ -58,7 +67,7 @@ class NotizieController: PagedTableController {
     }
     
     func performSegueToSingle(id: String, sender: NotiziaCell) {
-        performSegue(withIdentifier: "Select News", sender: sender)
+        performSegue(withIdentifier: "Select Content", sender: sender)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -70,6 +79,7 @@ class NotizieController: PagedTableController {
                     let index = self.tableView.indexPath(for: cell)
                     if let row = index?.row , let eventId = self.model.optionalSubscript(safe: row)?["evento"]["id"].string{
                         dvc.eventId = eventId
+                        
                     }
                 }
                 
@@ -80,14 +90,16 @@ class NotizieController: PagedTableController {
                     segue.destination.modalPresentationCapturesStatusBarAppearance = true
                     dvc.data = self.model.optionalSubscript(safe: indexPath.row)
                     dvc.delegate = self
-                    self.tableView.deselectRow(at: indexPath, animated: true)
+                    
                 }
-                if let nvc = self.navigationController{
-                    mask = UIView(frame : nvc.view.frame)
-                    mask!.backgroundColor = Colors.darkGray
-                    mask!.alpha = 0.3
-                    mask!.tag = 999
-                    nvc.view.addSubview(mask!)
+                break
+            case "Select Content":
+                if let dvc = (segue.destination as? UINavigationController)?.topViewController as? SingleContentViewController,
+                    let cell = sender as? NotiziaCell,
+                    let indexPath = self.tableView.indexPath(for: cell){
+                        dvc.imageForHeader = (sender as? NotiziaWithImageCell)?.mainImage.image
+                        dvc.data = self.model.optionalSubscript(safe: indexPath.row)
+                    
                 }
             default:
                 break
@@ -108,6 +120,10 @@ extension NotizieController : NotiziaCellDelegate{
                 coms.like(notizia: newsId){
                     response in
                     
+                    if let data = response?["data"]{
+                        self.model[row]["userLike"] = data
+                    }
+                    
                     let nc = NotificationCenter.default
                     nc.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
                 }
@@ -123,6 +139,8 @@ extension NotizieController : NotiziaCellDelegate{
             if let newsId = model[row].dictionaryValue["id"]?.stringValue{
                 coms.unlike(notizia: newsId){
                     response in
+                    
+                    self.model[row]["userLike"] = JSON(dictionaryLiteral: [(String,Any)]())
                     
                     let nc = NotificationCenter.default
                     nc.post(Notification(name: Notification.Name("reloadNews"), object: nil, userInfo: ["sender" : self.description]))
@@ -164,6 +182,16 @@ extension NotizieController : SingleNewsModalDelegate{
         }
         
         
+    }
+    
+    func segueDidFinished() {
+        if let nvc = self.navigationController{
+            mask = UIView(frame : nvc.view.frame)
+            mask!.backgroundColor = Colors.darkGray
+            mask!.alpha = 0.3
+            mask!.tag = 999
+            nvc.view.addSubview(mask!)
+        }
     }
     
 }

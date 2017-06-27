@@ -382,16 +382,37 @@ class ModelNotizie {
     
     func getImage(url : String) -> Promise<UIImage> {
         return Promise { fulfill, reject in
-            session.request( url , method: .get, headers: self.headers).responseImage{
-                response in
-                switch response.result {
-                    case .success(let image):
-                        fulfill(image)
-                    case .failure(let error):
-                        reject(error)
+            
+            DispatchQueue.global(qos: .background).async {
+                
+                // Eventually...
+                
+                self.cache.fetch(key: url).onSuccess {
+                    data in
+                    DispatchQueue.main.async {
+                        fulfill(UIImage(data: data)!)
+                    }
+                }.onFailure{
+                    fail in
+                    self.session.request(url).responseImage{
+                        response in
+                        switch response.result {
+                        case .success(let image):
+                            self.cache.set(value: response.data!, key: url  )
+                            DispatchQueue.main.async {
+                                fulfill(image)
+                            }
+                        case .failure(let error):
+                            DispatchQueue.main.async {
+                                reject(error)
+                            }
+                        }
+                        
+                    }
                 }
+                
             }
-
+            
         }
     }
     

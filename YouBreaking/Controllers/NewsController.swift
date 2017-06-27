@@ -51,7 +51,17 @@ class NewsController: BreakingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.baseImageHeight = imageViewHeightConstraint.constant
-                        
+        
+        if let eventId = data?["id"].string{
+            coms.getSingleNews(id: eventId, query: [String:String]()){
+                json in
+                if let newData = json{
+                    self.data = newData
+                    self.reload()
+                }
+            }
+        }
+        
         reload()
         
         self.alternateTitleLabelStack.backgroundColor = Colors.lightGray
@@ -66,6 +76,10 @@ class NewsController: BreakingViewController {
         self.imageView.addSubview(blurEffectView)
         
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.delegate?.segueDidFinished()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +96,63 @@ class NewsController: BreakingViewController {
         titleLabel.text = data?["title"].string
         alternateTitleLabel.text = data?["title"].string
         
+        if let featured_photo_url = data?["featured_photo"]["large"].string{
+            
+            alternateTitleLabelStack.isHidden = true
+            
+            coms.getPhoto(photo: featured_photo_url){
+                image in
+                self.imageView.image = image
+                
+                self.imageView.setNeedsLayout()
+                self.imageView.layoutSubviews()
+                
+            }
+            
+            let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
+            if let crossImage = crossImage{
+                var imageView = UIImageView(image: crossImage)
+                imageView.tintColor = Colors.white
+                imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+                imageView.contentMode = .scaleAspectFit
+                
+                let button = UIBarButtonItem(customView: imageView)
+                let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+                tapDismiss.numberOfTapsRequired = 1
+                imageView.addGestureRecognizer(tapDismiss)
+                
+                self.navigationItem.leftBarButtonItem = button
+            }
+            
+        }else{
+            //                self.initialHeight = finalHeight
+            //                self.imageViewHeightConstraint.constant = finalHeight
+            //                self.maskView.backgroundColor = UIColor.clear
+            //                self.headerView.backgroundColor = Colors.red
+            //                self.titleLabel.text = nil
+            self.statusBarStyle = .default
+            self.headerView.isHidden = true
+            
+            let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
+            if let crossImage = crossImage{
+                var imageView = UIImageView(image: crossImage)
+                imageView.tintColor = Colors.red
+                imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+                imageView.contentMode = .scaleAspectFit
+                
+                let button = UIBarButtonItem(customView: imageView)
+                
+                let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
+                tapDismiss.numberOfTapsRequired = 1
+                imageView.addGestureRecognizer(tapDismiss)
+                
+                self.navigationItem.leftBarButtonItem = button
+            }
+            
+            self.alternateTitleLabelStack.isHidden = false
+            self.stackViewTopConstraint.constant = 0
+        }
+        
         var comps = [String : String]()
         
         if let aggiuntivi = data?["aggiuntivi"].array{
@@ -92,62 +163,7 @@ class NewsController: BreakingViewController {
             }
             
             
-            if comps["PHOTO"] != nil{
-                
-                alternateTitleLabelStack.isHidden = true
-                
-                coms.getPhoto(photo: comps["PHOTO"]!){
-                    image in
-                    self.imageView.image = image
-                    
-                    self.imageView.setNeedsLayout()
-                    self.imageView.layoutSubviews()
-                    
-                }
-                
-                let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
-                if let crossImage = crossImage{
-                    var imageView = UIImageView(image: crossImage)
-                    imageView.tintColor = Colors.white
-                    imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-                    imageView.contentMode = .scaleAspectFit
-                    
-                    let button = UIBarButtonItem(customView: imageView)
-                    let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
-                    tapDismiss.numberOfTapsRequired = 1
-                    imageView.addGestureRecognizer(tapDismiss)
-                    
-                    self.navigationItem.leftBarButtonItem = button
-                }
-                
-            }else{
-//                self.initialHeight = finalHeight
-//                self.imageViewHeightConstraint.constant = finalHeight
-//                self.maskView.backgroundColor = UIColor.clear
-//                self.headerView.backgroundColor = Colors.red
-//                self.titleLabel.text = nil
-                self.statusBarStyle = .default
-                self.headerView.isHidden = true
-                
-                let crossImage = UIImage(named: "Cross")?.withRenderingMode(.alwaysTemplate)
-                if let crossImage = crossImage{
-                    var imageView = UIImageView(image: crossImage)
-                    imageView.tintColor = Colors.red
-                    imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-                    imageView.contentMode = .scaleAspectFit
-                    
-                    let button = UIBarButtonItem(customView: imageView)
-                    
-                    let tapDismiss = UITapGestureRecognizer(target: self, action: #selector(NewsController.dismissTap))
-                    tapDismiss.numberOfTapsRequired = 1
-                    imageView.addGestureRecognizer(tapDismiss)
-                    
-                    self.navigationItem.leftBarButtonItem = button
-                }
-                
-                self.alternateTitleLabelStack.isHidden = false
-                self.stackViewTopConstraint.constant = 0
-            }
+            
         }
         
         self.scoreLabel.text = data?["score"].int?.description
@@ -178,22 +194,6 @@ class NewsController: BreakingViewController {
     }
     
     func setVoteImages(voto : Voto){
-        switch voto {
-        case .UP:
-            arrowUp.image = Images.imageOfArrowUpFill
-            arrowDown.image = Images.imageOfArrowDown
-            break
-        case .DOWN:
-            arrowUp.image = Images.imageOfArrowUp
-            arrowDown.image = Images.imageOfArrowDownFill
-            break
-        case .NO:
-            arrowUp.image = Images.imageOfArrowUp
-            arrowDown.image = Images.imageOfArrowDown
-            break
-        }
-        
-        self.currentVote = voto
         
     }
 
@@ -232,22 +232,21 @@ class NewsController: BreakingViewController {
     }
     
     func dismissTap(){
-        print("TAP")
         self.delegate?.removeMask()
         self.dismiss(animated: true, completion: nil)
     }
     
     func displayImage(){
         // Create an array of images.
-        if let image = self.imageView.image{
-            let testo = data?["title"].string != nil ? data!["title"].string! : ""
+        if let photosArray = self.data?["photos"].array{
             
-            let images = [
-                LightboxImage(
-                    image: image,
-                    text: testo
-                )
-            ]
+            var images = [LightboxImage]()
+            
+            for json in photosArray{
+                if let url = json["original"].url{
+                    images.append(LightboxImage(imageURL: url, text: data?["title"].string != nil ? data!["title"].string! : ""))
+                }
+            }
             
             // Create an instance of LightboxController.
             let controller = LightboxController(images: images)

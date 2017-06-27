@@ -98,7 +98,7 @@ class EventPageController: NotizieController {
         if let contenuto = model.optionalSubscript(safe: indexPath.row){
             cell.model = contenuto
             cell.delegate = self
-            cell.topicButton.isHidden = true
+            //cell.topicButton.isHidden = true
         }
         
         cell.setNeedsLayout()

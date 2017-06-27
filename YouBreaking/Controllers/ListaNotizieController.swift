@@ -52,7 +52,6 @@ class ListaNotizieController: NotizieController{
         
         coms.getNewsWithQuery(query: query ){
             model,pagination in
-            print(model)
             self.model = model
             self.reloading = false
             self.tableView.reloadData()

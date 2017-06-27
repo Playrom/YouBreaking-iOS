@@ -13,6 +13,7 @@ import MapKit
 protocol SingleNewsModalDelegate {
     func likePost(sender : NewsController)
     func unlikePost(sender : NewsController)
+    func segueDidFinished()
 }
 
 protocol DataNewsDelegate{

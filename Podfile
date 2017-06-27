@@ -20,6 +20,7 @@ target 'YouBreaking' do
     pod 'Onboard'
     pod 'DateToolsSwift', :git => 'https://github.com/MatthewYork/DateTools', :branch => 'master'
     pod "PromiseKit", "~> 4.0"
+    pod "Hero"
 
     
   # Pods for YouBreaking

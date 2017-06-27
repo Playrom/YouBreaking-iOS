@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F6K-4K-uzu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F6K-4K-uzu">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -254,7 +254,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WhK-9L-YUb">
-                                            <rect key="frame" x="8" y="8" width="359" height="53.5"/>
+                                            <rect key="frame" x="0.0" y="8" width="0.0" height="53.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AxL-ns-Py7">
                                                     <rect key="frame" x="0.0" y="2.5" width="0.0" height="49"/>
@@ -274,7 +274,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="Score" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zd6-TJ-RAw">
-                                                    <rect key="frame" x="-8" y="13.5" width="0.0" height="26.5"/>
+                                                    <rect key="frame" x="0.0" y="13.5" width="55" height="26.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -438,6 +438,7 @@
                         <segue destination="ciD-Ca-fwp" kind="show" identifier="Select Event" id="jtl-i2-hCu"/>
                         <segue destination="ZJb-gE-qlx" kind="presentation" identifier="Select News" modalPresentationStyle="overFullScreen" id="VdX-R6-Osx"/>
                         <segue destination="2b2-HC-69o" kind="show" identifier="Present Settings" id="bZm-gK-8mI"/>
+                        <segue destination="BnS-Bq-j9m" kind="presentation" identifier="Select Content" modalPresentationStyle="overFullScreen" id="74V-L0-SWS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pD1-sB-G8G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -770,6 +771,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="NO"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="KIe-rv-hgb" kind="relationship" relationship="rootViewController" id="QE0-0c-9cv"/>
                     </connections>
@@ -810,7 +814,7 @@
                 <viewControllerPlaceholder storyboardName="Single" referencedIdentifier="Single News Controller Navigation" id="ZJb-gE-qlx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1A-sr-CU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3517" y="347"/>
+            <point key="canvasLocation" x="3571" y="326"/>
         </scene>
         <!--Map Location Picker-->
         <scene sceneID="BA1-yx-Am8">
@@ -827,6 +831,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tNj-LX-IVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5264" y="-300"/>
+        </scene>
+        <!--Main Content-->
+        <scene sceneID="Rt0-km-1QO">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Main Content" storyboardName="Content" referencedIdentifier="Main Content" id="BnS-Bq-j9m" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NSa-aA-Kvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2893.5999999999999" y="764.16791604197908"/>
         </scene>
     </scenes>
     <resources>

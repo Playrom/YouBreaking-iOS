@@ -27,7 +27,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>109</string>
+	<string>336</string>
 	<key>FacebookAppID</key>
 	<string>1864707903771967</string>
 	<key>FacebookDisplayName</key>
@@ -43,6 +43,31 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>mac-giorgio.local</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSRequiresCertificateTransparency</key>
+				<false/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Vuoi autorizzare You Breaking ad accedere alla tua camera?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -72,7 +97,7 @@
 	<key>mode</key>
 	<string>development</string>
 	<key>url_development</key>
-	<string>http://192.168.1.110:5000</string>
+	<string>http://mac-giorgio.local:5000</string>
 	<key>url_production</key>
 	<string>https://youbreaking.news</string>
 </dict>

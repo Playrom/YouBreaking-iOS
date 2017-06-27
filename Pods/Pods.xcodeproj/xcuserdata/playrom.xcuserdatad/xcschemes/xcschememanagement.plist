@@ -44,6 +44,11 @@
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
+		<key>Hero.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>26</integer>
+		</dict>
 		<key>Hue.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -152,6 +157,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1A759077B01A633DAE3EC54A81897574</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>20151774CE2F5FA6B8126D4F5ED1C5FE</key>
 		<dict>
 			<key>primary</key>
@@ -212,6 +222,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>4AD9695F47C0EE12CFC06445402077AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4D08DF26C4DDB828039E7B8090D15423</key>
 		<dict>
 			<key>primary</key>
@@ -243,6 +258,11 @@
 			<true/>
 		</dict>
 		<key>5B643B5E4DC84477A6102421E0F71D7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5E72EFDD011CD6284C29C3A268CD98ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -432,6 +452,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CBC08580AE5A802626154E0BCABF642B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CFA76A513C57D009FA67BF8D178FEF6E</key>
 		<dict>
 			<key>primary</key>
@@ -522,12 +547,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>F1BFEE389F113C836611B9576F6B3E73</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F452EC40AE5BEACE2918724FA2649135</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>F4C9E426D1E2F6D57091CF39ECBC1BD3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5A98D52C85957FA0A06800C385BDE7F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
